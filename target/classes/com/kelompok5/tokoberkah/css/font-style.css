@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Fleftex';
+    src: url('../font/Poppins-medium.ttf');
+}
+
+.label {
+    -fx-font-family: 'Fleftex';
+    -fx-font-size: 20;
+}
+
+.button .text {
+    -fx-font-family: 'Fleftex';
+}
+.body{
+    -fx-font-family: 'Poppins';
+<<<<<<< HEAD
+}
+/**/
+=======
+}
+>>>>>>> cf78d1d8d63aaebd72eb5fd93137ccebe2b4669e
