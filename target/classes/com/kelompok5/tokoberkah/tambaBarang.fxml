@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="569.0" style="-fx-background-radius: 10; -fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.TambaBarang">
    <children>
       <TextField fx:id="kdbar" layoutX="25.0" layoutY="85.0" prefHeight="34.0" prefWidth="250.0" styleClass="field-list" stylesheets="@css/main.css">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="kdbar1" layoutX="290.0" layoutY="85.0" prefHeight="34.0" prefWidth="250.0" styleClass="field-list" stylesheets="@css/main.css">
+      <TextField fx:id="kdbat" layoutX="290.0" layoutY="85.0" prefHeight="34.0" prefWidth="250.0" styleClass="field-list" stylesheets="@css/main.css">
          <font>
             <Font size="14.0" />
          </font>
@@ -64,7 +64,7 @@
             <String fx:value="combo-box" />
          </styleClass>
       </ComboBox>
-      <Button fx:id="btneditbar" layoutX="388.0" layoutY="480.0" mnemonicParsing="false" onAction="#editbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-color: #46CC59; -fx-background-radius: 5; -fx-background-insets: 1; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" text="Selesai" textFill="WHITE">
+      <Button fx:id="btntambahbar" layoutX="388.0" layoutY="480.0" mnemonicParsing="false" onAction="#tambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-color: #46CC59; -fx-background-radius: 5; -fx-background-insets: 1; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" text="Selesai" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
@@ -86,11 +86,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label layoutX="25.0" layoutY="390.0" prefHeight="27.0" prefWidth="121.0" text="Supplier">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
       <Label layoutX="25.0" layoutY="60.0" prefHeight="27.0" prefWidth="147.0" text="Kode Barang">
          <font>
             <Font size="18.0" />
@@ -101,7 +96,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="229.0" layoutY="22.0" prefHeight="27.0" prefWidth="107.0" text="Edit Barang">
+      <Label layoutX="226.0" layoutY="25.0" prefHeight="27.0" prefWidth="147.0" text="Tambah Barang">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -117,6 +112,11 @@
          </font>
       </Label>
       <Label layoutX="25.0" layoutY="325.0" prefHeight="27.0" prefWidth="121.0" text="Kuantitas">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="390.0" prefHeight="27.0" prefWidth="121.0" text="Supplier">
          <font>
             <Font size="18.0" />
          </font>

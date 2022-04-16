@@ -106,7 +106,6 @@ public class KaryawanPopup extends App implements Initializable {
 
     @FXML
     void cancelklik(ActionEvent event) {
-        System.out.println("akjsdakjsd");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

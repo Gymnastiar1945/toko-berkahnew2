@@ -7,17 +7,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.MotionBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Dashboard">
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
    <children>
-      <VBox layoutY="106.0" prefHeight="614.0" prefWidth="264.0" style="-fx-background-color: #FFF;">
+      <VBox layoutX="5.0" layoutY="111.0" prefHeight="614.0" prefWidth="264.0" style="-fx-background-color: #FFF;">
          <children>
             <Label prefHeight="21.0" prefWidth="81.0" text="Main Menu" textAlignment="CENTER">
                <font>
@@ -126,7 +130,7 @@
                   <Insets bottom="20.0" left="21.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="menukar" depthTest="DISABLE" layoutX="60.0" layoutY="356.0" prefHeight="25.0" prefWidth="243.0" styleClass="label-off" stylesheets="@css/main.css" text="   Daftar Karyawan" textFill="#757575">
+            <Label depthTest="DISABLE" layoutX="60.0" layoutY="356.0" prefHeight="25.0" prefWidth="243.0" styleClass="label-off" stylesheets="@css/main.css" text="   Daftar Karyawan" textFill="#757575">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -182,7 +186,7 @@
             </Label>
          </children>
       </VBox>
-      <Pane prefHeight="106.0" prefWidth="1280.0" style="-fx-background-color: #FFF;">
+      <Pane layoutX="5.0" layoutY="5.0" prefHeight="106.0" prefWidth="1280.0" style="-fx-background-color: #FFF;">
          <children>
             <ImageView fitHeight="39.0" fitWidth="248.0" layoutX="21.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -191,175 +195,163 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="289.0" layoutY="120.0" prefHeight="212.0" prefWidth="226.0" style="-fx-border-color: #46cc59; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-color: #FFF; -fx-background-radius: 10;" styleClass="panel-hijau">
+      <Pane layoutX="294.0" layoutY="206.0" prefHeight="504.0" prefWidth="552.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+         <effect>
+            <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+         </effect>
          <children>
-            <Label layoutX="26.0" layoutY="14.0" prefHeight="38.0" prefWidth="175.0" text="Transaksi Hari Ini" textAlignment="CENTER" textFill="#46cc59">
+            <TableView fx:id="table_karyawan" layoutX="18.0" layoutY="17.0" onMouseClicked="#table_karyawanonclick" prefHeight="468.0" prefWidth="519.0" stylesheets="@css/main.css">
+               <columns>
+                  <TableColumn fx:id="idkar" prefWidth="103.0" text="Id Karyawan" />
+                  <TableColumn fx:id="namakar" prefWidth="97.0" text="Nama Karyawan" />
+                  <TableColumn fx:id="nomorkar" prefWidth="109.0" text="Nomor Telepon" />
+                  <TableColumn fx:id="alamatkar" prefWidth="71.0" text="Alamat" />
+                  <TableColumn fx:id="jeniskar" prefWidth="92.0" text="Jenis Akun" />
+                  <TableColumn fx:id="pwkar" minWidth="0.0" prefWidth="109.0" text="Password" />
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <Pane layoutX="863.0" layoutY="206.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+         <effect>
+            <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+         </effect>
+         <children>
+            <Button fx:id="btnedit" layoutX="18.0" layoutY="384.0" mnemonicParsing="false" onAction="#editkar" prefHeight="35.0" prefWidth="177.0" style="-fx-background-color: #46CC59; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Edit Karyawan" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font size="16.0" />
                </font>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-            </Label>
-            <Label fx:id="lblTrans" alignment="CENTER" layoutX="74.0" layoutY="74.0" prefHeight="45.0" prefWidth="78.0" textFill="#46cc59">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="hapuskar" layoutX="214.0" layoutY="384.0" mnemonicParsing="false" onAction="#hapuskar" prefHeight="37.0" prefWidth="177.0" style="-fx-background-color: #FE5858; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1); -fx-background-insets: 1;" styleClass="button-merah" stylesheets="@css/main.css" text="Hapus Karyawan" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="30.0" />
+                  <Font size="16.0" />
                </font>
-            </Label>
-            <Label layoutX="76.0" layoutY="100.0" prefHeight="38.0" prefWidth="78.0" text="Transaksi" textFill="#46cc59">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TextField layoutX="41.0" layoutY="14.0" prefHeight="34.0" prefWidth="349.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
+            <Label layoutX="13.0" layoutY="14.0" prefHeight="34.0" prefWidth="36.0" style="-fx-background-color: #46CC59; -fx-background-radius: 8 0 0 8;" />
+            <ImageView fitHeight="27.0" fitWidth="38.0" layoutX="17.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/vector/Vector.png" />
+               </image>
+            </ImageView>
+            <Line endX="204.0" layoutX="183.0" layoutY="63.0" startX="-169.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
+            <TextField fx:id="kdbar" layoutX="15.0" layoutY="102.0" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="kdbat" layoutX="211.0" layoutY="102.0" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="namabar" layoutX="18.0" layoutY="161.0" prefHeight="34.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="hargabar" layoutX="18.0" layoutY="219.0" prefHeight="30.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="qty" layoutX="214.0" layoutY="280.0" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="15.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Barang">
                <font>
                   <Font size="18.0" />
                </font>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
             </Label>
-            <Button layoutX="13.0" layoutY="159.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Lihat Detail" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </children>
-      </Pane>
-      <Pane layoutX="539.0" layoutY="120.0" prefHeight="212.0" prefWidth="226.0" style="-fx-border-color: #46cc59; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-color: #FFF; -fx-background-radius: 10;" styleClass="panel-hijau">
-         <children>
-            <Label layoutX="9.0" layoutY="14.0" prefHeight="38.0" prefWidth="210.0" text="Pendapatan Bulan Ini" textAlignment="CENTER" textFill="#46cc59">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-            </Label>
-            <Label fx:id="lblPendapatan" layoutX="8.0" layoutY="80.0" prefHeight="53.0" prefWidth="210.0" textAlignment="CENTER" textFill="#46cc59">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-            </Label>
-            <Button layoutX="14.0" layoutY="159.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Cek Daftar Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </children>
-      </Pane>
-      <Pane layoutX="789.0" layoutY="120.0" prefHeight="212.0" prefWidth="226.0" style="-fx-background-color: #FFF; -fx-background-radius: 10; -fx-border-color: #ff9a51; -fx-border-width: 3; -fx-border-radius: 10;" styleClass="panel-oranye">
-         <children>
-            <Label layoutX="9.0" layoutY="14.0" prefHeight="38.0" prefWidth="210.0" text="Pengeluaran Bulan Ini" textAlignment="CENTER" textFill="#ff9a51">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-            </Label>
-            <Label layoutX="55.0" layoutY="70.0" prefHeight="53.0" prefWidth="168.0" text="1.000.000" textFill="#ff9a51">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-            </Label>
-            <Label layoutX="10.0" layoutY="70.0" prefHeight="53.0" prefWidth="53.0" text="Rp" textFill="#ff9a51">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-            </Label>
-            <Button layoutX="14.0" layoutY="159.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-oranye" stylesheets="@css/main.css" text="Cek Daftar Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </children>
-      </Pane>
-      <Pane layoutX="1040.0" layoutY="120.0" prefHeight="212.0" prefWidth="226.0" style="-fx-background-color: #FFF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 3; -fx-border-color: #ee3030;" styleClass="panel-merah">
-         <children>
-            <Label layoutX="13.0" layoutY="14.0" prefHeight="38.0" prefWidth="201.0" text="Stok Barang Menipis" textAlignment="CENTER" textFill="#ee3030">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="70.0" prefHeight="45.0" prefWidth="96.0" text="100" textFill="#ee3030">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-            </Label>
-            <Label layoutX="83.0" layoutY="96.0" prefHeight="38.0" prefWidth="62.0" text="Barang" textFill="#ee3030">
+            <Label layoutX="18.0" layoutY="136.0" prefHeight="27.0" prefWidth="121.0" text="Nama Barang">
                <font>
                   <Font size="18.0" />
                </font>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
             </Label>
-            <Button layoutX="13.0" layoutY="159.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-merah" stylesheets="@css/main.css" text="Cek Daftar Barang" textFill="WHITE">
+            <Label layoutX="179.0" layoutY="-56.0" prefHeight="27.0" prefWidth="147.0" text="Tambah Barang">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="195.0" prefHeight="27.0" prefWidth="121.0" text="Harga Barang">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="253.0" prefHeight="27.0" prefWidth="121.0" text="Kuantitas">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="314.0" prefHeight="27.0" prefWidth="121.0" text="Sub Total">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="214.0" layoutY="253.0" prefHeight="27.0" prefWidth="121.0" text="Satuan">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="214.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Batang">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="qty1" layoutX="18.0" layoutY="280.0" prefHeight="30.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="hargabar1" layoutX="18.0" layoutY="341.0" prefHeight="30.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Button fx:id="tmbhkar" layoutX="18.0" layoutY="443.0" mnemonicParsing="false" onAction="#tmbhkar" prefHeight="35.0" prefWidth="374.0" style="-fx-background-color: #46CC59; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Checkout" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <effect>
+                  <MotionBlur />
+               </effect>
             </Button>
+            <Line endX="204.0" layoutX="187.0" layoutY="433.0" startX="-169.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
          </children>
       </Pane>
-      <Pane fx:id="paneBarang" layoutX="288.0" layoutY="346.0" prefHeight="360.0" prefWidth="979.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 12;">
+      <Pane layoutX="294.0" layoutY="135.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
          <effect>
-            <DropShadow color="#00000042" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+            <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
          <children>
-            <Pane layoutX="465.0" layoutY="69.0" prefHeight="267.0" prefWidth="500.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 8;">
-               <effect>
-                  <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
-               </effect>
-               <children>
-                  <TableView fx:id="table_dashboard1" layoutX="19.0" layoutY="14.0" prefHeight="236.0" prefWidth="464.0" stylesheets="@css/main.css">
-                     <columns>
-                        <TableColumn fx:id="no1" prefWidth="52.0" text="ID BARANNG" />
-                        <TableColumn fx:id="nama_barang1" prefWidth="79.0" text="Nama Barang" />
-                        <TableColumn fx:id="jenis1" prefWidth="106.0" text="Jenis" />
-                        <TableColumn fx:id="qty1" prefWidth="79.0" text="Qty" />
-                        <TableColumn fx:id="harga1" prefWidth="68.0" text="Harga" />
-                     </columns>
-                  </TableView>
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-      <Pane layoutX="288.0" layoutY="346.0" prefHeight="360.0" prefWidth="979.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 12;">
-         <effect>
-            <DropShadow color="#00000042" height="27.11" radius="13.055" spread="0.57" width="27.11" />
-         </effect>
-         <children>
-            <Pane layoutX="465.0" layoutY="69.0" prefHeight="267.0" prefWidth="500.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 8;">
-               <effect>
-                  <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
-               </effect>
-               <children>
-                  <TableView fx:id="table_dashboard" layoutX="19.0" layoutY="14.0" prefHeight="236.0" prefWidth="464.0" stylesheets="@css/main.css">
-                    <columns>
-                      <TableColumn fx:id="no" prefWidth="52.0" text="No" />
-                      <TableColumn fx:id="idPenjualan" prefWidth="79.0" text="ID Penjualan" />
-                        <TableColumn fx:id="tanggal" prefWidth="81.0" text="Tanggal" />
-                        <TableColumn fx:id="jam" prefWidth="61.0" text="Jam" />
-                        <TableColumn fx:id="ttl_byr" prefWidth="96.0" text="Total Bayar" />
-                        <TableColumn fx:id="kasir" prefWidth="93.0" text="Kasir" />
-                    </columns>
-                  </TableView>
-               </children>
-            </Pane>
+            <Button fx:id="hapuskar1" layoutX="884.0" layoutY="8.0" mnemonicParsing="false" onAction="#hapuskar" prefHeight="37.0" prefWidth="78.0" style="-fx-background-color: #FE5858; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1); -fx-background-insets: 1;" styleClass="button-merah" stylesheets="@css/main.css" text="Jual" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </Pane>
    </children>

@@ -17,14 +17,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.gudang">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.gudang">
     <children>
         <Pane fx:id="paneBarang" layoutX="284.0" layoutY="196.0" prefHeight="314.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 12;">
             <effect>
                 <DropShadow color="#0000001c" height="27.11" radius="13.055" spread="0.57" width="27.11" />
             </effect>
          <children>
-                  <TableView fx:id="table_bar" layoutX="20.0" layoutY="20.0" prefHeight="274.0" prefWidth="936.0" stylesheets="@css/main.css">
+                  <TableView fx:id="table_bar" layoutX="20.0" layoutY="20.0" onMouseClicked="#table_baronclick" prefHeight="274.0" prefWidth="936.0" stylesheets="@css/main.css">
                       <columns>
                           <TableColumn fx:id="kdbar" prefWidth="191.0" text="Kode Barang" />
                           <TableColumn fx:id="namabar" minWidth="0.0" prefWidth="247.0" text="Nama Barang" />
@@ -81,12 +81,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="146.0" layoutY="19.0" prefHeight="25.0" prefWidth="275.0" text="IND000123">
+            <Label fx:id="labelkdbar" layoutX="146.0" layoutY="19.0" prefHeight="25.0" prefWidth="275.0" text="IND000123">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="146.0" layoutY="49.0" prefHeight="25.0" prefWidth="275.0" text="Sukses">
+            <Label fx:id="labelnamabar" layoutX="146.0" layoutY="49.0" prefHeight="25.0" prefWidth="275.0" text="Sukses">
                <font>
                   <Font size="16.0" />
                </font>
@@ -96,12 +96,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="172.0" layoutY="79.0" prefHeight="25.0" prefWidth="255.0" text="2.500">
+            <Label fx:id="labelharga" layoutX="172.0" layoutY="79.0" prefHeight="25.0" prefWidth="255.0" text="2.500">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="145.0" layoutY="109.0" prefHeight="25.0" prefWidth="275.0" text="100 Pcs">
+            <Label fx:id="labelqty" layoutX="145.0" layoutY="109.0" prefHeight="25.0" prefWidth="275.0" text="100 Pcs">
                <font>
                   <Font size="16.0" />
                </font>
@@ -151,7 +151,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="76.0" layoutY="39.0" prefHeight="53.0" prefWidth="145.0" text="1">
+            <Label fx:id="jmlbar" alignment="CENTER" contentDisplay="CENTER" layoutX="76.0" layoutY="39.0" prefHeight="53.0" prefWidth="145.0" text="1">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -165,7 +165,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="20.0" left="21.0" />
+                  <Insets bottom="20.0" left="21.0" top="15.0" />
                </VBox.margin>
             </Label>
             <Label depthTest="DISABLE" prefHeight="26.0" prefWidth="246.0" text="   Overview" textFill="#46cc59">
@@ -339,7 +339,7 @@
          <children>
             <Label layoutX="14.0" layoutY="9.0" prefHeight="34.0" prefWidth="539.0" style="-fx-border-width: 3; -fx-border-radius: 8;" />
             <TextField layoutX="54.0" layoutY="9.0" prefHeight="0.0" prefWidth="502.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
-            <Button fx:id="lhtsup" layoutX="737.0" layoutY="7.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="212.0" style="-fx-background-color: #46CC59; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Lihat Supplier" textFill="WHITE">
+            <Button fx:id="lhtsup" layoutX="737.0" layoutY="7.0" mnemonicParsing="false" onAction="#lhtsupklik" prefHeight="33.0" prefWidth="212.0" style="-fx-background-color: #46CC59; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Lihat Supplier" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>

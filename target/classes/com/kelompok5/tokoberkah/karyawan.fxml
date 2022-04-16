@@ -100,7 +100,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="192.0" prefHeight="27.0" prefWidth="133.0" text="Nomor telepon">
+            <Label layoutX="13.0" layoutY="192.0" prefHeight="27.0" prefWidth="133.0" text="Nomor Telepon">
                <font>
                   <Font size="14.0" />
                </font>
@@ -134,7 +134,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="20.0" left="21.0" />
+                  <Insets bottom="20.0" left="21.0" top="15.0" />
                </VBox.margin>
             </Label>
             <Label depthTest="DISABLE" prefHeight="26.0" prefWidth="246.0" text="   Overview" textFill="#46cc59">
@@ -301,7 +301,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8 0 0 8;" stylesheets="@css/main.css">
+      <Pane layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>

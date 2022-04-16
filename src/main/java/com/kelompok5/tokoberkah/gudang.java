@@ -5,13 +5,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -59,9 +68,25 @@ public class gudang implements Initializable {
     @FXML
     private Button tmbhbar;
 
+    @FXML
+    private Label labelkdbar;
+
+    @FXML
+    private Label labelnamabar;
+
+    @FXML
+    private Label labelharga;
+
+    @FXML
+    private Label labelqty;
+
+    @FXML
+    private Label jmlbar;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         table_bar();
+        setJmlbar();
     }
 
     @FXML
@@ -93,6 +118,19 @@ public class gudang implements Initializable {
         table_bar.setItems(list);
     }
 
+    private void setJmlbar() {
+        try {
+            String sql = "SELECT count(id_barang) as total from barang ;";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            rs.next();
+            jmlbar.setText(rs.getString("total"));
+
+        } catch (SQLException e) {
+        }
+    }
+
     @FXML
     void editbarklik(ActionEvent event) {
 
@@ -109,8 +147,27 @@ public class gudang implements Initializable {
     }
 
     @FXML
-    void tmbhbarklik(ActionEvent event) {
+    void tmbhbarklik(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("tambabarang.fxml"));
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+    }
 
+    @FXML
+    public void table_baronclick(MouseEvent evt) {
+        ObservableList<tbl_gudang> list;
+        list=table_bar.getSelectionModel().getSelectedItems();
+
+        labelkdbar.setText(list.get(0).getKdbar());
+        labelnamabar.setText(list.get(0).getNamabar());
+        String hrg = String.valueOf(list.get(0).getHarga());
+        labelharga.setText(hrg);
+        String jml = String.valueOf(list.get(0).getQty());
+        labelqty.setText(jml+(list.get(0).getSatuan()));
     }
 
 }
