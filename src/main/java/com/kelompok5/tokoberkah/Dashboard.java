@@ -122,7 +122,7 @@ public class Dashboard extends App implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Trans();
         Pendapatan();
-//        Pengeluaran();
+        Pengeluaran();
         stokbarang();
         //table();
         hidePade();
@@ -161,7 +161,7 @@ public class Dashboard extends App implements Initializable {
         String a = (dtf.format(tanggal));
         try {
             String sql = "SELECT sum(total_bayar) as total from penjualan "
-                    + "where tanggal_transaksi between '2021-01-01' and '2022-01-01'";
+                    + "where tanggal_transaksi between '2021-"+a+"-01' and '2022-"+a+"-31'";
             java.sql.Connection conn = (Connection) Config.configDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
@@ -180,7 +180,7 @@ public class Dashboard extends App implements Initializable {
         String a = (dtf.format(tanggal));
         try {
             String sql = "SELECT sum(uang) as total from pembelian "
-                    + "where tanggal_transaksi between '2021-01-01' and '2022-01-01'";
+                    + "where tanggal_transaksi between '2021-"+a+"-01' and '2022-"+a+"-31'";
             java.sql.Connection conn = (Connection) Config.configDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
@@ -317,14 +317,14 @@ public class Dashboard extends App implements Initializable {
 //        series.getData().add(new XYChart.Data("29", 23));
 //        series.getData().add(new XYChart.Data("30", 23));
 //        series.getData().add(new XYChart.Data("31", 23));
-        for (int i = 1; i <=3; i++) {
+        for (int i = 1; i <=31; i++) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM");
             LocalDateTime tanggal = LocalDateTime.now();
             String a = (dtf.format(tanggal));
             int j = 0;
             try {
-                String sql = "SELECT count(total_bayar) as total from penjualan "
-                        + "where tanggal_transaksi between '2021-01-01' and '2022-01-01'";
+                String sql = "SELECT sum(total_bayar) as total from penjualan "
+                        + "where tanggal_transaksi between '2022-04-"+i+"' and '2022-04-"+i+"'";
                 java.sql.Connection conn = (Connection) Config.configDB();
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                 java.sql.ResultSet rs = pst.executeQuery(sql);
@@ -344,37 +344,59 @@ public class Dashboard extends App implements Initializable {
     public void PengeluaranChart(){
         areaPengeluaran.setVerticalGridLinesVisible(false);
         XYChart.Series series2 = new XYChart.Series();
-        series2.getData().add(new XYChart.Data("1",23));
-        series2.getData().add(new XYChart.Data("2",20));
-        series2.getData().add(new XYChart.Data("3",10));
-        series2.getData().add(new XYChart.Data("4",15));
-        series2.getData().add(new XYChart.Data("5",25));
-        series2.getData().add(new XYChart.Data("6",30));
-        series2.getData().add(new XYChart.Data("7",40));
-        series2.getData().add(new XYChart.Data("9",23));
-        series2.getData().add(new XYChart.Data("10",20));
-        series2.getData().add(new XYChart.Data("11",23));
-        series2.getData().add(new XYChart.Data("12",23));
-        series2.getData().add(new XYChart.Data("13",23));
-        series2.getData().add(new XYChart.Data("14",23));
-        series2.getData().add(new XYChart.Data("15",23));
-        series2.getData().add(new XYChart.Data("16",23));
-        series2.getData().add(new XYChart.Data("17",23));
-        series2.getData().add(new XYChart.Data("18",23));
-        series2.getData().add(new XYChart.Data("19",23));
-        series2.getData().add(new XYChart.Data("20",23));
-        series2.getData().add(new XYChart.Data("21",23));
-        series2.getData().add(new XYChart.Data("22",23));
-        series2.getData().add(new XYChart.Data("23",23));
-        series2.getData().add(new XYChart.Data("24",23));
-        series2.getData().add(new XYChart.Data("25",23));
-        series2.getData().add(new XYChart.Data("26",23));
-        series2.getData().add(new XYChart.Data("27",23));
-        series2.getData().add(new XYChart.Data("28",23));
-        series2.getData().add(new XYChart.Data("29",23));
-        series2.getData().add(new XYChart.Data("30",23));
-        series2.getData().add(new XYChart.Data("31",23));
+//        series2.getData().add(new XYChart.Data("1",23));
+//        series2.getData().add(new XYChart.Data("2",20));
+//        series2.getData().add(new XYChart.Data("3",10));
+//        series2.getData().add(new XYChart.Data("4",15));
+//        series2.getData().add(new XYChart.Data("5",25));
+//        series2.getData().add(new XYChart.Data("6",30));
+//        series2.getData().add(new XYChart.Data("7",40));
+//        series2.getData().add(new XYChart.Data("9",23));
+//        series2.getData().add(new XYChart.Data("10",20));
+//        series2.getData().add(new XYChart.Data("11",23));
+//        series2.getData().add(new XYChart.Data("12",23));
+//        series2.getData().add(new XYChart.Data("13",23));
+//        series2.getData().add(new XYChart.Data("14",23));
+//        series2.getData().add(new XYChart.Data("15",23));
+//        series2.getData().add(new XYChart.Data("16",23));
+//        series2.getData().add(new XYChart.Data("17",23));
+//        series2.getData().add(new XYChart.Data("18",23));
+//        series2.getData().add(new XYChart.Data("19",23));
+//        series2.getData().add(new XYChart.Data("20",23));
+//        series2.getData().add(new XYChart.Data("21",23));
+//        series2.getData().add(new XYChart.Data("22",23));
+//        series2.getData().add(new XYChart.Data("23",23));
+//        series2.getData().add(new XYChart.Data("24",23));
+//        series2.getData().add(new XYChart.Data("25",23));
+//        series2.getData().add(new XYChart.Data("26",23));
+//        series2.getData().add(new XYChart.Data("27",23));
+//        series2.getData().add(new XYChart.Data("28",23));
+//        series2.getData().add(new XYChart.Data("29",23));
+//        series2.getData().add(new XYChart.Data("30",23));
+//        series2.getData().add(new XYChart.Data("31",23));
 
+        for (int i = 1; i <=31; i++) {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM");
+            LocalDateTime tanggal = LocalDateTime.now();
+            String a = (dtf.format(tanggal));
+            int j = 0;
+            try {
+                String sql = "SELECT sum(total_bayar) as total from pembelian "
+                        + "where tanggal_transaksi between '2022-04-"+i+"' and '2022-04-"+i+"'";
+                java.sql.Connection conn = (Connection) Config.configDB();
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                j = rs.getInt("total");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            System.out.println(j);
+            series2.getData().add(new XYChart.Data(""+i+"", j));
+//            series.getData().add(new XYChart.Data("2", 100));
+        }
+        areapendapatan.setVerticalGridLinesVisible(false);
         areaPengeluaran.getData().add(series2);
     }
 

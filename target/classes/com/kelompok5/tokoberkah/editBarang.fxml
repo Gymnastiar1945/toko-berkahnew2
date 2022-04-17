@@ -21,7 +21,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="kdbat" layoutX="295.0" layoutY="85.0" prefHeight="34.0" prefWidth="250.0" styleClass="field-list" stylesheets="@css/main.css">
+      <TextField fx:id="kdbat" layoutX="295.0" layoutY="85.0" onKeyReleased="#kodebatkey" prefHeight="34.0" prefWidth="250.0" styleClass="field-list" stylesheets="@css/main.css">
          <font>
             <Font size="14.0" />
          </font>

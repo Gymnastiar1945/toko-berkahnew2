@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class EditBarang implements Initializable {
+
     @FXML
     private Button btneditbar;
 
@@ -132,7 +134,27 @@ public class EditBarang implements Initializable {
     private void initisi() {
         try {
             String sql = "SELECT * from barang "
-                    +"where id_barang='"+kdbar+"';";
+                    +"where id_barang='"+kdbar.getText()+"';";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            rs.next();
+            namabar.setText(rs.getString("nama_barang"));
+            kdbat.setText(rs.getString("barcode"));
+            ktgr.setValue(rs.getString("id_kategori"));
+            qty.setText(rs.getString("jumlah"));
+            satuan.setValue(rs.getString("id_satuan"));
+            hargabar.setText(rs.getString("harga_jual"));
+
+        } catch (SQLException e) {
+        }
+    }
+
+    @FXML
+    void kodebatkey(KeyEvent event) {
+        try {
+            String sql = "SELECT * from barang "
+                    +"where id_barang='"+kdbar.getText()+"';";
             java.sql.Connection conn=(Connection)Config.configDB();
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
