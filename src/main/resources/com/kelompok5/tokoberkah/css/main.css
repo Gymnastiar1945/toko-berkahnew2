@@ -314,6 +314,7 @@
     -fx-background-color: transparent;
 }
 .chart-plot-background {
+
     -fx-border-color: Black;
     -fx-border-style: solid;
     -fx-border-width: 0 0 2 0;
@@ -321,7 +322,7 @@
 
 }
 .chart-area-symbol {
-    -fx-background-color: #405DF933, white;
+     -fx-background-color: #405DF933, white;
     -fx-background-insets: 0, 1;
     -fx-background-radius: 4px; /* makes sure this remains circular */
     -fx-padding: 3px;

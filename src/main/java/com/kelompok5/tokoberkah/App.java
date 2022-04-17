@@ -13,7 +13,7 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("dashboard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("gudang.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 //        scene.setFill(Color.TRANSPARENT);

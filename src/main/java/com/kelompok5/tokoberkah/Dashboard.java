@@ -69,7 +69,25 @@ public class Dashboard extends App implements Initializable {
     private Pane panetrans;
 
     @FXML
+    private Label logout;
+
+    @FXML
+    private Label menugudang;
+
+    @FXML
     private Label menukar;
+
+    @FXML
+    private Label menuretur;
+
+    @FXML
+    private Label menuriwayat;
+
+    @FXML
+    private Label menuset;
+
+    @FXML
+    private Label menutrans;
 
 
     @FXML
@@ -104,12 +122,12 @@ public class Dashboard extends App implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Trans();
         Pendapatan();
-        Pengeluaran();
+//        Pengeluaran();
         stokbarang();
         //table();
         hidePade();
-        areaChart();
-        areaChart1();
+        PendapatanChart();
+        PengeluaranChart();
 
     }
 
@@ -161,7 +179,7 @@ public class Dashboard extends App implements Initializable {
         LocalDateTime tanggal = LocalDateTime.now();
         String a = (dtf.format(tanggal));
         try {
-            String sql = "SELECT sum(total_bayar) as total from pembelian "
+            String sql = "SELECT sum(uang) as total from pembelian "
                     + "where tanggal_transaksi between '2021-01-01' and '2022-01-01'";
             java.sql.Connection conn = (Connection) Config.configDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
@@ -229,6 +247,16 @@ public class Dashboard extends App implements Initializable {
     }
 
     @FXML
+    void logoutklik(MouseEvent event) {
+
+    }
+
+    @FXML
+    void menugudangklik(MouseEvent event) {
+
+    }
+
+    @FXML
     void menukarklik(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -237,42 +265,83 @@ public class Dashboard extends App implements Initializable {
         stage.show();
     }
 
-    public void areaChart() {
+    @FXML
+    void menureturklik(MouseEvent event) {
+
+    }
+
+    @FXML
+    void menuriwayatklik(MouseEvent event) {
+
+    }
+
+    @FXML
+    void menusetklik(MouseEvent event) {
+
+    }
+
+    @FXML
+    void menutransklik(MouseEvent event) {
+
+    }
+
+    public void PendapatanChart() {
         XYChart.Series series = new XYChart.Series();
-        series.getData().add(new XYChart.Data("1", 23));
-        series.getData().add(new XYChart.Data("2", 20));
-        series.getData().add(new XYChart.Data("3", 10));
-        series.getData().add(new XYChart.Data("4", 15));
-        series.getData().add(new XYChart.Data("5", 25));
-        series.getData().add(new XYChart.Data("6", 30));
-        series.getData().add(new XYChart.Data("7", 40));
-        series.getData().add(new XYChart.Data("9", 23));
-        series.getData().add(new XYChart.Data("10", 20));
-        series.getData().add(new XYChart.Data("11", 23));
-        series.getData().add(new XYChart.Data("12", 23));
-        series.getData().add(new XYChart.Data("13", 23));
-        series.getData().add(new XYChart.Data("14", 23));
-        series.getData().add(new XYChart.Data("15", 23));
-        series.getData().add(new XYChart.Data("16", 23));
-        series.getData().add(new XYChart.Data("17", 23));
-        series.getData().add(new XYChart.Data("18", 23));
-        series.getData().add(new XYChart.Data("19", 23));
-        series.getData().add(new XYChart.Data("20", 23));
-        series.getData().add(new XYChart.Data("21", 23));
-        series.getData().add(new XYChart.Data("22", 23));
-        series.getData().add(new XYChart.Data("23", 23));
-        series.getData().add(new XYChart.Data("24", 120));
-        series.getData().add(new XYChart.Data("25", 23));
-        series.getData().add(new XYChart.Data("26", 23));
-        series.getData().add(new XYChart.Data("27", 23));
-        series.getData().add(new XYChart.Data("28", 23));
-        series.getData().add(new XYChart.Data("29", 23));
-        series.getData().add(new XYChart.Data("30", 23));
-        series.getData().add(new XYChart.Data("31", 23));
+//        series.getData().add(new XYChart.Data("1", 23));
+//        series.getData().add(new XYChart.Data("2", 20));
+//        series.getData().add(new XYChart.Data("3", 10));
+//        series.getData().add(new XYChart.Data("4", 15));
+//        series.getData().add(new XYChart.Data("5", 25));
+//        series.getData().add(new XYChart.Data("6", 30));
+//        series.getData().add(new XYChart.Data("7", 40));
+//        series.getData().add(new XYChart.Data("9", 23));
+//        series.getData().add(new XYChart.Data("10", 20));
+//        series.getData().add(new XYChart.Data("11", 23));
+//        series.getData().add(new XYChart.Data("12", 23));
+//        series.getData().add(new XYChart.Data("13", 23));
+//        series.getData().add(new XYChart.Data("14", 23));
+//        series.getData().add(new XYChart.Data("15", 23));
+//        series.getData().add(new XYChart.Data("16", 23));
+//        series.getData().add(new XYChart.Data("17", 23));
+//        series.getData().add(new XYChart.Data("18", 23));
+//        series.getData().add(new XYChart.Data("19", 23));
+//        series.getData().add(new XYChart.Data("20", 23));
+//        series.getData().add(new XYChart.Data("21", 23));
+//        series.getData().add(new XYChart.Data("22", 23));
+//        series.getData().add(new XYChart.Data("23", 23));
+//        series.getData().add(new XYChart.Data("24", 120));
+//        series.getData().add(new XYChart.Data("25", 23));
+//        series.getData().add(new XYChart.Data("26", 23));
+//        series.getData().add(new XYChart.Data("27", 23));
+//        series.getData().add(new XYChart.Data("28", 23));
+//        series.getData().add(new XYChart.Data("29", 23));
+//        series.getData().add(new XYChart.Data("30", 23));
+//        series.getData().add(new XYChart.Data("31", 23));
+        for (int i = 1; i <=3; i++) {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM");
+            LocalDateTime tanggal = LocalDateTime.now();
+            String a = (dtf.format(tanggal));
+            int j = 0;
+            try {
+                String sql = "SELECT count(total_bayar) as total from penjualan "
+                        + "where tanggal_transaksi between '2021-01-01' and '2022-01-01'";
+                java.sql.Connection conn = (Connection) Config.configDB();
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                j = rs.getInt("total");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            System.out.println(j);
+            series.getData().add(new XYChart.Data(""+i+"", j));
+//            series.getData().add(new XYChart.Data("2", 100));
+        }
         areapendapatan.setVerticalGridLinesVisible(false);
         areapendapatan.getData().add(series);
     }
-    public void areaChart1(){
+    public void PengeluaranChart(){
         areaPengeluaran.setVerticalGridLinesVisible(false);
         XYChart.Series series2 = new XYChart.Series();
         series2.getData().add(new XYChart.Data("1",23));
