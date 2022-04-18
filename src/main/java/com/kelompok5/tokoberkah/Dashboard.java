@@ -3,6 +3,7 @@ package com.kelompok5.tokoberkah;
 import com.mysql.jdbc.Connection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,16 +12,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -89,27 +85,47 @@ public class Dashboard extends App implements Initializable {
     @FXML
     private Label menutrans;
 
+    @FXML
+    private TableView<tbl_dbbarang> table_dbbarang;
 
     @FXML
-    private TableView<tbl_trans> table_dashboard;
+    private TableColumn<tbl_dbbarang, String> colbar;
 
     @FXML
-    private TableColumn<tbl_trans, Integer> no;
+    private TableColumn<tbl_dbbarang, String> colktgr;
 
     @FXML
-    private TableColumn<tbl_trans, String> idPenjualan;
+    private TableColumn<tbl_dbbarang, String> colnama;
 
     @FXML
-    private TableColumn<tbl_trans, String> tanggal;
+    private TableColumn<tbl_dbbarang, Integer> colno;
 
     @FXML
-    private TableColumn<tbl_trans, String> jam;
+    private TableColumn<tbl_dbbarang, Double> colqty;
 
     @FXML
-    private TableColumn<tbl_trans, Integer> ttl_byr;
+    private TableColumn<tbl_dbbarang, String> colsatuan;
 
     @FXML
-    private TableColumn<tbl_trans, String> kasir;
+    private TableView<tbl_dbtrans> table_dbtrans;
+
+    @FXML
+    private TableColumn<tbl_dbtrans, Integer> no;
+
+    @FXML
+    private TableColumn<tbl_dbtrans, String> idPenjualan;
+
+    @FXML
+    private TableColumn<tbl_dbtrans, String> tanggal;
+
+    @FXML
+    private TableColumn<tbl_dbtrans, String> jam;
+
+    @FXML
+    private TableColumn<tbl_dbtrans, Integer> ttl_byr;
+
+    @FXML
+    private TableColumn<tbl_dbtrans, String> kasir;
 
     @FXML
     private AreaChart<?, ?> areapendapatan;
@@ -124,10 +140,8 @@ public class Dashboard extends App implements Initializable {
         Pendapatan();
         Pengeluaran();
         stokbarang();
-        //table();
+        tabletrans();
         hidePade();
-        PendapatanChart();
-        PengeluaranChart();
 
     }
 
@@ -208,21 +222,20 @@ public class Dashboard extends App implements Initializable {
         }
     }
 
-    private void table() {
+    private void tabletrans() {
         int nom = 1;
-        ObservableList<tbl_trans> list = FXCollections.observableArrayList();
+        ObservableList<tbl_dbtrans> list = FXCollections.observableArrayList();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime tgl = LocalDateTime.now();
         String a = (dtf.format(tgl));
         try {
-            String sql = "SELECT * from penjualan ";
-//                    + "where tanggal_tranksaksi='"+a+"' ;";
+            String sql = "SELECT * from penjualan "
+                    + "where tanggal_transaksi='"+a+"' ;";
             Connection conn = (Connection) Config.configDB();
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet res = stm.executeQuery(sql);
             while (res.next()) {
-                list.add(new tbl_trans(nom++, res.getString("id_penjualan"),
-                        res.getString("tanggal_transaksi"),
+                list.add(new tbl_dbtrans(nom++, res.getString("id_penjualan"),
                         res.getString("jam_transaksi"),
                         res.getInt("total_bayar"),
                         res.getString("id_pengguna")));
@@ -231,18 +244,50 @@ public class Dashboard extends App implements Initializable {
             ex.printStackTrace();
         }
 
-        no.setCellValueFactory(new PropertyValueFactory<tbl_trans, Integer>("no"));
-        idPenjualan.setCellValueFactory(new PropertyValueFactory<tbl_trans, String>("IdPenjualan"));
-        tanggal.setCellValueFactory(new PropertyValueFactory<tbl_trans, String>("Tanggal"));
-        jam.setCellValueFactory(new PropertyValueFactory<tbl_trans, String>("Jam"));
-        ttl_byr.setCellValueFactory(new PropertyValueFactory<tbl_trans, Integer>("ttl_byr"));
-        kasir.setCellValueFactory(new PropertyValueFactory<tbl_trans, String>("Kasir"));
-        table_dashboard.setItems(list);
+        no.setCellValueFactory(new PropertyValueFactory<tbl_dbtrans, Integer>("no"));
+        idPenjualan.setCellValueFactory(new PropertyValueFactory<tbl_dbtrans, String>("IdPenjualan"));
+        jam.setCellValueFactory(new PropertyValueFactory<tbl_dbtrans, String>("Jam"));
+        ttl_byr.setCellValueFactory(new PropertyValueFactory<tbl_dbtrans, Integer>("ttl_byr"));
+        kasir.setCellValueFactory(new PropertyValueFactory<tbl_dbtrans, String>("Kasir"));
+        table_dbtrans.setItems(list);
+    }
+
+    private void tablebar() {
+        int nom = 1;
+        ObservableList<tbl_dbbarang> list = FXCollections.observableArrayList();
+
+        try {
+            String sql = "select barang.id_barang, barang.nama_barang, kategori.jenis, jumlah, satuan.satuan "
+                    + "from barang join kategori on barang.id_kategori = kategori.id_kategori "
+                    + "join satuan on barang.id_satuan = satuan.id_satuan "
+                    + "where jumlah<=500 ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                list.add(new tbl_dbbarang(nom++, res.getString(1),
+                        res.getString(2),
+                        res.getString(3),
+                        res.getDouble(4),
+                        res.getString(5)));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        colno.setCellValueFactory(new PropertyValueFactory<tbl_dbbarang, Integer>("colno"));
+        colbar.setCellValueFactory(new PropertyValueFactory<tbl_dbbarang, String>("colbar"));
+        colnama.setCellValueFactory(new PropertyValueFactory<tbl_dbbarang, String>("colnama"));
+        colktgr.setCellValueFactory(new PropertyValueFactory<tbl_dbbarang, String>("colktgr"));
+        colqty.setCellValueFactory(new PropertyValueFactory<tbl_dbbarang, Double>("colqty"));
+        colsatuan.setCellValueFactory(new PropertyValueFactory<tbl_dbbarang, String>("colsatuan"));
+        table_dbbarang.setItems(list);
     }
 
     public void hidePade() {
+        panetrans.setVisible(true);
         paneBarang.setVisible(false);
-        panePendapatan.setVisible(true);
+        panePendapatan.setVisible(false);
         panePengeluaran.setVisible(false);
     }
 
@@ -252,8 +297,12 @@ public class Dashboard extends App implements Initializable {
     }
 
     @FXML
-    void menugudangklik(MouseEvent event) {
-
+    void menugudangklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("gudang.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -334,12 +383,21 @@ public class Dashboard extends App implements Initializable {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println(j);
             series.getData().add(new XYChart.Data(""+i+"", j));
-//            series.getData().add(new XYChart.Data("2", 100));
+//
+//            Tooltip.install(series.getNode(), new Tooltip(
+//                    series.getData().toString() + "\n" +
+//                            "Number Of Events : " ));
+//
+//            //Adding class on hover
+//            series.getNode().setOnMouseEntered(event -> series.getNode().getStyleClass().add("onHover"));
+//
+//            //Removing class on exit
+//            series.getNode().setOnMouseExited(event -> series.getNode().getStyleClass().remove("onHover"));
         }
         areapendapatan.setVerticalGridLinesVisible(false);
-        areapendapatan.getData().add(series);
+        areapendapatan.getData().setAll(series);
+
     }
     public void PengeluaranChart(){
         areaPengeluaran.setVerticalGridLinesVisible(false);
@@ -374,14 +432,13 @@ public class Dashboard extends App implements Initializable {
 //        series2.getData().add(new XYChart.Data("29",23));
 //        series2.getData().add(new XYChart.Data("30",23));
 //        series2.getData().add(new XYChart.Data("31",23));
-
         for (int i = 1; i <=31; i++) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM");
             LocalDateTime tanggal = LocalDateTime.now();
             String a = (dtf.format(tanggal));
             int j = 0;
             try {
-                String sql = "SELECT sum(total_bayar) as total from pembelian "
+                String sql = "SELECT sum(uang) as total from pembelian "
                         + "where tanggal_transaksi between '2022-04-"+i+"' and '2022-04-"+i+"'";
                 java.sql.Connection conn = (Connection) Config.configDB();
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
@@ -392,13 +449,48 @@ public class Dashboard extends App implements Initializable {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println(j);
+            
             series2.getData().add(new XYChart.Data(""+i+"", j));
-//            series.getData().add(new XYChart.Data("2", 100));
         }
-        areapendapatan.setVerticalGridLinesVisible(false);
-        areaPengeluaran.getData().add(series2);
+
+        areaPengeluaran.setVerticalGridLinesVisible(false);
+        areaPengeluaran.getData().setAll(series2);
     }
 
+    @FXML
+    void btndtlTransact(ActionEvent event) {
+        tabletrans();
+        panetrans.setVisible(true);
+        paneBarang.setVisible(false);
+        panePendapatan.setVisible(false);
+        panePengeluaran.setVisible(false);
+    }
+
+    @FXML
+    void btndtlPendapatanact(ActionEvent event) {
+        PendapatanChart();
+        panetrans.setVisible(false);
+        paneBarang.setVisible(false);
+        panePendapatan.setVisible(true);
+        panePengeluaran.setVisible(false);
+    }
+
+    @FXML
+    void btndtlpengeluaranact(ActionEvent event) {
+        PengeluaranChart();
+        panetrans.setVisible(false);
+        paneBarang.setVisible(false);
+        panePendapatan.setVisible(false);
+        panePengeluaran.setVisible(true);
+    }
+
+    @FXML
+    void btnStokbrgact(ActionEvent event) {
+        tablebar();
+        panetrans.setVisible(false);
+        paneBarang.setVisible(true);
+        panePendapatan.setVisible(false);
+        panePengeluaran.setVisible(false);
+    }
 }
 

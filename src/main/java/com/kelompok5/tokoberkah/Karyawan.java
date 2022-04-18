@@ -102,7 +102,7 @@ public class Karyawan extends App implements Initializable {
         stage.show();
     }
 
-    private void tbl_kar(){
+    public void tbl_kar(){
         ObservableList<tbl_karyawan> list = FXCollections.observableArrayList();
         try {
             String sql = "select * from pengguna ;";
@@ -246,6 +246,10 @@ public class Karyawan extends App implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void test() {
+        System.out.println("kjhaskjd");
     }
 }
 

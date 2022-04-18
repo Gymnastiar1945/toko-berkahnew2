@@ -1,15 +1,14 @@
 package com.kelompok5.tokoberkah;
 
-public class tbl_trans {
+public class tbl_dbtrans {
     int no;
-    String idPenjualan, tanggal, jam;
+    String idPenjualan, jam;
     int ttl_byr;
     String kasir;
 
-    public tbl_trans(int no, String idPenjualan, String tanggal, String jam, int ttl_byr, String kasir) {
+    public tbl_dbtrans(int no, String idPenjualan, String jam, int ttl_byr, String kasir) {
         this.no = no;
         this.idPenjualan = idPenjualan;
-        this.tanggal = tanggal;
         this.jam = jam;
         this.ttl_byr = ttl_byr;
         this.kasir = kasir;
@@ -29,14 +28,6 @@ public class tbl_trans {
 
     public void setIdPenjualan(String idPenjualan) {
         this.idPenjualan = idPenjualan;
-    }
-
-    public String getTanggal() {
-        return tanggal;
-    }
-
-    public void setTanggal(String tanggal) {
-        this.tanggal = tanggal;
     }
 
     public String getJam() {

@@ -24,25 +24,25 @@ public class EditBarang implements Initializable {
     private Button cancel;
 
     @FXML
-    private TextField hargabar;
+    public TextField hargabar;
 
     @FXML
     public Label kdbar;
 
     @FXML
-    private TextField kdbat;
+    public TextField kdbat;
 
     @FXML
-    private ComboBox<String> ktgr;
+    public ComboBox<String> ktgr;
 
     @FXML
-    private TextField namabar;
+    public TextField namabar;
 
     @FXML
-    private TextField qty;
+    public TextField qty;
 
     @FXML
-    private ComboBox<String> satuan;
+    public ComboBox<String> satuan;
 
     @FXML
     private ComboBox<String> sup;
@@ -57,7 +57,14 @@ public class EditBarang implements Initializable {
     }
     public void setkdbar() {
         String kodebar = "";
+        String enamabar = "", ekdbat = "", ektgr = "", eqty = "", esatuan = "", ehargabar = "";
         kdbar.setText(kodebar);
+        namabar.setText(enamabar);
+        kdbat.setText(ekdbat);
+        ktgr.setValue(ektgr);
+        qty.setText(eqty);
+        satuan.setValue(esatuan);
+        hargabar.setText(ehargabar);
     }
     private void isiktgr() {
         ObservableList<String> list = FXCollections.observableArrayList("atk","atb");
@@ -132,26 +139,6 @@ public class EditBarang implements Initializable {
     }
 
     private void initisi() {
-        try {
-            String sql = "SELECT * from barang "
-                    +"where id_barang='"+kdbar.getText()+"';";
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-            java.sql.ResultSet rs = pst.executeQuery(sql);
-            rs.next();
-            namabar.setText(rs.getString("nama_barang"));
-            kdbat.setText(rs.getString("barcode"));
-            ktgr.setValue(rs.getString("id_kategori"));
-            qty.setText(rs.getString("jumlah"));
-            satuan.setValue(rs.getString("id_satuan"));
-            hargabar.setText(rs.getString("harga_jual"));
-
-        } catch (SQLException e) {
-        }
-    }
-
-    @FXML
-    void kodebatkey(KeyEvent event) {
         try {
             String sql = "SELECT * from barang "
                     +"where id_barang='"+kdbar.getText()+"';";

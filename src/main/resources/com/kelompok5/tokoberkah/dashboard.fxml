@@ -19,7 +19,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Dashboard">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Dashboard">
    <children>
       <VBox layoutY="106.0" prefHeight="614.0" prefWidth="264.0" style="-fx-background-color: #FFF;">
          <children>
@@ -210,7 +210,7 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label layoutX="76.0" layoutY="100.0" prefHeight="38.0" prefWidth="78.0" text="Transaksi" textFill="#46cc59">
+            <Label alignment="CENTER" layoutX="35.0" layoutY="100.0" prefHeight="38.0" prefWidth="159.0" text="Transaksi" textFill="#46cc59">
                <font>
                   <Font size="18.0" />
                </font>
@@ -218,7 +218,7 @@
                   <Insets left="3.0" />
                </padding>
             </Label>
-            <Button layoutX="13.0" layoutY="159.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Lihat Detail" textFill="WHITE">
+            <Button fx:id="btndtlTrans" layoutX="13.0" layoutY="159.0" mnemonicParsing="false" onAction="#btndtlTransact" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Lihat Detail" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -243,7 +243,7 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Button layoutX="14.0" layoutY="159.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Cek Daftar Barang" textFill="WHITE">
+            <Button fx:id="btndtlPendapatan" layoutX="14.0" layoutY="159.0" mnemonicParsing="false" onAction="#btndtlPendapatanact" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Cek Daftar Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -271,20 +271,12 @@
                   <Insets left="3.0" />
                </padding>
             </Label>
-            <Label fx:id="lblPengeluaran" layoutX="55.0" layoutY="70.0" prefHeight="53.0" prefWidth="168.0" text="1.000.000" textFill="#ff9a51">
+            <Label fx:id="lblPengeluaran" layoutX="7.0" layoutY="70.0" prefHeight="53.0" prefWidth="216.0" text="1.000.000" textFill="#ff9a51">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label layoutX="10.0" layoutY="70.0" prefHeight="53.0" prefWidth="53.0" text="Rp" textFill="#ff9a51">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-            </Label>
-            <Button layoutX="14.0" layoutY="159.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-oranye" stylesheets="@css/main.css" text="Cek Daftar Barang" textFill="WHITE">
+            <Button fx:id="btndtlpengeluaran" layoutX="14.0" layoutY="159.0" mnemonicParsing="false" onAction="#btndtlpengeluaranact" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-oranye" stylesheets="@css/main.css" text="Cek Daftar Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -325,7 +317,7 @@
                   <Insets left="3.0" />
                </padding>
             </Label>
-            <Button layoutX="13.0" layoutY="159.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-merah" stylesheets="@css/main.css" text="Cek Daftar Barang" textFill="WHITE">
+            <Button fx:id="btnStokbrg" layoutX="13.0" layoutY="159.0" mnemonicParsing="false" onAction="#btnStokbrgact" prefHeight="39.0" prefWidth="201.0" style="-fx-background-radius: 8;" styleClass="button-merah" stylesheets="@css/main.css" text="Cek Daftar Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -333,62 +325,6 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-         </children>
-      </Pane>
-      <Pane fx:id="panetrans" layoutX="288.0" layoutY="346.0" prefHeight="360.0" prefWidth="979.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 12;">
-         <effect>
-            <DropShadow color="#00000026" height="27.11" radius="13.055" spread="0.57" width="27.11" />
-         </effect>
-         <children>
-            <Pane layoutX="19.0" layoutY="23.0" prefHeight="313.0" prefWidth="946.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 8;">
-               <effect>
-                  <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
-               </effect>
-               <children>
-                  <TableView fx:id="table_dashboard" layoutX="19.0" layoutY="65.0" prefHeight="236.0" prefWidth="910.0" stylesheets="@css/main.css">
-                     <columns>
-                        <TableColumn fx:id="no" prefWidth="52.0" text="No" />
-                        <TableColumn fx:id="idPenjualan" prefWidth="245.0" text="ID Penjualan" />
-                        <TableColumn fx:id="jam" prefWidth="184.0" text="Jam" />
-                        <TableColumn fx:id="ttl_byr" minWidth="0.0" prefWidth="248.0" text="Total Bayar" />
-                        <TableColumn fx:id="kasir" minWidth="0.0" prefWidth="180.0" text="Kasir" />
-                     </columns>
-                  </TableView>
-                  <Label layoutX="24.0" layoutY="22.0" prefHeight="27.0" prefWidth="210.0" text="Tabel Transaksi Hari Ini">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-      <Pane fx:id="paneBarang" layoutX="288.0" layoutY="346.0" prefHeight="360.0" prefWidth="979.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 12;">
-         <effect>
-            <DropShadow color="#00000026" height="27.11" radius="13.055" spread="0.57" width="27.11" />
-         </effect>
-         <children>
-            <Pane layoutX="19.0" layoutY="23.0" prefHeight="313.0" prefWidth="946.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 8;">
-               <effect>
-                  <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
-               </effect>
-               <children>
-                  <TableView fx:id="table_dashboard1" layoutX="19.0" layoutY="65.0" prefHeight="236.0" prefWidth="910.0" stylesheets="@css/main.css">
-                     <columns>
-                        <TableColumn fx:id="jenis1" prefWidth="61.0" text="No" />
-                        <TableColumn fx:id="no1" prefWidth="278.0" text="Id Barang" />
-                        <TableColumn fx:id="nama_barang1" prefWidth="278.0" text="Nama Barang" />
-                        <TableColumn fx:id="qty1" prefWidth="150.0" text="Qty" />
-                        <TableColumn fx:id="harga1" prefWidth="142.0" text="Satuan" />
-                     </columns>
-                  </TableView>
-                  <Label layoutX="24.0" layoutY="22.0" prefHeight="27.0" prefWidth="254.0" text="Tabel Stok Barang Menipis">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
          </children>
       </Pane>
       <Pane fx:id="panePendapatan" layoutX="288.0" layoutY="346.0" prefHeight="360.0" prefWidth="979.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 12;">
@@ -454,6 +390,63 @@
                         <NumberAxis side="LEFT" />
                      </yAxis>
                   </AreaChart>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="paneBarang" layoutX="288.0" layoutY="346.0" prefHeight="360.0" prefWidth="979.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 12;">
+         <effect>
+            <DropShadow color="#00000026" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+         </effect>
+         <children>
+            <Pane layoutX="19.0" layoutY="23.0" prefHeight="313.0" prefWidth="946.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 8;">
+               <effect>
+                  <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+               </effect>
+               <children>
+                  <TableView fx:id="table_dbbarang" layoutX="19.0" layoutY="65.0" prefHeight="236.0" prefWidth="910.0" stylesheets="@css/main.css">
+                     <columns>
+                        <TableColumn fx:id="colno" prefWidth="61.0" text="No" />
+                        <TableColumn fx:id="colbar" prefWidth="153.0" text="Id Barang" />
+                        <TableColumn fx:id="colnama" prefWidth="247.0" text="Nama Barang" />
+                        <TableColumn fx:id="colktgr" prefWidth="193.0" text="Kategori" />
+                        <TableColumn fx:id="colqty" prefWidth="128.0" text="Qty" />
+                        <TableColumn fx:id="colsatuan" minWidth="0.0" prefWidth="127.0" text="Satuan" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="24.0" layoutY="22.0" prefHeight="27.0" prefWidth="254.0" text="Tabel Stok Barang Menipis">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="panetrans" layoutX="288.0" layoutY="346.0" prefHeight="360.0" prefWidth="979.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 12;">
+         <effect>
+            <DropShadow color="#00000026" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+         </effect>
+         <children>
+            <Pane layoutX="19.0" layoutY="23.0" prefHeight="313.0" prefWidth="946.0" style="-fx-background-color: #FFF; -fx-background-insets: 5; -fx-background-radius: 8;">
+               <effect>
+                  <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+               </effect>
+               <children>
+                  <TableView fx:id="table_dbtrans" layoutX="19.0" layoutY="65.0" prefHeight="236.0" prefWidth="910.0" stylesheets="@css/main.css">
+                     <columns>
+                        <TableColumn fx:id="no" prefWidth="52.0" text="No" />
+                        <TableColumn fx:id="idPenjualan" prefWidth="245.0" text="ID Penjualan" />
+                        <TableColumn fx:id="jam" prefWidth="184.0" text="Jam" />
+                        <TableColumn fx:id="ttl_byr" minWidth="0.0" prefWidth="248.0" text="Total Bayar" />
+                        <TableColumn fx:id="kasir" minWidth="0.0" prefWidth="180.0" text="Kasir" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="24.0" layoutY="22.0" prefHeight="27.0" prefWidth="210.0" text="Tabel Transaksi Hari Ini">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </children>
