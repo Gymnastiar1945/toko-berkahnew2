@@ -147,6 +147,7 @@ public class gudang implements Initializable {
         panesupkanan.setVisible(false);
         table_bar();
         setJmlbar();
+        setTable_sup();
     }
 
     @FXML
@@ -188,7 +189,7 @@ public class gudang implements Initializable {
 //        stage.initStyle(StageStyle.TRANSPARENT);
 //        stage.show();
         String kodebar = labelkdbar.getText();
-        String enamabar = "", ekdbat = "", ektgr = "", eqty = "", esatuan = "", ehargabar = "";
+        String enamabar = "", ekdbat = "", ektgr = "", eektgr = "", eqty = "", esatuan = "", eesatuan = "", ehargabar = "";
         FXMLLoader loader = new FXMLLoader(getClass().getResource("editBarang.fxml"));
         root = loader.load();
 
@@ -209,12 +210,37 @@ public class gudang implements Initializable {
 
         } catch (SQLException e) {
         }
+        try {
+            String sql = "SELECT jenis from kategori "
+                    + "where id_kategori = '"+ektgr+"';";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            rs.next();
+            eektgr = rs.getString("jenis");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            String sql = "SELECT satuan from satuan "
+                    + "where id_satuan = '"+esatuan+"';";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            rs.next();
+            eesatuan = rs.getString("satuan");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         Editbarang.kdbar.setText(kodebar);
         Editbarang.namabar.setText(enamabar);
         Editbarang.kdbat.setText(ekdbat);
-        Editbarang.ktgr.setValue(ektgr);
+        Editbarang.ktgr.setValue(eektgr);
         Editbarang.qty.setText(eqty);
-        Editbarang.satuan.setValue(esatuan);
+        Editbarang.satuan.setValue(eesatuan);
         Editbarang.hargabar.setText(ehargabar);
 
 
@@ -287,7 +313,7 @@ public class gudang implements Initializable {
         String hrg = String.valueOf(list.get(0).getHarga());
         labelharga.setText(hrg);
         String jml = String.valueOf(list.get(0).getQty());
-        labelqty.setText(jml+(list.get(0).getSatuan()));
+        labelqty.setText(jml+" "+(list.get(0).getSatuan()));
     }
 
     //suppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
@@ -410,6 +436,7 @@ public class gudang implements Initializable {
         list=table_sup.getSelectionModel().getSelectedItems();
 
         txtidsup.setText(list.get(0).getIdsup());
+        txtidsup.setDisable(true);
         txtnamasup.setText(list.get(0).getNamasup());
         txtnomorsup.setText(list.get(0).getNomorsup());
         txtalamatsup.setText(list.get(0).getAlamatsup());
@@ -460,6 +487,7 @@ public class gudang implements Initializable {
 
     private void kosong() {
         txtidsup.setText("");
+        txtidsup.setDisable(false);
         txtnamasup.setText(null);
         txtalamatsup.setText(null);
         txtnomorsup.setText(null);

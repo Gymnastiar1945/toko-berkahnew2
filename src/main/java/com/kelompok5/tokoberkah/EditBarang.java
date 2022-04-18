@@ -44,26 +44,24 @@ public class EditBarang implements Initializable {
     @FXML
     public ComboBox<String> satuan;
 
-    @FXML
-    private ComboBox<String> sup;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         isiktgr();
         isisatuan();
-        isisup();
         setkdbar();
-        initisi();
+        ktgr.setDisable(true);
+//        initisi();
     }
     public void setkdbar() {
         String kodebar = "";
-        String enamabar = "", ekdbat = "", ektgr = "", eqty = "", esatuan = "", ehargabar = "";
+        String enamabar = "", ekdbat = "", eektgr = "", eqty = "", eesatuan = "", ehargabar = "";
         kdbar.setText(kodebar);
         namabar.setText(enamabar);
         kdbat.setText(ekdbat);
-        ktgr.setValue(ektgr);
+        ktgr.setValue(eektgr);
         qty.setText(eqty);
-        satuan.setValue(esatuan);
+        satuan.setValue(eesatuan);
         hargabar.setText(ehargabar);
     }
     private void isiktgr() {
@@ -76,20 +74,20 @@ public class EditBarang implements Initializable {
         satuan.setItems(list);
     }
 
-    private void isisup() {
-        ObservableList<String> list = FXCollections.observableArrayList();
-        try {
-            String sql = "select * from supplier";
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-            while (res.next()) {
-                list.add(res.getString("nama_supplier"));
-            }
-        } catch (Exception e) {
-        }
-        sup.setItems(list);
-    }
+//    private void isisup() {
+//        ObservableList<String> list = FXCollections.observableArrayList();
+//        try {
+//            String sql = "select * from supplier";
+//            java.sql.Connection conn=(Connection)Config.configDB();
+//            java.sql.Statement stm=conn.createStatement();
+//            java.sql.ResultSet res=stm.executeQuery(sql);
+//            while (res.next()) {
+//                list.add(res.getString("nama_supplier"));
+//            }
+//        } catch (Exception e) {
+//        }
+//        sup.setItems(list);
+//    }
 
     @FXML
     void cancelklik(ActionEvent event) {
@@ -106,15 +104,27 @@ public class EditBarang implements Initializable {
             alert.setContentText("Pilih dahulu barang yang ingin diedit!");
             alert.showAndWait();
         } else {
+            String idsat = "";
+            try {
+                String sql = "SELECT id_satuan from satuan "
+                        + "where satuan = '"+satuan.getSelectionModel().getSelectedItem()+"';";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                idsat = rs.getString("id_satuan");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             try {
                 String sqll ="UPDATE barang "
                         + "SET nama_barang = '"+namabar.getText()
                         +"', jumlah = '" +qty.getText()
-                        +"', id_kategori = '" +satuan.getSelectionModel().getSelectedItem()
-                        +"', id_satuan = '" +satuan.getSelectionModel().getSelectedItem()
-                        +"', harga_jual = '"+hargabar
-                        +"', barcode = '"+kdbat
-                        +"', id_sup = '"+sup.getSelectionModel().getSelectedItem()
+                        +"', id_satuan = '" +idsat
+                        +"', harga_jual = '"+hargabar.getText()
+                        +"', barcode = '"+kdbat.getText()
                         +"' WHERE barang.id_barang = '"+kdbar.getText()+"'";
                 java.sql.Connection conn=(Connection)Config.configDB();
                 java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);

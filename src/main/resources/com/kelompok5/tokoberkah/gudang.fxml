@@ -81,12 +81,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="labelkdbar" layoutX="146.0" layoutY="19.0" prefHeight="25.0" prefWidth="275.0" text="IND000123">
+            <Label fx:id="labelkdbar" layoutX="146.0" layoutY="19.0" prefHeight="25.0" prefWidth="275.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="labelnamabar" layoutX="146.0" layoutY="49.0" prefHeight="25.0" prefWidth="275.0" text="Sukses">
+            <Label fx:id="labelnamabar" layoutX="146.0" layoutY="49.0" prefHeight="25.0" prefWidth="275.0">
                <font>
                   <Font size="16.0" />
                </font>
@@ -96,12 +96,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="labelharga" layoutX="172.0" layoutY="79.0" prefHeight="25.0" prefWidth="255.0" text="2.500">
+            <Label fx:id="labelharga" layoutX="172.0" layoutY="79.0" prefHeight="25.0" prefWidth="255.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="labelqty" layoutX="145.0" layoutY="109.0" prefHeight="25.0" prefWidth="275.0" text="100 Pcs">
+            <Label fx:id="labelqty" layoutX="145.0" layoutY="109.0" prefHeight="25.0" prefWidth="275.0">
                <font>
                   <Font size="16.0" />
                </font>
@@ -431,7 +431,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnhpssup" layoutX="179.0" layoutY="433.0" mnemonicParsing="false" onAction="#lhtsupklik" prefHeight="37.0" prefWidth="150.0" style="-fx-background-color: #FE5858; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Hapus Supplier" textFill="WHITE">
+            <Button fx:id="btnhpssup" layoutX="179.0" layoutY="433.0" mnemonicParsing="false" onAction="#hpssupklik" prefHeight="37.0" prefWidth="150.0" style="-fx-background-color: #FE5858; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Hapus Supplier" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -449,7 +449,7 @@
             </TextField>
          </children>
       </Pane>
-      <Pane fx:id="panesupatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
+      <Pane fx:id="panesupatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css" visible="false">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -473,7 +473,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="panesupkiri" layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="618.0" style="-fx-background-color: #FFF; -fx-background-radius: 10;">
+      <Pane fx:id="panesupkiri" layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="618.0" style="-fx-background-color: #FFF; -fx-background-radius: 10;" visible="false">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>

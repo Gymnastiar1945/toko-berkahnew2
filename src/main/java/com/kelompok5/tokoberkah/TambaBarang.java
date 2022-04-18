@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class TambaBarang implements Initializable {
@@ -36,9 +37,6 @@ public class TambaBarang implements Initializable {
     private TextField qty;
 
     @FXML
-    private ComboBox<String> sup;
-
-    @FXML
     private Button cancel;
 
     @FXML
@@ -51,32 +49,51 @@ public class TambaBarang implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
        isiktgr();
        isisatuan();
-       isisup();
     }
     private void isiktgr() {
-        ObservableList<String> list = FXCollections.observableArrayList("atk","atb");
-        ktgr.setItems(list);
-    }
-
-    private void isisatuan() {
-        ObservableList<String> list = FXCollections.observableArrayList("m","pcs");
-        satuan.setItems(list);
-    }
-
-    private void isisup() {
         ObservableList<String> list = FXCollections.observableArrayList();
         try {
-            String sql = "select * from supplier";
+            String sql = "select * from kategori";
             java.sql.Connection conn=(Connection)Config.configDB();
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while (res.next()) {
-                list.add(res.getString("nama_supplier"));
+                list.add(res.getString("jenis"));
             }
         } catch (Exception e) {
         }
-        sup.setItems(list);
+        ktgr.setItems(list);
     }
+
+    private void isisatuan() {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select * from satuan";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while (res.next()) {
+                list.add(res.getString("satuan"));
+            }
+        } catch (Exception e) {
+        }
+        satuan.setItems(list);
+    }
+
+//    private void isisup() {
+//        ObservableList<String> list = FXCollections.observableArrayList();
+//        try {
+//            String sql = "select * from supplier";
+//            java.sql.Connection conn=(Connection)Config.configDB();
+//            java.sql.Statement stm=conn.createStatement();
+//            java.sql.ResultSet res=stm.executeQuery(sql);
+//            while (res.next()) {
+//                list.add(res.getString("nama_supplier"));
+//            }
+//        } catch (Exception e) {
+//        }
+//        sup.setItems(list);
+//    }
 
     @FXML
     void cancelklik(ActionEvent event) {
@@ -93,11 +110,37 @@ public class TambaBarang implements Initializable {
             alert.setContentText("Masukkan Kode Barang terlebih dahulu!");
             alert.showAndWait();
         } else {
+            String kktgr = "", idsat = "";
+            try {
+                String sql = "SELECT id_kategori from kategori "
+                        + "where jenis = '"+ktgr.getSelectionModel().getSelectedItem()+"';";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                kktgr = rs.getString("id_kategori");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                String sql = "SELECT id_satuan from satuan "
+                        + "where satuan = '"+satuan.getSelectionModel().getSelectedItem()+"';";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                idsat = rs.getString("id_satuan");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
                 try {
                     String sqll = "INSERT INTO barang VALUES ('"+kdbar.getText()+"','"
                             +namabar.getText()+"','"
-                            +ktgr.getSelectionModel().getSelectedItem()+"','"
-                            +satuan.getSelectionModel().getSelectedItem()+"','"
+                            +kktgr+"','"
+                            +idsat+"','"
                             +qty.getText()+"','"
                             +kdbat.getText()+"','"
                             +hargabar.getText()+"')";
