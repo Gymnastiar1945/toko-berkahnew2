@@ -85,12 +85,15 @@
 }
 
 .button-hijau{
+    -fx-font-size: 16;
     -fx-background-color: #46CC59;
 }
 .button-oranye{
+    -fx-font-size: 16;
     -fx-background-color: #ff9a51;
 }
 .button-merah{
+    -fx-font-size: 16;
     -fx-background-color: #EE3030;
 }
 
@@ -147,20 +150,21 @@
 /*PRESSED*/
 
 .button-hijau:pressed{
-    -fx-font-size: 16;
+    -fx-font-size: 14;
     -fx-background-color: #FFF;
     -fx-text-fill: #46CC59;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
     -fx-border-color: #46CC59;
     -fx-border-width: 3;
+
 }
 .button-oranye:pressed{
     -fx-font-size: 16;
     -fx-background-color: #FFF;
     -fx-text-fill: #FF9A51;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
     -fx-border-color: #FF9A51;
     -fx-border-width: 3;
 }
@@ -168,8 +172,8 @@
      -fx-font-size: 16;
      -fx-background-color: #FFF;
      -fx-text-fill: #FE5858;
-     -fx-background-radius: 5;
-     -fx-border-radius: 5;
+     -fx-background-radius: 8;
+     -fx-border-radius: 8;
      -fx-border-color: #FE5858;
      -fx-border-width: 3;
  }

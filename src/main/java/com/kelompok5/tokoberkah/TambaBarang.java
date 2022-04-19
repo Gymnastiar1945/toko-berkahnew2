@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -163,6 +164,53 @@ public class TambaBarang implements Initializable {
                 }
 //                kosong();
 
+        }
+    }
+
+    @FXML
+    void autokdbar (ActionEvent event) {
+        String kktgr = "";
+        try {
+            String sql = "SELECT id_kategori from kategori "
+                    + "where jenis = '"+ktgr.getSelectionModel().getSelectedItem()+"';";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            rs.next();
+            kktgr = rs.getString("id_kategori");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            //--> melakukan eksekusi query untuk mengambil data dari tabel
+            String sql = "SELECT MAX(id_barang) FROM barang" +
+                    " WHERE id_kategori ='"+kktgr+"' ;" ;
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            while (rs.next()) {
+                if (rs.getString(1) == null) {
+                    kdbar.setText(kktgr+"001");
+                } else {
+                    rs.last();
+                    String auto = rs.getString(1);
+                    auto = auto.replace(kktgr,"");
+                    int auto_id = Integer.parseInt(auto) +1;
+                    String no = String.valueOf(auto_id);
+                    int NomorJual = no.length();
+                    //MENGATUR jumlah 0
+                    for (int j = 0; j < 3 - NomorJual; j++) {
+                        no = "0" + no;
+                    }
+                    kdbar.setText(kktgr+no);
+                }
+            }
+            rs.close();
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

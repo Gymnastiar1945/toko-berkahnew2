@@ -240,22 +240,22 @@
             </Button>
             <Label layoutX="17.0" layoutY="15.0" prefHeight="27.0" prefWidth="103.0" text="Kode Retur">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="17.0" layoutY="77.0" prefHeight="27.0" prefWidth="169.0" text="Supplier">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="17.0" layoutY="138.0" prefHeight="27.0" prefWidth="133.0" text="Nomor Telepon">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="17.0" layoutY="199.0" prefHeight="27.0" prefWidth="103.0" text="Alamat">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <TextField fx:id="txtnama1" layoutX="15.0" layoutY="42.0" prefHeight="30.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
@@ -270,7 +270,6 @@
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
          <children>
-            <Label layoutX="14.0" layoutY="9.0" prefHeight="34.0" prefWidth="539.0" style="-fx-border-width: 3; -fx-border-radius: 8;" />
             <TextField layoutX="54.0" layoutY="9.0" prefHeight="34.0" prefWidth="496.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
             <Label layoutX="26.0" layoutY="9.0" prefHeight="34.0" prefWidth="36.0" style="-fx-background-color: #46CC59; -fx-background-radius: 8 0 0 8;" />
             <ImageView fitHeight="27.0" fitWidth="38.0" layoutX="30.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">

@@ -250,70 +250,79 @@ public class gudang implements Initializable {
 //        stage.setScene(scene);
 //        stage.initStyle(StageStyle.TRANSPARENT);
 //        stage.show();
-        String kodebar = labelkdbar.getText();
-        String enamabar = "", ekdbat = "", ektgr = "", eektgr = "", eqty = "", esatuan = "", eesatuan = "", ehargabar = "";
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("editBarang.fxml"));
-        root = loader.load();
+        if (labelkdbar.getText() == ""){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Kode kosong");
+            alert.setHeaderText("Barang belum dipilih");
+            alert.setContentText("Pilih dahulu barang yang ingin diedit");
+            alert.showAndWait();
+        } else {
+            String kodebar = labelkdbar.getText();
+            String enamabar = "", ekdbat = "", ektgr = "", eektgr = "", eqty = "", esatuan = "", eesatuan = "", ehargabar = "";
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("editBarang.fxml"));
+            root = loader.load();
 
-        EditBarang  Editbarang = loader.getController();
-        try {
-            String sql = "SELECT * from barang "
-                    +"where id_barang='"+labelkdbar.getText()+"';";
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-            java.sql.ResultSet rs = pst.executeQuery(sql);
-            rs.next();
-            enamabar= (rs.getString("nama_barang"));
-            ekdbat = (rs.getString("barcode"));
-            ektgr = (rs.getString("id_kategori"));
-            eqty = (rs.getString("jumlah"));
-            esatuan = (rs.getString("id_satuan"));
-            ehargabar = (rs.getString("harga_jual"));
+            EditBarang  Editbarang = loader.getController();
+            try {
+                String sql = "SELECT * from barang "
+                        +"where id_barang='"+labelkdbar.getText()+"';";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                enamabar= (rs.getString("nama_barang"));
+                ekdbat = (rs.getString("barcode"));
+                ektgr = (rs.getString("id_kategori"));
+                eqty = (rs.getString("jumlah"));
+                esatuan = (rs.getString("id_satuan"));
+                ehargabar = (rs.getString("harga_jual"));
 
-        } catch (SQLException e) {
+            } catch (SQLException e) {
+            }
+            try {
+                String sql = "SELECT jenis from kategori "
+                        + "where id_kategori = '"+ektgr+"';";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                eektgr = rs.getString("jenis");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                String sql = "SELECT satuan from satuan "
+                        + "where id_satuan = '"+esatuan+"';";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                eesatuan = rs.getString("satuan");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            Editbarang.kdbar.setText(kodebar);
+            Editbarang.namabar.setText(enamabar);
+            Editbarang.kdbat.setText(ekdbat);
+            Editbarang.ktgr.setValue(eektgr);
+            Editbarang.qty.setText(eqty);
+            Editbarang.satuan.setValue(eesatuan);
+            Editbarang.hargabar.setText(ehargabar);
+
+
+
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.show();
         }
-        try {
-            String sql = "SELECT jenis from kategori "
-                    + "where id_kategori = '"+ektgr+"';";
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-            java.sql.ResultSet rs = pst.executeQuery(sql);
-            rs.next();
-            eektgr = rs.getString("jenis");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            String sql = "SELECT satuan from satuan "
-                    + "where id_satuan = '"+esatuan+"';";
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-            java.sql.ResultSet rs = pst.executeQuery(sql);
-            rs.next();
-            eesatuan = rs.getString("satuan");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        Editbarang.kdbar.setText(kodebar);
-        Editbarang.namabar.setText(enamabar);
-        Editbarang.kdbat.setText(ekdbat);
-        Editbarang.ktgr.setValue(eektgr);
-        Editbarang.qty.setText(eqty);
-        Editbarang.satuan.setValue(eesatuan);
-        Editbarang.hargabar.setText(ehargabar);
-
-
-
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.show();
     }
+
 
     @FXML
     void hpsbarklik(ActionEvent event) {
