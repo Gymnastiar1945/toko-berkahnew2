@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
    <children>
       <VBox layoutY="106.0" prefHeight="614.0" prefWidth="264.0" style="-fx-background-color: #FFF;">
          <children>
@@ -356,12 +356,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="144.0" layoutY="14.0" text="TR000001" textFill="#303841">
+            <Label fx:id="bkdtrans" layoutX="144.0" layoutY="14.0" text="TR000001" textFill="#303841">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="btndtlTrans" layoutX="260.0" layoutY="7.0" mnemonicParsing="false" onAction="#btndtlTransact" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
+            <Button fx:id="bcaribar" layoutX="260.0" layoutY="7.0" mnemonicParsing="false" onAction="#bcaribaract" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -369,12 +369,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label layoutX="692.0" layoutY="13.0" text="16 September 2022" textFill="#303841">
+            <Label fx:id="btgl" layoutX="692.0" layoutY="13.0" text="16 September 2022" textFill="#303841">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="btndtlTrans1" layoutX="884.0" layoutY="8.0" mnemonicParsing="false" onAction="#btndtlTransact" prefHeight="35.0" prefWidth="78.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Beli" textFill="WHITE">
+            <Button fx:id="bswitch" layoutX="884.0" layoutY="8.0" mnemonicParsing="false" onAction="#bswitchact" prefHeight="35.0" prefWidth="78.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Beli" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -386,19 +386,19 @@
       </Pane>
       <Pane fx:id="belikiri" layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="552.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
          <children>
-            <ComboBox layoutX="16.0" layoutY="40.0" prefHeight="35.0" prefWidth="518.0" stylesheets="@css/main.css" />
+            <ComboBox fx:id="bsup" layoutX="16.0" layoutY="40.0" prefHeight="35.0" prefWidth="518.0" stylesheets="@css/main.css" />
             <Label layoutX="17.0" layoutY="10.0" text="Supplier" textFill="#303841">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TableView fx:id="tablebeli" layoutX="16.0" layoutY="98.0" prefHeight="400.0" prefWidth="519.0" stylesheets="@css/main.css">
+            <TableView fx:id="tablebeli" layoutX="16.0" layoutY="98.0" onMouseClicked="#tablebeliklik" prefHeight="400.0" prefWidth="519.0" stylesheets="@css/main.css">
               <columns>
-                <TableColumn minWidth="100.0" prefWidth="100.0" text="Kode Barang" />
-                <TableColumn minWidth="100.0" prefWidth="100.0" text="Nama Barang" />
-                  <TableColumn minWidth="100.0" prefWidth="100.0" text="Harga" />
-                  <TableColumn minWidth="100.0" prefWidth="100.0" text="Kuantitas" />
-                  <TableColumn minWidth="100.0" prefWidth="100.0" text="Subtotal" />
+                <TableColumn fx:id="bkdbar" minWidth="100.0" prefWidth="100.0" text="Kode Barang" />
+                <TableColumn fx:id="bnamabar" minWidth="100.0" prefWidth="100.0" text="Nama Barang" />
+                  <TableColumn fx:id="bharga" minWidth="100.0" prefWidth="100.0" text="Harga" />
+                  <TableColumn fx:id="bqty" minWidth="100.0" prefWidth="100.0" text="Kuantitas" />
+                  <TableColumn fx:id="btotal" minWidth="100.0" prefWidth="100.0" text="Subtotal" />
               </columns>
             </TableView>
          </children>
@@ -410,7 +410,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="18.0" layoutY="42.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <Label fx:id="btfkdbar" layoutX="18.0" layoutY="42.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="16.0" />
                </font>
@@ -420,7 +420,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="18.0" layoutY="102.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <Label fx:id="btfnamabar" layoutX="18.0" layoutY="102.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="16.0" />
                </font>
@@ -430,7 +430,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="18.0" layoutY="162.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="btfharga" layoutX="18.0" layoutY="162.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="14.0" />
                </font>
@@ -440,7 +440,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="18.0" layoutY="222.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="btfqty" layoutX="18.0" layoutY="222.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="14.0" />
                </font>
@@ -450,12 +450,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="18.0" layoutY="282.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <Label fx:id="btftotal" layoutX="18.0" layoutY="282.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="btndtlTrans11" layoutX="18.0" layoutY="339.0" mnemonicParsing="false" onAction="#btndtlTransact" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
+            <Button fx:id="btambahbar" layoutX="18.0" layoutY="339.0" mnemonicParsing="false" onAction="#btambahbaract" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -463,7 +463,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btndtlTrans111" layoutX="17.0" layoutY="393.0" mnemonicParsing="false" onAction="#btndtlTransact" prefHeight="35.0" prefWidth="177.0" style="-fx-background-radius: 8;" styleClass="button-oranye" stylesheets="@css/main.css" text="Edit Barang" textFill="WHITE">
+            <Button fx:id="beditbar" layoutX="17.0" layoutY="393.0" mnemonicParsing="false" onAction="#beditbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-background-radius: 8;" styleClass="button-oranye" stylesheets="@css/main.css" text="Edit Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -471,7 +471,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btndtlTrans1111" layoutX="214.0" layoutY="393.0" mnemonicParsing="false" onAction="#btndtlTransact" prefHeight="35.0" prefWidth="177.0" style="-fx-background-radius: 8;" styleClass="button-merah" stylesheets="@css/main.css" text="Hapus Barang" textFill="WHITE">
+            <Button fx:id="bhpsbar" layoutX="214.0" layoutY="393.0" mnemonicParsing="false" onAction="#bhpsbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-background-radius: 8;" styleClass="button-merah" stylesheets="@css/main.css" text="Hapus Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -479,7 +479,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btndtlTrans112" layoutX="18.0" layoutY="445.0" mnemonicParsing="false" onAction="#btndtlTransact" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Checkout" textFill="WHITE">
+            <Button fx:id="bcheckout" layoutX="18.0" layoutY="445.0" mnemonicParsing="false" onAction="#bcheckoutact" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Checkout" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -489,24 +489,24 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="popupbeli" layoutX="379.0" layoutY="126.0" prefHeight="575.0" prefWidth="783.0" style="-fx-background-color: grey; -fx-background-radius: 8;" visible="false">
+      <Pane fx:id="popupbeli" layoutX="379.0" layoutY="126.0" prefHeight="575.0" prefWidth="783.0" style="-fx-background-color: grey; -fx-background-radius: 8;">
          <children>
-            <TextField layoutX="81.0" layoutY="31.0" prefHeight="41.0" prefWidth="658.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
+            <TextField fx:id="popbelicari" layoutX="81.0" layoutY="31.0" onKeyReleased="#popbelicarikey" prefHeight="41.0" prefWidth="658.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
             <Label layoutX="46.0" layoutY="31.0" prefHeight="34.0" prefWidth="36.0" style="-fx-background-color: #46CC59; -fx-background-radius: 8 0 0 8;" />
             <ImageView fitHeight="27.0" fitWidth="38.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/vector/Vector.png" />
                </image>
             </ImageView>
-            <TableView layoutX="46.0" layoutY="86.0" prefHeight="362.0" prefWidth="691.0" stylesheets="@css/main.css">
+            <TableView fx:id="tablepopbeli" layoutX="46.0" layoutY="86.0" onMouseClicked="#tablepopbeliklik" prefHeight="362.0" prefWidth="691.0" stylesheets="@css/main.css">
               <columns>
-                <TableColumn minWidth="153.0" prefWidth="153.0" text="Kode Barang" />
-                <TableColumn minWidth="258.0" prefWidth="258.0" text="Nama Barang" />
-                  <TableColumn minWidth="153.0" prefWidth="153.0" text="Harga" />
-                  <TableColumn minWidth="127.0" prefWidth="127.0" text="Stok" />
+                <TableColumn fx:id="popbkdbar" minWidth="153.0" prefWidth="153.0" text="Kode Barang" />
+                <TableColumn fx:id="popbnamabar" minWidth="258.0" prefWidth="258.0" text="Nama Barang" />
+                  <TableColumn fx:id="popbharga" minWidth="153.0" prefWidth="153.0" text="Harga" />
+                  <TableColumn fx:id="popbqty" minWidth="127.0" prefWidth="127.0" text="Stok" />
               </columns>
             </TableView>
-            <Button fx:id="btndtlTrans113" layoutX="585.0" layoutY="448.0" mnemonicParsing="false" onAction="#btndtlTransact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
+            <Button fx:id="popbtambahbar" layoutX="585.0" layoutY="448.0" mnemonicParsing="false" onAction="#popbtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -514,7 +514,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btndtlTrans1131" layoutX="585.0" layoutY="503.0" mnemonicParsing="false" onAction="#btndtlTransact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Selesai" textFill="WHITE">
+            <Button fx:id="popbend" layoutX="585.0" layoutY="503.0" mnemonicParsing="false" onAction="#popbendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Selesai" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
