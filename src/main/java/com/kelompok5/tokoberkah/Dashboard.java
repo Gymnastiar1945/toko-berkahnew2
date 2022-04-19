@@ -64,6 +64,7 @@ public class Dashboard extends App implements Initializable {
     @FXML
     private Pane panetrans;
 
+    //menu
     @FXML
     private Label logout;
 
@@ -84,6 +85,18 @@ public class Dashboard extends App implements Initializable {
 
     @FXML
     private Label menutrans;
+
+    @FXML
+    private Label blnpenda;
+
+    @FXML
+    private Label blnpenge;
+
+    @FXML
+    private Label blnpendachart;
+
+    @FXML
+    private Label blnpengechart;
 
     @FXML
     private TableView<tbl_dbbarang> table_dbbarang;
@@ -173,6 +186,59 @@ public class Dashboard extends App implements Initializable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM");
         LocalDateTime tanggal = LocalDateTime.now();
         String a = (dtf.format(tanggal));
+        int b = Integer.parseInt(a);
+        switch (b) {
+            case 1:
+                blnpenda.setText("Januari");
+                blnpenge.setText("Januari");
+                break;
+            case 2:
+                blnpenda.setText("Februari");
+                blnpenge.setText("Februari");
+                break;
+            case 3:
+                blnpenda.setText("Maret");
+                blnpenge.setText("Maret");
+                break;
+            case 4:
+                blnpenda.setText("April");
+                blnpenge.setText("April");
+                break;
+            case 5:
+                blnpenda.setText("Mei");
+                blnpenge.setText("Mei");
+                break;
+            case 6:
+                blnpenda.setText("Juni");
+                blnpenge.setText("Juni");
+                break;
+            case 7:
+                blnpenda.setText("Juli");
+                blnpenge.setText("Juli");
+                break;
+            case 8:
+                blnpenda.setText("Agustus");
+                blnpenge.setText("Agustus");
+                break;
+            case 9:
+                blnpenda.setText("September");
+                blnpenge.setText("September");
+                break;
+            case 10:
+                blnpenda.setText("Oktober");
+                blnpenge.setText("Oktober");
+                break;
+            case 11:
+                blnpenda.setText("November");
+                blnpenge.setText("November");
+                break;
+            case 12:
+                blnpenda.setText("Desember");
+                blnpenge.setText("Desember");
+                break;
+        }
+        blnpendachart.setText(blnpenda.getText());
+        blnpengechart.setText(blnpenda.getText());
         try {
             String sql = "SELECT sum(total_bayar) as total from penjualan "
                     + "where tanggal_transaksi between '2021-"+a+"-01' and '2022-"+a+"-31'";

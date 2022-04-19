@@ -92,8 +92,6 @@ public class KaryawanPopup extends App implements Initializable {
                 alert.showAndWait();
             }
         }
-        Karyawan krywn = new Karyawan();
-        krywn.test();
     }
 
     private void kosong() {

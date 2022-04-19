@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -63,6 +64,9 @@ public class Karyawan extends App implements Initializable {
     private TextField txtalamat;
 
     @FXML
+    private TextField carikar;
+
+    @FXML
     private Label txtid;
 
     @FXML
@@ -77,6 +81,26 @@ public class Karyawan extends App implements Initializable {
     @FXML
     private Label dashboard;
 
+    @FXML
+    private Label menugudang;
+
+    @FXML
+    private Label menukar;
+
+    @FXML
+    private Label menuretur;
+
+    @FXML
+    private Label menuriwayat;
+
+    @FXML
+    private Label menuset;
+
+    @FXML
+    private Label menutrans;
+
+    @FXML
+    private Label menudash;
 
 
 //    public  String[] status = {"Admin","Karyawan"};
@@ -240,7 +264,37 @@ public class Karyawan extends App implements Initializable {
     }
 
     @FXML
-    void menudash(MouseEvent event) throws IOException {
+    void carikarkey(KeyEvent event) {
+        ObservableList<tbl_karyawan> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select * from pengguna "
+                    + "where nama_pengguna like '%" + carikar.getText() + "%'";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                list.add(new tbl_karyawan(res.getString("id_pengguna"),
+                        res.getString("nama_pengguna"),
+                        res.getString("telp_pengguna"),
+                        res.getString("alamat_pengguna"),
+                        res.getString("jenis_pengguna"),
+                        res.getString("password")));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        idkar.setCellValueFactory(new PropertyValueFactory<tbl_karyawan, String>("idkar"));
+        namakar.setCellValueFactory(new PropertyValueFactory<tbl_karyawan, String>("namakar"));
+        nomorkar.setCellValueFactory(new PropertyValueFactory<tbl_karyawan, String>("nomorkar"));
+        alamatkar.setCellValueFactory(new PropertyValueFactory<tbl_karyawan, String>("alamatkar"));
+        jeniskar.setCellValueFactory(new PropertyValueFactory<tbl_karyawan, String>("jeniskar"));
+        pwkar.setCellValueFactory(new PropertyValueFactory<tbl_karyawan, String>("pwkar"));
+        table_karyawan.setItems(list);
+    }
+
+    @FXML
+    void menudashklik(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -248,8 +302,58 @@ public class Karyawan extends App implements Initializable {
         stage.show();
     }
 
-    public void test() {
-        System.out.println("kjhaskjd");
+    @FXML
+    void menugudangklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("gudang.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menukarklik(MouseEvent event) throws IOException {
+//        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+    }
+
+    @FXML
+    void menureturklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menuriwayatklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menusetklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menutransklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
 

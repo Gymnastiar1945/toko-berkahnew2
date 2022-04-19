@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -88,6 +89,34 @@ public class gudang implements Initializable {
     @FXML
     private Label labelqty;
 
+    @FXML
+    private TextField caribar;
+
+    //menu
+    @FXML
+    private Label logout;
+
+    @FXML
+    private Label menudash;
+
+    @FXML
+    private Label menugudang;
+
+    @FXML
+    private Label menukar;
+
+    @FXML
+    private Label menuretur;
+
+    @FXML
+    private Label menuriwayat;
+
+    @FXML
+    private Label menuset;
+
+    @FXML
+    private Label menutrans;
+
     //sup
     @FXML
     private Pane panesupatas;
@@ -138,6 +167,9 @@ public class gudang implements Initializable {
     private TextField txtnomorsup;
 
     @FXML
+    private TextField carisup;
+
+    @FXML
     private Label back;
 
     @Override
@@ -155,6 +187,36 @@ public class gudang implements Initializable {
         ObservableList<tbl_gudang> list = FXCollections.observableArrayList();
         try {
             String sql = "select * from barang ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                list.add(new tbl_gudang(res.getString("id_barang"),
+                        res.getString("nama_barang"),
+                        res.getString("id_kategori"),
+                        res.getDouble("jumlah"),
+                        res.getString("id_satuan"),
+                        res.getInt("harga_jual")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        kdbar.setCellValueFactory(new PropertyValueFactory<tbl_gudang, String>("kdbar"));
+        namabar.setCellValueFactory(new PropertyValueFactory<tbl_gudang, String>("namabar"));
+        ktgr.setCellValueFactory(new PropertyValueFactory<tbl_gudang, String>("ktgr"));
+        qty.setCellValueFactory(new PropertyValueFactory<tbl_gudang, Double>("qty"));
+        satuan.setCellValueFactory(new PropertyValueFactory<tbl_gudang, String>("satuan"));
+        harga.setCellValueFactory(new PropertyValueFactory<tbl_gudang, Integer>("harga"));
+        table_bar.setItems(list);
+    }
+
+    @FXML
+    void caribarkey(KeyEvent event) {
+        ObservableList<tbl_gudang> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select * from barang "
+                    + "where nama_barang like '%" + caribar.getText() + "%'" ;
             Connection conn = (Connection) Config.configDB();
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
@@ -255,7 +317,48 @@ public class gudang implements Initializable {
 
     @FXML
     void hpsbarklik(ActionEvent event) {
+        if (labelkdbar.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Kode kosong");
+            alert.setHeaderText("Kode Barang masih Kosong");
+            alert.setContentText("Pilih dahulu Kode barang yang ingin dihapus");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Konfirmasi Hapus");
+            alert.setHeaderText(null);
+            alert.setContentText("apakah anda yakin ingin menghapus Data barang dengan Kode "+labelkdbar.getText()+"?");
+            Optional <ButtonType> action = alert.showAndWait();
 
+            if (action.get() == ButtonType.OK) {
+                try {
+                    String sql ="DELETE FROM barang where id_barang='"+labelkdbar.getText()+"'";
+                    java.sql.Connection conn=(Connection)Config.configDB();
+                    java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                    pst.execute();
+                    Alert newalert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Berhasil");
+                    alert.setHeaderText("Data berhasil dihapus");
+                    alert.setContentText("Data barang dengan Kode "+labelkdbar.getText()+" berhasil dihapus");
+                    alert.showAndWait();
+                } catch (Exception e) {
+                    Alert newalert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Gagal");
+                    alert.setHeaderText("penghapusan data barang gagal");
+                    alert.setContentText(e.getMessage());
+                    alert.showAndWait();
+                }
+                table_bar();
+                kosongbar();
+            }
+        }
+    }
+
+    void kosongbar() {
+        labelkdbar.setText(null);
+        labelharga.setText(null);
+        labelnamabar.setText(null);
+        labelqty.setText(null);
     }
 
     @FXML
@@ -430,6 +533,28 @@ public class gudang implements Initializable {
         alamatsup.setCellValueFactory(new PropertyValueFactory<tbl_sup, String>("alamatsup"));
         table_sup.setItems(list);
     }
+
+    @FXML
+    void carisupkey(KeyEvent event) {
+        ObservableList<tbl_gudang> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select * from supplier "
+                    + "where nama_supplier like '%" + carisup.getText() + "%'";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                list.add(new tbl_gudang(res.getString("id_barang"),
+                        res.getString("nama_barang"),
+                        res.getString("id_kategori"),
+                        res.getDouble("jumlah"),
+                        res.getString("id_satuan"),
+                        res.getInt("harga_jual")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     void table_suponclick(MouseEvent event) {
         ObservableList<tbl_sup> list;
@@ -493,4 +618,66 @@ public class gudang implements Initializable {
         txtnomorsup.setText(null);
     }
 
+    @FXML
+    void menudashklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menugudangklik(MouseEvent event) throws IOException {
+//        Parent root = FXMLLoader.load(getClass().getResource("gudang.fxml"));
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+    }
+
+    @FXML
+    void menukarklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menureturklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menuriwayatklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menusetklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menutransklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

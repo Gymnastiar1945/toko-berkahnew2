@@ -40,6 +40,14 @@
     -fx-text-fill: #46CC59;
     -fx-font-size: 14px;
 }
+.label-off SVGPath:hover{
+    -fx-fill: #97E4A2;
+}
+
+.label-icon:hover {
+    -fx-font-size: 36px;
+    -fx-text-fill:#46CC59;
+}
 
 
 
@@ -120,17 +128,53 @@
 }
 .button-hijau:focused {
     -fx-font-size: 16;
+    -fx-text-fill: #FFF;
 }
 .button-oranye:focused{
     -fx-font-size: 16;
+    -fx-text-fill: #FFF;
 }
 .button-merah:focused{
     -fx-font-size: 16;
+    -fx-text-fill: #FFF;
 
 }
 .button-besar:focused{
     -fx-font-size: 18;
 }
+
+
+/*PRESSED*/
+
+.button-hijau:pressed{
+    -fx-font-size: 16;
+    -fx-background-color: #FFF;
+    -fx-text-fill: #46CC59;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #46CC59;
+    -fx-border-width: 3;
+}
+.button-oranye:pressed{
+    -fx-font-size: 16;
+    -fx-background-color: #FFF;
+    -fx-text-fill: #FF9A51;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #FF9A51;
+    -fx-border-width: 3;
+}
+.button-merah:pressed{
+     -fx-font-size: 16;
+     -fx-background-color: #FFF;
+     -fx-text-fill: #FE5858;
+     -fx-background-radius: 5;
+     -fx-border-radius: 5;
+     -fx-border-color: #FE5858;
+     -fx-border-width: 3;
+ }
+
+
 /*========================================*/
 /*table/
 /*========================================*/
@@ -181,7 +225,7 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #005797;
+    -fx-background-color: #FFB37D;
     -fx-background-insets: 0;
     -fx-background-radius: 1;
 }
@@ -303,10 +347,7 @@
 /*========================================*/
 /*Font*/
 /*========================================*/
-.label-icon {
-    -fx-font-size: 14;
-    -fx-fill: green;
-}
+
 /*========================================*/
 /*Chart*/
 /*========================================*/
