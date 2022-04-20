@@ -96,6 +96,11 @@
     -fx-font-size: 16;
     -fx-background-color: #EE3030;
 }
+.button-besar{
+    -fx-font-size: 18
+;
+    -fx-background-color: #46CC59;
+}
 
 /*HOVER*/
 .button-login:hover{

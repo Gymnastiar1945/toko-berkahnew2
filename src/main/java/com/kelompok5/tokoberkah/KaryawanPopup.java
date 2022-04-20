@@ -72,7 +72,7 @@ public class KaryawanPopup extends App implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Berhasil");
                     alert.setHeaderText("Data berhasil disimpan");
-                    alert.setContentText("Data User dengan ID "+txtid.getText()+" berhasil disimpan");
+                    alert.setContentText("Data Karyawan dengan ID "+txtid.getText()+" berhasil disimpan");
                     alert.showAndWait();
                     Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
                     stage.close();

@@ -28,7 +28,7 @@
                   <Insets bottom="20.0" left="21.0" top="15.0" />
                </VBox.margin>
             </Label>
-            <Label depthTest="DISABLE" prefHeight="26.0" prefWidth="246.0" text="   Overview" textFill="#46cc59">
+            <Label depthTest="DISABLE" prefHeight="26.0" prefWidth="246.0" styleClass="label-off" stylesheets="@css/main.css" text="   Overview" textFill="#757575">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -42,6 +42,9 @@
                <font>
                   <Font size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Label>
             <Label depthTest="DISABLE" layoutX="40.0" layoutY="175.0" prefHeight="1.0" prefWidth="254.0" stylesheets="@css/main.css" text="   Transaksi" textFill="#757575">
                <graphic>
@@ -101,7 +104,7 @@
                   <Insets bottom="20.0" left="21.0" />
                </VBox.margin>
             </Label>
-            <Label depthTest="DISABLE" layoutX="40.0" layoutY="356.0" prefHeight="0.0" prefWidth="412.0" styleClass="label-off" stylesheets="@css/main.css" text="   Retur Barang" textFill="#757575">
+            <Label depthTest="DISABLE" layoutX="40.0" layoutY="356.0" prefHeight="0.0" prefWidth="412.0" text="   Retur Barang" textFill="#46cc59">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -113,7 +116,7 @@
                   <Font size="14.0" />
                </font>
                <cursor>
-                  <Cursor fx:constant="HAND" />
+                  <Cursor fx:constant="DEFAULT" />
                </cursor>
                <VBox.margin>
                   <Insets bottom="25.0" left="21.0" />
@@ -265,7 +268,7 @@
             </TextField>
          </children>
       </Pane>
-      <Pane layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
+      <Pane layoutX="284.0" layoutY="126.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>

@@ -326,7 +326,7 @@ public class Dashboard extends App implements Initializable {
             String sql = "select barang.id_barang, barang.nama_barang, kategori.jenis, jumlah, satuan.satuan "
                     + "from barang join kategori on barang.id_kategori = kategori.id_kategori "
                     + "join satuan on barang.id_satuan = satuan.id_satuan "
-                    + "where jumlah<=500 ;";
+                    + "where jumlah<=5 ;";
             Connection conn = (Connection) Config.configDB();
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet res = stm.executeQuery(sql);

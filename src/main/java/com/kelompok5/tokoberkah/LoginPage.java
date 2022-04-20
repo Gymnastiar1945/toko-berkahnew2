@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -59,9 +60,15 @@ public class LoginPage extends App {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } else if (user_tipe.equals("kasir")) {
+                } else if (user_tipe.equals("Karyawan")) {
                     System.out.println("Error");
                 }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Gagal login");
+                alert.setHeaderText(null);
+                alert.setContentText("Username atau Password salah");
+                alert.showAndWait();
             }
         } catch (Exception e) {
             System.out.println("Error");

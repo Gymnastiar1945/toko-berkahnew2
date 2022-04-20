@@ -70,7 +70,17 @@ public class EditBarang implements Initializable {
     }
 
     private void isisatuan() {
-        ObservableList<String> list = FXCollections.observableArrayList("m","pcs");
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select * from satuan";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while (res.next()) {
+                list.add(res.getString("satuan"));
+            }
+        } catch (Exception e) {
+        }
         satuan.setItems(list);
     }
 

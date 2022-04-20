@@ -186,17 +186,19 @@ public class gudang implements Initializable {
     private void table_bar(){
         ObservableList<tbl_gudang> list = FXCollections.observableArrayList();
         try {
-            String sql = "select * from barang ;";
+            String sql = "select barang.id_barang, barang.nama_barang, kategori.jenis, jumlah, satuan.satuan, barang.harga_jual "
+                    + "from barang join kategori on barang.id_kategori = kategori.id_kategori "
+                    + "join satuan on barang.id_satuan = satuan.id_satuan ;" ;
             Connection conn = (Connection) Config.configDB();
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-                list.add(new tbl_gudang(res.getString("id_barang"),
-                        res.getString("nama_barang"),
-                        res.getString("id_kategori"),
-                        res.getDouble("jumlah"),
-                        res.getString("id_satuan"),
-                        res.getInt("harga_jual")));
+                list.add(new tbl_gudang(res.getString(1),
+                        res.getString(2),
+                        res.getString(3),
+                        res.getDouble(4),
+                        res.getString(5),
+                        res.getInt(6)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -378,7 +380,7 @@ public class gudang implements Initializable {
         panetabbar.setVisible(false);
         panebarkiri.setVisible(false);
         panebarkanan.setVisible(false);
-
+        autoidsup();
     }
 
     @FXML
@@ -574,6 +576,7 @@ public class gudang implements Initializable {
         txtnamasup.setText(list.get(0).getNamasup());
         txtnomorsup.setText(list.get(0).getNomorsup());
         txtalamatsup.setText(list.get(0).getAlamatsup());
+        btntmbhsup.setDisable(true);
     }
 
     @FXML
@@ -619,12 +622,45 @@ public class gudang implements Initializable {
         }
     }
 
+    void autoidsup() {
+        try {
+            //--> melakukan eksekusi query untuk mengambil data dari tabel
+            String sql = "SELECT MAX(id_supplier) FROM supplier" ;
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            while (rs.next()) {
+                if (rs.getString(1) == null) {
+                    txtidsup.setText("S"+"00001");
+                } else {
+                    rs.last();
+                    String auto = rs.getString(1);
+                    auto = auto.replace("S","");
+                    int auto_id = Integer.parseInt(auto) +1;
+                    String no = String.valueOf(auto_id);
+                    int NomorJual = no.length();
+                    //MENGATUR jumlah 0
+                    for (int j = 0; j < 5 - NomorJual; j++) {
+                        no = "0" + no;
+                    }
+                    txtidsup.setText("S"+no);
+                }
+            }
+            rs.close();
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void kosong() {
         txtidsup.setText("");
         txtidsup.setDisable(false);
         txtnamasup.setText(null);
         txtalamatsup.setText(null);
         txtnomorsup.setText(null);
+        btntmbhsup.setDisable(false);
+        autoidsup();
     }
 
     @FXML
