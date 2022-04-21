@@ -6,12 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +16,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Transaksi implements Initializable {
@@ -506,12 +502,39 @@ public class Transaksi implements Initializable {
 
     @FXML
     void popbendact(ActionEvent event) {
-
+        popupbeli.setVisible(false);
     }
 
     @FXML
     void popbtambahbaract(ActionEvent event) {
+        ObservableList<tbl_transpopbeli> list;
+        list=tablepopbeli.getSelectionModel().getSelectedItems();
 
+        if (String.valueOf(list) == "[]") {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Kode kosong");
+            alert.setHeaderText("Kode Barang masih Kosong");
+            alert.setContentText("Pilih dahulu Kode barang dari tabel");
+            alert.showAndWait();
+        } else {
+            btfkdbar.setText(list.get(0).getPopbkdbar());
+            btfnamabar.setText(list.get(0).getPopbnamabar());
+            popupbeli.setVisible(false);
+        }
+    }
+
+    @FXML
+    void btfqtykey(KeyEvent event) {
+        if (Objects.equals(btfharga.getText(), "")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Harga kosong");
+            alert.setHeaderText(null);
+            alert.setContentText("Form harga belum diisi");
+        } else {
+            int hrg = Integer.parseInt(btfharga.getText());
+            double qty = Double.parseDouble(btfqty.getText()), tot = hrg*qty;
+            btftotal.setText(String.valueOf(tot));
+        }
     }
 
     @FXML

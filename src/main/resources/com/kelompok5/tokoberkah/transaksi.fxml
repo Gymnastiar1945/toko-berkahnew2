@@ -375,7 +375,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="bcaribar" layoutX="260.0" layoutY="7.0" mnemonicParsing="false" onAction="#bcaribaract" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
+            <Button fx:id="bcaribar" layoutX="337.0" layoutY="7.0" mnemonicParsing="false" onAction="#bcaribaract" prefHeight="35.0" prefWidth="297.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -417,7 +417,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="belikanan" layoutX="853.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
+      <Pane fx:id="belikanan" layoutX="853.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
          <children>
             <Label layoutX="18.0" layoutY="15.0" text="Kode Barang" textFill="#303841">
                <font>
@@ -454,7 +454,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="btfqty" layoutX="18.0" layoutY="222.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="btfqty" layoutX="18.0" layoutY="222.0" onKeyReleased="#btfqtykey" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="14.0" />
                </font>
@@ -528,7 +528,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="popbend" layoutX="585.0" layoutY="503.0" mnemonicParsing="false" onAction="#popbendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Selesai" textFill="WHITE">
+            <Button fx:id="popbend" layoutX="585.0" layoutY="503.0" mnemonicParsing="false" onAction="#popbendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
