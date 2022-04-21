@@ -141,7 +141,7 @@ public class EditBarang implements Initializable {
                 pstl.execute();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Berhasil");
-                alert.setHeaderText("Data berhasil disimpan");
+                alert.setHeaderText("Data berhasil diubah");
                 alert.setContentText("Data Barang dengan Kode "+kdbar.getText()+" berhasil diubah");
                 alert.showAndWait();
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

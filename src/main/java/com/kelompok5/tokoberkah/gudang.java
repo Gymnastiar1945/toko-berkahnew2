@@ -348,16 +348,16 @@ public class gudang implements Initializable {
                     java.sql.PreparedStatement pst=conn.prepareStatement(sql);
                     pst.execute();
                     Alert newalert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Berhasil");
-                    alert.setHeaderText("Data berhasil dihapus");
-                    alert.setContentText("Data barang dengan Kode "+labelkdbar.getText()+" berhasil dihapus");
-                    alert.showAndWait();
+                    newalert.setTitle("Berhasil");
+                    newalert.setHeaderText("Data berhasil dihapus");
+                    newalert.setContentText("Data barang dengan Kode "+labelkdbar.getText()+" berhasil dihapus");
+                    newalert.showAndWait();
                 } catch (Exception e) {
                     Alert newalert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Gagal");
-                    alert.setHeaderText("penghapusan data barang gagal");
-                    alert.setContentText(e.getMessage());
-                    alert.showAndWait();
+                    newalert.setTitle("Gagal");
+                    newalert.setHeaderText("penghapusan data barang gagal");
+                    newalert.setContentText(e.getMessage());
+                    newalert.showAndWait();
                 }
                 table_bar();
                 kosongbar();
@@ -504,16 +504,16 @@ public class gudang implements Initializable {
                     java.sql.PreparedStatement pst=conn.prepareStatement(sql);
                     pst.execute();
                     Alert newalert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Berhasil");
-                    alert.setHeaderText("Data berhasil dihapus");
-                    alert.setContentText("Data Supplier dengan ID "+txtidsup.getText()+" berhasil dihapus");
-                    alert.showAndWait();
+                    newalert.setTitle("Berhasil");
+                    newalert.setHeaderText("Data berhasil dihapus");
+                    newalert.setContentText("Data Supplier dengan ID "+txtidsup.getText()+" berhasil dihapus");
+                    newalert.showAndWait();
                 } catch (Exception e) {
                     Alert newalert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Gagal");
-                    alert.setHeaderText("penghapusan data gagal");
-                    alert.setContentText(e.getMessage());
-                    alert.showAndWait();
+                    newalert.setTitle("Gagal");
+                    newalert.setHeaderText("penghapusan data gagal");
+                    newalert.setContentText(e.getMessage());
+                    newalert.showAndWait();
                 }
                 setTable_sup();
                 kosong();

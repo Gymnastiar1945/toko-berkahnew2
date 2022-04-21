@@ -6,17 +6,20 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Transaksi implements Initializable {
@@ -84,7 +87,7 @@ public class Transaksi implements Initializable {
     private Label btgl;
 
     @FXML
-    private TableColumn<tbl_transbeli, Integer> btotal;
+    private TableColumn<tbl_transbeli, Double> btotal;
 
     @FXML
     private Pane checkoutatas;
@@ -286,6 +289,7 @@ public class Transaksi implements Initializable {
         setBkdtrans();
         setBtgl();
         setBsup();
+        setTablebeli();
     }
 
     void setBkdtrans() {
@@ -391,7 +395,47 @@ public class Transaksi implements Initializable {
     }
 
     void setTablebeli() {
+        ObservableList<tbl_transbeli> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select cart_pembelian.id_barang, barang.nama_barang, " +
+                    "cart_pembelian.harga_beli, cart_pembelian.qty, cart_pembelian.harga_total " +
+                    "from cart_pembelian join barang on cart_pembelian.id_barang = barang.id_barang"
+                    + " where id_pembelian = '"+bkdtrans.getText()+"' ;" ;
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                list.add(new tbl_transbeli(res.getString(1),
+                        res.getString(2),
+                        res.getInt(3),
+                        res.getDouble(4),
+                        res.getDouble(5)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        bkdbar.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bkdbar"));
+        bnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bnamabar"));
+        bharga.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Integer>("bharga"));
+        bqty.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Double>("bqty"));
+        btotal.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Double>("btotal"));
+        tablebeli.setItems(list);
+    }
+
+    @FXML
+    void tablebeliklik(MouseEvent event) {
+        ObservableList<tbl_transbeli> list;
+        list=tablebeli.getSelectionModel().getSelectedItems();
+
+        btfkdbar.setText(list.get(0).getBkdbar());
+        btfnamabar.setText(list.get(0).getBnamabar());
+        String hrg = String.valueOf(list.get(0).getBharga());
+        btfharga.setText(hrg);
+        String qty = String.valueOf(list.get(0).getBqty());
+        btfqty.setText(qty);
+        String tot = String.valueOf(list.get(0).getBtotal());
+        btftotal.setText(tot);
     }
 
     @FXML
@@ -407,12 +451,58 @@ public class Transaksi implements Initializable {
 
     @FXML
     void beditbaract(ActionEvent event) {
-
+        try {
+            String sqll = "UPDATE cart_pembelian "
+                    + "SET harga_beli = '"+btfharga.getText()
+                    +"', qty = '" +btfqty.getText()
+                    +"', harga_total = '"+btftotal.getText()
+                    +"' WHERE cart_pembelian.id_barang = '"+btfkdbar.getText()+"'";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+            pstl.execute();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Gagal");
+            alert.setHeaderText("Data gagal diedit!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+        bkosong();
+        setTablebeli();
     }
 
     @FXML
     void bhpsbaract(ActionEvent event) {
+        if (btfkdbar.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Kode kosong");
+            alert.setHeaderText("Kode Barang masih Kosong");
+            alert.setContentText("Pilih dahulu barang yang ingin dihapus");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Konfirmasi Hapus");
+            alert.setHeaderText(null);
+            alert.setContentText("apakah anda yakin ingin menghapus Data pembelian barang dengan Kode "+btfkdbar.getText()+"?");
+            Optional<ButtonType> action = alert.showAndWait();
 
+            if (action.get() == ButtonType.OK) {
+                try {
+                    String sql ="DELETE FROM cart_pembelian where id_barang='"+btfkdbar.getText()+"'";
+                    java.sql.Connection conn=(Connection)Config.configDB();
+                    java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                    pst.execute();
+                } catch (Exception e) {
+                    Alert newalert = new Alert(Alert.AlertType.WARNING);
+                    newalert.setTitle("Gagal");
+                    newalert.setHeaderText("penghapusan data pembelian barang gagal");
+                    newalert.setContentText(e.getMessage());
+                    newalert.showAndWait();
+                }
+            }
+            setTablebeli();
+            bkosong();
+        }
     }
 
     @FXML
@@ -422,6 +512,49 @@ public class Transaksi implements Initializable {
 
     @FXML
     void btambahbaract(ActionEvent event) {
+        if (bkdbar.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(" kosong");
+            alert.setHeaderText("Kode Barang masih Kosong");
+            alert.setContentText("Pilih Barang terlebih dahulu!");
+            alert.showAndWait();
+        } else {
+            try {
+                String sqll = "INSERT INTO `cart_pembelian` (`id_pembelian`, `id_barang`, `harga_beli`, `qty`, `harga_total`)" +
+                        " VALUES ('"+bkdtrans.getText()+"', '"
+                        +btfkdbar.getText()+"', '"
+                        +btfharga.getText()+"', '"
+                        +btfqty.getText()+"', '"
+                        +btftotal.getText()+"'); ";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+                pstl.execute();
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("Berhasil");
+//                alert.setHeaderText("Data berhasil disimpan");
+//                alert.setContentText("Data Barang dengan Kode "+bkdbar.getText()+" berhasil disimpan");
+//                alert.showAndWait();
+//                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                stage.close();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Gagal");
+                alert.setHeaderText("Data gagal ditambah!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+            bkosong();
+            setTablebeli();
+
+        }
+    }
+
+    void bkosong() {
+        btfkdbar.setText("");
+        btfnamabar.setText(null);
+        btfharga.setText(null);
+        btfqty.setText(null);
+        btftotal.setText(null);
 
     }
 
@@ -547,10 +680,7 @@ public class Transaksi implements Initializable {
 
     }
 
-    @FXML
-    void tablebeliklik(MouseEvent event) {
 
-    }
 
     @FXML
     void tablejualklik(MouseEvent event) {

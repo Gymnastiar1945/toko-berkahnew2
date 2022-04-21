@@ -72,6 +72,21 @@
     -fx-font-size: 18px;
 }
 
+.field-list {
+    /*-fx-font-family: "Poppins";*/
+    -fx-padding: 0 0 0 5;
+    -fx-border-radius: 5px;
+    -fx-background-color: #FFF;
+    -fx-border-color: #B4B4B4;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+}
+.field-list:focused{
+
+    -fx-border-color: #ff5722;
+    -fx-font-size: 14px;
+}
+
 
 
 
@@ -165,7 +180,7 @@
 
 }
 .button-oranye:pressed{
-    -fx-font-size: 16;
+    -fx-font-size: 14;
     -fx-background-color: #FFF;
     -fx-text-fill: #FF9A51;
     -fx-background-radius: 8;
@@ -174,7 +189,7 @@
     -fx-border-width: 3;
 }
 .button-merah:pressed{
-     -fx-font-size: 16;
+     -fx-font-size: 14;
      -fx-background-color: #FFF;
      -fx-text-fill: #FE5858;
      -fx-background-radius: 8;
@@ -285,19 +300,6 @@
     -fx-font-size: 16px;
 }
 
-.field-list {
-    /*-fx-font-family: "Poppins";*/
-    -fx-border-radius: 5px;
-    -fx-background-color: #FFF;
-    -fx-border-color: #B4B4B4;
-    -fx-border-width: 2px;
-    -fx-border-style: solid;
-}
-.field-list:focused{
-
-    -fx-border-color: #ff5722;
-    -fx-font-size: 14px;
-}
 /*========================================*/
 /*ComboBox*/
 /*========================================*/
