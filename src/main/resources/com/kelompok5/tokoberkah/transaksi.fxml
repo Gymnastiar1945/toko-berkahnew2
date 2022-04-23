@@ -611,9 +611,9 @@
                <columns>
                   <TableColumn fx:id="co_kdbar" minWidth="130.0" prefWidth="144.0" text="Kode Barang" />
                   <TableColumn fx:id="co_namabar" minWidth="166.0" prefWidth="196.0" text="Nama Barang" />
-                  <TableColumn fx:id="co_harga1" minWidth="60.0" prefWidth="132.0" text="Harga" />
+                  <TableColumn fx:id="co_harga" minWidth="60.0" prefWidth="132.0" text="Harga" />
                   <TableColumn fx:id="co_qty" minWidth="0.0" prefWidth="138.0" text="Kuantitas" />
-                  <TableColumn fx:id="co_harga" minWidth="31.0" prefWidth="145.0" text="Satuan" />
+                  <TableColumn fx:id="co_satuan" minWidth="31.0" prefWidth="145.0" text="Satuan" />
                   <TableColumn fx:id="co_total" minWidth="62.0" prefWidth="180.0" text="Subtotal" />
                </columns>
             </TableView>

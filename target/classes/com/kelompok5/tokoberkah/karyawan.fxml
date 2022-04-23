@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="pane" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Karyawan">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="pane" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Karyawan">
     <children>
       <Pane layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="618.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
          <effect>
@@ -43,25 +43,25 @@
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
          <children>
-            <PasswordField fx:id="txtpass" layoutX="14.0" layoutY="97.0" prefHeight="30.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
+            <PasswordField fx:id="txtpass" layoutX="14.0" layoutY="97.0" prefHeight="35.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font></PasswordField>
-            <TextField fx:id="txtnama" layoutX="14.0" layoutY="158.0" prefHeight="30.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="txtnama" layoutX="14.0" layoutY="158.0" prefHeight="35.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font></TextField>
-            <TextField fx:id="txtnomor" layoutX="13.0" layoutY="219.0" prefHeight="30.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="txtnomor" layoutX="13.0" layoutY="219.0" prefHeight="35.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font></TextField>
             <ComboBox fx:id="comb" layoutX="15.0" layoutY="280.0" prefHeight="34.0" prefWidth="316.0" styleClass="combo-box" stylesheets="@css/main.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ComboBox>
-            <TextField fx:id="txtalamat" layoutX="15.0" layoutY="341.0" prefHeight="30.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="txtalamat" layoutX="15.0" layoutY="341.0" prefHeight="35.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font></TextField>
             <Button fx:id="btnedit" layoutX="15.0" layoutY="394.0" mnemonicParsing="false" onAction="#editkar" prefHeight="35.0" prefWidth="316.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Edit Karyawan" textFill="WHITE">
                <font>
@@ -87,37 +87,37 @@
             </Button>
             <Label layoutX="15.0" layoutY="8.0" prefHeight="27.0" prefWidth="103.0" text="Id Karyawan">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="14.0" layoutY="70.0" prefHeight="27.0" prefWidth="86.0" text="Password">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="16.0" layoutY="131.0" prefHeight="27.0" prefWidth="169.0" text="Nama Karyawan">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="13.0" layoutY="192.0" prefHeight="27.0" prefWidth="133.0" text="Nomor telepon">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="12.0" layoutY="253.0" prefHeight="27.0" prefWidth="103.0" text="Jenis Akun">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="15.0" layoutY="314.0" prefHeight="27.0" prefWidth="103.0" text="Alamat">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="txtid" layoutX="14.0" layoutY="35.0" prefHeight="34.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
+            <Label fx:id="txtid" layoutX="14.0" layoutY="35.0" prefHeight="35.0" prefWidth="316.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
                <padding>
                   <Insets left="7.0" />
@@ -310,7 +310,7 @@
          </effect>
          <children>
             <TextField fx:id="carikar" layoutX="54.0" layoutY="9.0" onKeyReleased="#carikarkey" prefHeight="0.0" prefWidth="502.0" style="-fx-font-size: 16px" styleClass="field-pencarian" stylesheets="@css/main.css" />
-            <Button fx:id="tmbhkar" layoutX="737.0" layoutY="7.0" mnemonicParsing="false" onAction="#tmbhkar" prefHeight="33.0" prefWidth="212.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Karyawan" textFill="WHITE">
+            <Button fx:id="tmbhkar" layoutX="750.0" layoutY="7.0" mnemonicParsing="false" onAction="#tmbhkar" prefHeight="33.0" prefWidth="212.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Karyawan" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -327,6 +327,104 @@
                   <Image url="@img/vector/Vector.png" />
                </image>
             </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="panepopupkaryawan" layoutX="397.0" layoutY="126.0" prefHeight="535.0" prefWidth="569.0" style="-fx-background-color: #FFF; -fx-background-radius: 10;">
+         <effect>
+            <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+         </effect>
+         <children>
+            <TextField fx:id="ptxtid" layoutX="28.0" layoutY="94.0" prefHeight="35.0" prefWidth="515.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="ptxtpass" layoutX="28.0" layoutY="163.0" prefHeight="35.0" prefWidth="515.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </PasswordField>
+            <TextField fx:id="ptxtnama" layoutX="28.0" layoutY="225.0" prefHeight="35.0" prefWidth="515.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="ptxtnomor" layoutX="28.0" layoutY="295.0" prefHeight="35.0" prefWidth="515.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <ComboBox fx:id="pcomb" layoutX="28.0" layoutY="357.0" prefHeight="35.0" prefWidth="515.0" stylesheets="@css/main.css">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <styleClass>
+                  <String fx:value="field-list" />
+                  <String fx:value="combo-box" />
+               </styleClass>
+            </ComboBox>
+            <TextField fx:id="ptxtalamat" layoutX="27.0" layoutY="421.0" prefHeight="35.0" prefWidth="515.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Button fx:id="cancel" layoutX="225.0" layoutY="486.0" mnemonicParsing="false" onAction="#cancelklik" prefHeight="35.0" prefWidth="152.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="tambahkar" layoutX="390.0" layoutY="486.0" mnemonicParsing="false" onAction="#tambahkar" prefHeight="35.0" prefWidth="152.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Selesai" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label layoutX="28.0" layoutY="67.0" prefHeight="27.0" prefWidth="103.0" text="Id Karyawan">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="28.0" layoutY="136.0" prefHeight="25.0" prefWidth="103.0" text="Password">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="28.0" layoutY="198.0" prefHeight="27.0" prefWidth="169.0" text="Nama Karyawan">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="28.0" layoutY="268.0" prefHeight="27.0" prefWidth="133.0" text="Nomor telepon">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="28.0" layoutY="330.0" prefHeight="27.0" prefWidth="103.0" text="Jenis Akun">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="28.0" layoutY="394.0" prefHeight="27.0" prefWidth="103.0" text="Alamat">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="216.0" layoutY="29.0" prefHeight="27.0" prefWidth="169.0" text="Tambah Karyawan">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
     </children>

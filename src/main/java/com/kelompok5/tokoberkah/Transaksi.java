@@ -147,13 +147,16 @@ public class Transaksi implements Initializable {
     private TableColumn<tbl_transco, Double> co_qty;
 
     @FXML
+    private TableColumn<tbl_transco, String> co_satuan;
+
+    @FXML
     private TableView<tbl_transco> co_table;
 
     @FXML
     private Label co_tgl;
 
     @FXML
-    private TableColumn<tbl_transco, Integer> co_total;
+    private TableColumn<tbl_transco, Double> co_total;
 
     @FXML
     private Button jcaribar;
@@ -322,7 +325,7 @@ public class Transaksi implements Initializable {
                     for (int j = 0; j < 3 - NomorJual; j++) {
                         no = "0" + no;
                     }
-                    bkdtrans.setText("TB"+a+no);
+                    bkdtrans.setText("TB-"+a+no);
                 }
             }
             rs.close();
@@ -466,18 +469,69 @@ public class Transaksi implements Initializable {
 
     @FXML
     void bcheckoutact(ActionEvent event) {
-        checkoutatas.setVisible(true);
-        checkouttengah.setVisible(true);
-        checkoutbawahkanan.setVisible(true);
-        checkoutbawahkiri.setVisible(true);
-        beliatas.setVisible(false);
-        belikanan.setVisible(false);
-        belikiri.setVisible(false);
-        co_back1.setVisible(false);
-        co_kdtrans.setText(bkdtrans.getText());
-        co_tgl.setText(btgl.getText());
+        String tbl = String.valueOf(tablebeli.getItems());
+        System.out.println("tes"+tbl);
+        if (tbl == "[]") {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(" kosong");
+            alert.setHeaderText("Barang masih Kosong");
+            alert.setContentText("Tambahkan dahulu barang yang ingin dibeli!");
+            alert.showAndWait();
+        } else {
+            checkoutatas.setVisible(true);
+            checkouttengah.setVisible(true);
+            checkoutbawahkanan.setVisible(true);
+            checkoutbawahkiri.setVisible(true);
+            beliatas.setVisible(false);
+            belikanan.setVisible(false);
+            belikiri.setVisible(false);
+            co_back1.setVisible(false);
+            co_kdtrans.setText(bkdtrans.getText());
+            co_tgl.setText(btgl.getText());
+            cekout();
+        }
 
+    }
 
+    void cekout() {
+        String sup = "";
+        try {
+            String sql = "SELECT id_supplier from supplier "
+                    + "where nama_supplier = '" + bsup.getSelectionModel().getSelectedItem() + "';";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            rs.next();
+            sup = rs.getString(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            String sqll = "insert into pembelian (id_pembelian, tanggal_transaksi, jam_transaksi, "
+                    + "uang, id_pengguna, id_supplier) " +
+                    "values ('" + bkdtrans.getText() + "', CURRENT_DATE, CURRENT_TIME, 0, "
+                    + "'agim', '" + sup + "') ;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.PreparedStatement pstl = conn.prepareStatement(sqll);
+            pstl.execute();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Berhasil");
+            alert.setHeaderText("Data berhasil disimpan");
+            alert.setContentText("Data Barang dengan Kode " + bkdtrans.getText() + " berhasil disimpan");
+            alert.showAndWait();
+            String sql = "insert into detail_pembelian (`id_pembelian`, `id_barang`, "
+                    + "`harga_beli`, `qty`, `harga_total`) "
+                    + "SELECT id_pembelian, id_barang, harga_beli, qty, harga_total FROM cart_pembelian ;";
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            pst.execute();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Gagal");
+            alert.setHeaderText("Data gagal disimpan!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -635,6 +689,10 @@ public class Transaksi implements Initializable {
     }
 
     //CHECKOUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+
+    void maincobeli() {
+        setCo_tablebeli();
+    }
     @FXML
     void co_back1act(ActionEvent event) {
 
@@ -647,11 +705,64 @@ public class Transaksi implements Initializable {
         checkoutbawahkanan.setVisible(false);
         checkoutbawahkiri.setVisible(false);
         setmainbeli();
+        try {
+            String sql ="TRUNCATE TABLE cart_pembelian;";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            pst.execute();
+        } catch (Exception e) {
+        }
     }
 
     @FXML
     void co_printact(ActionEvent event) {
 
+    }
+
+    void setCo_tablebeli() {
+        ObservableList<tbl_transco> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select id_pembelian.id_barang, barang.nama_barang, " +
+                    "cart_pembelian.harga_beli, cart_pembelian.qty, barang.id_satuan, cart_pembelian.harga_total " +
+                    "from cart_pembelian join barang on cart_pembelian.id_barang = barang.id_barang"
+                    + " where id_pembelian = '"+co_kdtrans.getText()+"' ;" ;
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                list.add(new tbl_transco(res.getString(1),
+                        res.getString(2),
+                        res.getInt(3),
+                        res.getDouble(4),
+                        res.getString(5),
+                        res.getDouble(6)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        co_kdbar.setCellValueFactory(new PropertyValueFactory<tbl_transco, String>("co_kdbar"));
+        co_namabar.setCellValueFactory(new PropertyValueFactory<tbl_transco, String>("co_namabar"));
+        co_harga.setCellValueFactory(new PropertyValueFactory<tbl_transco, Integer>("co_harga"));
+        co_qty.setCellValueFactory(new PropertyValueFactory<tbl_transco, Double>("co_qty"));
+        co_satuan.setCellValueFactory(new PropertyValueFactory<tbl_transco, String>("co_satuan"));
+        co_total.setCellValueFactory(new PropertyValueFactory<tbl_transco, Double>("co_total"));
+        co_table.setItems(list);
+    }
+
+    void setlblcobeli() {
+        
+        try {
+            String sql = "SELECT COUNT(id_barang) as totbar from detail_pembelian" +
+                    " WHERE id_pembelian = '"+co_kdtrans.getText()+"' ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            res.next();
+            co_isilblkanan.setText(res.getString("total"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
