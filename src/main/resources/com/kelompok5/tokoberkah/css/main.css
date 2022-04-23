@@ -102,14 +102,20 @@
 .button-hijau{
     -fx-font-size: 16;
     -fx-background-color: #46CC59;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
 }
 .button-oranye{
     -fx-font-size: 16;
     -fx-background-color: #ff9a51;
+        -fx-background-radius: 8px;
+        -fx-border-radius: 8px;
 }
 .button-merah{
     -fx-font-size: 16;
     -fx-background-color: #EE3030;
+        -fx-background-radius: 8px;
+        -fx-border-radius: 8px;
 }
 .button-besar{
     -fx-font-size: 18
@@ -277,6 +283,7 @@
     -fx-table-cell-border-color: #B9B9B9;
 }
 
+
 /*========================================*/
 /*search-bar*/
 /*========================================*/
@@ -378,6 +385,7 @@
     -fx-background-insets: 0, 1;
     -fx-background-radius: 4px; /* makes sure this remains circular */
     -fx-padding: 3px;
+
 }
 .chart-series-area-line {
     -fx-stroke: blue;

@@ -1,15 +1,18 @@
 package com.kelompok5.tokoberkah;
 
 public class tbl_transbeli {
-  String bkdbar,bnamabar;
-  int bharga;
-  Double bqty, btotal;
+    String bkdbar, bnamabar;
+    int bharga;
+    Double bqty;
+    String bsatuan;
+    Double btotal;
 
-    public tbl_transbeli(String bkdbar, String bnamabar, int bharga, Double bqty, Double btotal) {
+    public tbl_transbeli(String bkdbar, String bnamabar, int bharga, Double bqty, String bsatuan, Double btotal) {
         this.bkdbar = bkdbar;
         this.bnamabar = bnamabar;
         this.bharga = bharga;
         this.bqty = bqty;
+        this.bsatuan = bsatuan;
         this.btotal = btotal;
     }
 
@@ -43,6 +46,14 @@ public class tbl_transbeli {
 
     public void setBqty(Double bqty) {
         this.bqty = bqty;
+    }
+
+    public String getBsatuan() {
+        return bsatuan;
+    }
+
+    public void setBsatuan(String bsatuan) {
+        this.bsatuan = bsatuan;
     }
 
     public Double getBtotal() {

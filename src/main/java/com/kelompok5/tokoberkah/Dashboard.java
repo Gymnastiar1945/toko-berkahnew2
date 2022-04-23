@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -432,6 +435,18 @@ public class Dashboard extends App implements Initializable {
 //        series.getData().add(new XYChart.Data("29", 23));
 //        series.getData().add(new XYChart.Data("30", 23));
 //        series.getData().add(new XYChart.Data("31", 23));
+//
+//        final NumberAxis xAxis = new NumberAxis();
+//        final NumberAxis yAxis = new NumberAxis();
+//        xAxis.setLabel("Date");
+//        yAxis.setLabel("Events");
+//
+//        final AreaChart<Number,Number> lineChart = new AreaChart<>(xAxis, yAxis);
+//        AreaChart.setTitle("Events");
+
+//        NumberAxis xAxis = new NumberAxis();
+//        NumberAxis yAxis = new NumberAxis();
+
         for (int i = 1; i <=31; i++) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM");
             LocalDateTime tanggal = LocalDateTime.now();
@@ -441,8 +456,8 @@ public class Dashboard extends App implements Initializable {
                 String sql = "SELECT sum(total_bayar) as total from penjualan "
                         + "where tanggal_transaksi between '2022-04-"+i+"' and '2022-04-"+i+"'";
                 java.sql.Connection conn = (Connection) Config.configDB();
-                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-                java.sql.ResultSet rs = pst.executeQuery(sql);
+                PreparedStatement pst = conn.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery(sql);
                 rs.next();
                 j = rs.getInt("total");
 
@@ -452,18 +467,24 @@ public class Dashboard extends App implements Initializable {
             series.getData().add(new XYChart.Data(""+i+"", j));
 //
 //            Tooltip.install(series.getNode(), new Tooltip(
-//                    series.getData().toString() + "\n" +
-//                            "Number Of Events : " ));
+//                    series.getXValue.toString() + "\n" +
+//                            "Number Of Events : " + series.getYValue()));
 //
 //            //Adding class on hover
 //            series.getNode().setOnMouseEntered(event -> series.getNode().getStyleClass().add("onHover"));
 //
 //            //Removing class on exit
 //            series.getNode().setOnMouseExited(event -> series.getNode().getStyleClass().remove("onHover"));
+
+//            Node node = data.getNode();
+//            Tooltip tooltip = new Tooltip(
+//                    '(' + data.getXValue().toString() + ';' + data.getYValue().toString() + ')');
+//            Tooltip.install(node, tooltip);
         }
         areapendapatan.setVerticalGridLinesVisible(false);
         areapendapatan.getData().setAll(series);
-
+        areapendapatan.setLegendVisible(false);
+        areapendapatan.createSymbolsProperty();
     }
     public void PengeluaranChart(){
         areaPengeluaran.setVerticalGridLinesVisible(false);
@@ -518,7 +539,7 @@ public class Dashboard extends App implements Initializable {
             
             series2.getData().add(new XYChart.Data(""+i+"", j));
         }
-
+        areaPengeluaran.setLegendVisible(false);
         areaPengeluaran.setVerticalGridLinesVisible(false);
         areaPengeluaran.getData().setAll(series2);
     }

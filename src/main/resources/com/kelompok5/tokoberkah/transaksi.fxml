@@ -363,7 +363,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="beliatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+      <Pane fx:id="beliatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
          <children>
             <Label layoutX="16.0" layoutY="14.0" text="Kode Transaksi   :" textFill="#303841">
                <font>
@@ -383,7 +383,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label fx:id="btgl" layoutX="692.0" layoutY="14.0" text="16 September 2022" textFill="#303841">
+            <Label fx:id="btgl" alignment="CENTER_RIGHT" layoutX="692.0" layoutY="14.0" text="16 September 2022" textFill="#303841">
                <font>
                   <Font size="16.0" />
                </font>
@@ -398,7 +398,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="belikiri" layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="552.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+      <Pane fx:id="belikiri" layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="552.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
          <children>
             <ComboBox fx:id="bsup" layoutX="16.0" layoutY="40.0" prefHeight="35.0" prefWidth="518.0" stylesheets="@css/main.css" />
             <Label layoutX="17.0" layoutY="10.0" text="Supplier" textFill="#303841">
@@ -408,16 +408,17 @@
             </Label>
             <TableView fx:id="tablebeli" layoutX="16.0" layoutY="98.0" onMouseClicked="#tablebeliklik" prefHeight="400.0" prefWidth="519.0" stylesheets="@css/main.css">
               <columns>
-                <TableColumn fx:id="bkdbar" minWidth="77.0" prefWidth="86.0" text="Kode Barang" />
-                <TableColumn fx:id="bnamabar" minWidth="83.0" prefWidth="165.0" text="Nama Barang" />
-                  <TableColumn fx:id="bharga" minWidth="80.0" text="Harga" />
-                  <TableColumn fx:id="bqty" minWidth="69.0" prefWidth="83.0" text="Kuantitas" />
-                  <TableColumn fx:id="btotal" minWidth="100.0" prefWidth="104.0" text="Subtotal" />
+                <TableColumn fx:id="bkdbar" minWidth="86.0" prefWidth="86.0" text="Kode Barang" />
+                <TableColumn fx:id="bnamabar" minWidth="165.0" prefWidth="165.0" text="Nama Barang" />
+                  <TableColumn fx:id="bharga" minWidth="65.0" prefWidth="65.0" text="Harga" />
+                  <TableColumn fx:id="bqty" minWidth="67.0" prefWidth="67.0" text="Kuantitas" />
+                  <TableColumn fx:id="bsatuan" minWidth="54.0" prefWidth="61.0" text="Satuan" />
+                  <TableColumn fx:id="btotal" minWidth="24.0" prefWidth="62.0" text="Subtotal" />
               </columns>
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="belikanan" layoutX="853.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+      <Pane fx:id="belikanan" layoutX="853.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
          <children>
             <Label layoutX="18.0" layoutY="15.0" text="Kode Barang" textFill="#303841">
                <font>
@@ -454,7 +455,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="btfqty" layoutX="18.0" layoutY="222.0" onKeyReleased="#btfqtykey" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="btfqty" layoutX="18.0" layoutY="222.0" onKeyReleased="#btfqtykey" prefHeight="35.0" prefWidth="194.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="14.0" />
                </font>
@@ -501,6 +502,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Label fx:id="btfsatuan" layoutX="237.0" layoutY="227.0" prefHeight="25.0" prefWidth="152.0" text="satuan" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="popupbeli" layoutX="379.0" layoutY="126.0" prefHeight="575.0" prefWidth="783.0" style="-fx-background-color: grey; -fx-background-radius: 8;" visible="false">
@@ -603,11 +609,12 @@
          <children>
             <TableView fx:id="co_table" layoutX="20.0" layoutY="20.0" prefHeight="226.0" prefWidth="936.0" stylesheets="@css/main.css">
                <columns>
-                  <TableColumn fx:id="co_kdbar" minWidth="130.0" prefWidth="130.0" text="Kode Barang" />
-                  <TableColumn fx:id="co_namabar" minWidth="309.0" prefWidth="309.0" text="Nama Barang" />
-                  <TableColumn fx:id="co_harga" minWidth="204.0" prefWidth="204.0" text="Harga" />
-                  <TableColumn fx:id="co_qty" minWidth="114.0" prefWidth="114.0" text="Kuantitas" />
-                  <TableColumn fx:id="co_total" minWidth="179.0" prefWidth="179.0" text="Subtotal" />
+                  <TableColumn fx:id="co_kdbar" minWidth="130.0" prefWidth="144.0" text="Kode Barang" />
+                  <TableColumn fx:id="co_namabar" minWidth="166.0" prefWidth="196.0" text="Nama Barang" />
+                  <TableColumn fx:id="co_harga1" minWidth="60.0" prefWidth="132.0" text="Harga" />
+                  <TableColumn fx:id="co_qty" minWidth="0.0" prefWidth="138.0" text="Kuantitas" />
+                  <TableColumn fx:id="co_harga" minWidth="31.0" prefWidth="145.0" text="Satuan" />
+                  <TableColumn fx:id="co_total" minWidth="62.0" prefWidth="180.0" text="Subtotal" />
                </columns>
             </TableView>
          </children>

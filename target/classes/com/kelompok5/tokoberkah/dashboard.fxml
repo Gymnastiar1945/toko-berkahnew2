@@ -420,7 +420,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <AreaChart fx:id="areaPengeluaran" layoutX="19.0" layoutY="65.0" prefHeight="236.0" prefWidth="910.0" stylesheets="@css/main.css">
+                  <AreaChart fx:id="areaPengeluaran" animated="false" layoutX="19.0" layoutY="65.0" prefHeight="236.0" prefWidth="910.0" stylesheets="@css/main.css">
                      <xAxis>
                         <CategoryAxis side="BOTTOM" />
                      </xAxis>

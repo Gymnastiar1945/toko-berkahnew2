@@ -57,6 +57,9 @@ public class Transaksi implements Initializable {
     private TableColumn<tbl_transbeli, String> bnamabar;
 
     @FXML
+    private TableColumn<tbl_transbeli, String> bsatuan;
+
+    @FXML
     private TableColumn<tbl_transbeli, Double> bqty;
 
     @FXML
@@ -79,6 +82,9 @@ public class Transaksi implements Initializable {
 
     @FXML
     private TextField btfqty;
+
+    @FXML
+    private Label btfsatuan;
 
     @FXML
     private Label btftotal;
@@ -398,7 +404,7 @@ public class Transaksi implements Initializable {
         ObservableList<tbl_transbeli> list = FXCollections.observableArrayList();
         try {
             String sql = "select cart_pembelian.id_barang, barang.nama_barang, " +
-                    "cart_pembelian.harga_beli, cart_pembelian.qty, cart_pembelian.harga_total " +
+                    "cart_pembelian.harga_beli, cart_pembelian.qty, barang.id_satuan, cart_pembelian.harga_total " +
                     "from cart_pembelian join barang on cart_pembelian.id_barang = barang.id_barang"
                     + " where id_pembelian = '"+bkdtrans.getText()+"' ;" ;
             Connection conn = (Connection) Config.configDB();
@@ -409,7 +415,8 @@ public class Transaksi implements Initializable {
                         res.getString(2),
                         res.getInt(3),
                         res.getDouble(4),
-                        res.getDouble(5)));
+                        res.getString(5),
+                        res.getDouble(6)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -419,6 +426,7 @@ public class Transaksi implements Initializable {
         bnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bnamabar"));
         bharga.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Integer>("bharga"));
         bqty.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Double>("bqty"));
+        bsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bsatuan"));
         btotal.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Double>("btotal"));
         tablebeli.setItems(list);
     }
@@ -434,6 +442,18 @@ public class Transaksi implements Initializable {
         btfharga.setText(hrg);
         String qty = String.valueOf(list.get(0).getBqty());
         btfqty.setText(qty);
+        try {
+            String sql = "SELECT satuan from satuan "
+                    + "where id_satuan = '"+list.get(0).getBsatuan()+"';";
+            java.sql.Connection conn=(Connection)Config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            rs.next();
+            btfsatuan.setText(rs.getString("satuan"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         String tot = String.valueOf(list.get(0).getBtotal());
         btftotal.setText(tot);
     }
@@ -446,29 +466,48 @@ public class Transaksi implements Initializable {
 
     @FXML
     void bcheckoutact(ActionEvent event) {
+        checkoutatas.setVisible(true);
+        checkouttengah.setVisible(true);
+        checkoutbawahkanan.setVisible(true);
+        checkoutbawahkiri.setVisible(true);
+        beliatas.setVisible(false);
+        belikanan.setVisible(false);
+        belikiri.setVisible(false);
+        co_back1.setVisible(false);
+        co_kdtrans.setText(bkdtrans.getText());
+        co_tgl.setText(btgl.getText());
+
 
     }
 
     @FXML
     void beditbaract(ActionEvent event) {
-        try {
-            String sqll = "UPDATE cart_pembelian "
-                    + "SET harga_beli = '"+btfharga.getText()
-                    +"', qty = '" +btfqty.getText()
-                    +"', harga_total = '"+btftotal.getText()
-                    +"' WHERE cart_pembelian.id_barang = '"+btfkdbar.getText()+"'";
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
-            pstl.execute();
-        } catch (Exception e) {
+        if (bkdbar.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Gagal");
-            alert.setHeaderText("Data gagal diedit!");
-            alert.setContentText(e.getMessage());
+            alert.setTitle(" kosong");
+            alert.setHeaderText("Kode Barang masih Kosong");
+            alert.setContentText("Pilih dahulu barang yang ingin diedit!");
             alert.showAndWait();
+        } else {
+            try {
+                String sqll = "UPDATE cart_pembelian "
+                        + "SET harga_beli = '"+btfharga.getText()
+                        +"', qty = '" +btfqty.getText()
+                        +"', harga_total = '"+btftotal.getText()
+                        +"' WHERE cart_pembelian.id_barang = '"+btfkdbar.getText()+"'";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+                pstl.execute();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Gagal");
+                alert.setHeaderText("Data gagal diedit!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+            bkosong();
+            setTablebeli();
         }
-        bkosong();
-        setTablebeli();
     }
 
     @FXML
@@ -514,37 +553,74 @@ public class Transaksi implements Initializable {
     void btambahbaract(ActionEvent event) {
         if (bkdbar.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(" kosong");
+            alert.setTitle("kosong");
             alert.setHeaderText("Kode Barang masih Kosong");
             alert.setContentText("Pilih Barang terlebih dahulu!");
             alert.showAndWait();
         } else {
+            String bar = "";
+            Double harga = null,hrg,qty;
             try {
-                String sqll = "INSERT INTO `cart_pembelian` (`id_pembelian`, `id_barang`, `harga_beli`, `qty`, `harga_total`)" +
-                        " VALUES ('"+bkdtrans.getText()+"', '"
-                        +btfkdbar.getText()+"', '"
-                        +btfharga.getText()+"', '"
-                        +btfqty.getText()+"', '"
-                        +btftotal.getText()+"'); ";
+                String sqll = "SELECT id_barang, harga_beli FROM cart_pembelian where id_barang='"+btfkdbar.getText()+"' ;";
                 java.sql.Connection conn=(Connection)Config.configDB();
-                java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
-                pstl.execute();
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("Berhasil");
-//                alert.setHeaderText("Data berhasil disimpan");
-//                alert.setContentText("Data Barang dengan Kode "+bkdbar.getText()+" berhasil disimpan");
-//                alert.showAndWait();
-//                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                stage.close();
+                java.sql.Statement stm=conn.createStatement();
+                java.sql.ResultSet res=stm.executeQuery(sqll);
+                res.next();
+                bar = res.getString("id_barang");
+                harga = res.getDouble("harga_beli");
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Gagal");
-                alert.setHeaderText("Data gagal ditambah!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
             }
-            bkosong();
-            setTablebeli();
+            if (bar.equals(btfkdbar.getText())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Barang sudah ada");
+                alert.setHeaderText("Barang sudah ada dalam keranjang!");
+                alert.setContentText("Apakah anda ingin menambahkan kuantitasnya saja?");
+                Optional<ButtonType> action = alert.showAndWait();
+
+                if (action.get() == ButtonType.OK) {
+                    qty = Double.parseDouble(btfqty.getText());
+                    hrg = harga*qty;
+                    try {
+                        String sqll = "UPDATE cart_pembelian "
+                                + "SET qty = qty+"+btfqty.getText()
+                                + ", harga_total = harga_total+"+hrg
+                                +" WHERE cart_pembelian.id_barang = '"+btfkdbar.getText()+"'";
+                        java.sql.Connection conn=(Connection)Config.configDB();
+                        java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+                        pstl.execute();
+                    } catch (Exception e) {
+                        Alert newalert = new Alert(Alert.AlertType.WARNING);
+                        newalert.setTitle("Gagal");
+                        newalert.setHeaderText("Data gagal diedit!");
+                        newalert.setContentText(e.getMessage());
+                        newalert.showAndWait();
+                    }
+                    bkosong();
+                    setTablebeli();
+                } else {
+
+                }
+            } else {
+                try {
+                    String sqll = "INSERT INTO `cart_pembelian` (`id_pembelian`, `id_barang`, `harga_beli`, `qty`, `harga_total`)" +
+                            " VALUES ('"+bkdtrans.getText()+"', '"
+                            +btfkdbar.getText()+"', '"
+                            +btfharga.getText()+"', '"
+                            +btfqty.getText()+"', '"
+                            +btftotal.getText()+"'); ";
+                    java.sql.Connection conn=(Connection)Config.configDB();
+                    java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+                    pstl.execute();
+                } catch (Exception e) {
+                    Alert newalert = new Alert(Alert.AlertType.WARNING);
+                    newalert.setTitle("Gagal");
+                    newalert.setHeaderText("Data gagal ditambah!");
+                    newalert.setContentText(e.getMessage());
+                    newalert.showAndWait();
+                }
+                bkosong();
+                setTablebeli();
+            }
 
         }
     }
@@ -566,7 +642,11 @@ public class Transaksi implements Initializable {
 
     @FXML
     void co_backact(ActionEvent event) {
-
+        checkoutatas.setVisible(false);
+        checkouttengah.setVisible(false);
+        checkoutbawahkanan.setVisible(false);
+        checkoutbawahkiri.setVisible(false);
+        setmainbeli();
     }
 
     @FXML
@@ -652,6 +732,7 @@ public class Transaksi implements Initializable {
         } else {
             btfkdbar.setText(list.get(0).getPopbkdbar());
             btfnamabar.setText(list.get(0).getPopbnamabar());
+            btfsatuan.setText(list.get(0).getPopbsatuan());
             popupbeli.setVisible(false);
         }
     }

@@ -677,7 +677,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="panesupatas" layoutX="285.0" layoutY="126.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
+      <Pane fx:id="returatas" layoutX="285.0" layoutY="126.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -709,7 +709,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="655.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
+      <Pane fx:id="returkiri" layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="655.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -726,7 +726,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane layoutX="958.0" layoutY="196.0" prefHeight="504.0" prefWidth="302.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
+      <Pane fx:id="returkanan" layoutX="958.0" layoutY="196.0" prefHeight="504.0" prefWidth="302.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -816,7 +816,7 @@
             <Line endX="58.0" layoutX="229.0" layoutY="426.0" startX="-214.0" stroke="#000000b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
          </children>
       </Pane>
-      <Pane fx:id="panesupatas1" layoutX="285.0" layoutY="126.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
+      <Pane fx:id="returlanjutatas" layoutX="285.0" layoutY="126.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css" visible="false">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -848,7 +848,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="284.0" layoutY="194.0" prefHeight="315.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+      <Pane fx:id="returlanjuttengah" layoutX="284.0" layoutY="194.0" prefHeight="315.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -865,7 +865,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane layoutX="284.0" layoutY="527.0" prefHeight="166.0" prefWidth="660.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+      <Pane fx:id="returlanjutbawahkiri" layoutX="284.0" layoutY="527.0" prefHeight="166.0" prefWidth="660.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -912,7 +912,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="961.0" layoutY="527.0" prefHeight="166.0" prefWidth="297.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+      <Pane fx:id="returlanjutbawahkanan" layoutX="961.0" layoutY="527.0" prefHeight="166.0" prefWidth="297.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
