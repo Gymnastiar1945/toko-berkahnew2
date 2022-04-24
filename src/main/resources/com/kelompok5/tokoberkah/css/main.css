@@ -36,9 +36,12 @@
 /*========================================*/
 /*label*/
 /*========================================*/
+.label-off{
+    -fx-font-size: 16px;
+}
 .label-off:hover{
     -fx-text-fill: #46CC59;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
 }
 .label-off SVGPath:hover{
     -fx-fill: #97E4A2;

@@ -305,9 +305,13 @@ public class Transaksi implements Initializable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy-");
         LocalDateTime tanggal = LocalDateTime.now();
         String a = (dtf.format(tanggal));
+        DateTimeFormatter dtff = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime tanggall = LocalDateTime.now();
+        String aa = (dtff.format(tanggal));
         try {
             //--> melakukan eksekusi query untuk mengambil data dari tabel
-            String sql = "SELECT MAX(id_pembelian) FROM pembelian ;" ;
+            String sql = "SELECT MAX(id_pembelian) FROM pembelian " +
+                    "WHERE tanggal_transaksi = '"+aa+"' ;" ;
             java.sql.Connection conn=(Connection)Config.configDB();
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
@@ -478,17 +482,8 @@ public class Transaksi implements Initializable {
             alert.setContentText("Tambahkan dahulu barang yang ingin dibeli!");
             alert.showAndWait();
         } else {
-            checkoutatas.setVisible(true);
-            checkouttengah.setVisible(true);
-            checkoutbawahkanan.setVisible(true);
-            checkoutbawahkiri.setVisible(true);
-            beliatas.setVisible(false);
-            belikanan.setVisible(false);
-            belikiri.setVisible(false);
-            co_back1.setVisible(false);
-            co_kdtrans.setText(bkdtrans.getText());
-            co_tgl.setText(btgl.getText());
             cekout();
+            maincobeli();
         }
 
     }
@@ -692,6 +687,7 @@ public class Transaksi implements Initializable {
 
     void maincobeli() {
         setCo_tablebeli();
+        setlblcobeli();
     }
     @FXML
     void co_back1act(ActionEvent event) {
@@ -722,10 +718,10 @@ public class Transaksi implements Initializable {
     void setCo_tablebeli() {
         ObservableList<tbl_transco> list = FXCollections.observableArrayList();
         try {
-            String sql = "select id_pembelian.id_barang, barang.nama_barang, " +
-                    "cart_pembelian.harga_beli, cart_pembelian.qty, barang.id_satuan, cart_pembelian.harga_total " +
-                    "from cart_pembelian join barang on cart_pembelian.id_barang = barang.id_barang"
-                    + " where id_pembelian = '"+co_kdtrans.getText()+"' ;" ;
+            String sql = "select detail_pembelian.id_barang, barang.nama_barang, " +
+                    "detail_pembelian.harga_beli, detail_pembelian.qty, barang.id_satuan, detail_pembelian.harga_total " +
+                    "from detail_pembelian join barang on detail_pembelian.id_barang = barang.id_barang"
+                    + " where id_pembelian = '"+bkdtrans.getText()+"' ;" ;
             Connection conn = (Connection) Config.configDB();
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
@@ -751,7 +747,31 @@ public class Transaksi implements Initializable {
     }
 
     void setlblcobeli() {
-        
+        checkoutatas.setVisible(true);
+        checkouttengah.setVisible(true);
+        checkoutbawahkanan.setVisible(true);
+        checkoutbawahkiri.setVisible(true);
+        co_print.setVisible(false);
+        beliatas.setVisible(false);
+        belikanan.setVisible(false);
+        belikiri.setVisible(false);
+        co_back1.setVisible(false);
+        co_kdtrans.setText(bkdtrans.getText());
+        co_tgl.setText(btgl.getText());
+        co_isilblkiri.setVisible(false);
+        co_lblkiri.setText("Supplier : "+bsup.getSelectionModel().getSelectedItem());
+        co_lblkanan.setText("Total Barang");
+        try {
+            String sql = "SELECT uang from pembelian" +
+                    " WHERE id_pembelian = '"+co_kdtrans.getText()+"' ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            res.next();
+            co_lblgtot.setText("Rp. "+res.getString("uang"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         try {
             String sql = "SELECT COUNT(id_barang) as totbar from detail_pembelian" +
                     " WHERE id_pembelian = '"+co_kdtrans.getText()+"' ;";
@@ -759,10 +779,11 @@ public class Transaksi implements Initializable {
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             res.next();
-            co_isilblkanan.setText(res.getString("total"));
+            co_isilblkanan.setText(res.getString("totbar"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
 

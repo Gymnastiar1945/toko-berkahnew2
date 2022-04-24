@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -102,6 +103,36 @@ public class Karyawan extends App implements Initializable {
     @FXML
     private Label menudash;
 
+    @FXML
+    private Pane panepopupkaryawan;
+
+    @FXML
+    private Pane blur;
+
+    @FXML
+    private ComboBox<String> pcomb;
+
+    @FXML
+    private TextField ptxtalamat;
+
+    @FXML
+    private TextField ptxtid;
+
+    @FXML
+    private TextField ptxtnama;
+
+    @FXML
+    private TextField ptxtnomor;
+
+    @FXML
+    private PasswordField ptxtpass;
+
+    @FXML
+    private Button cancel;
+
+    @FXML
+    private Button tambahkar;
+
 
 //    public  String[] status = {"Admin","Karyawan"};
 
@@ -109,7 +140,10 @@ public class Karyawan extends App implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<String> list = FXCollections.observableArrayList("Admin","Karyawan");
         comb.setItems(list);
+        pcomb.setItems(list);
         tbl_kar();
+        panepopupkaryawan.setVisible(false);
+        blur.setVisible(false);
 
 
 //        myChoiceBox.getItems().add("ehe");
@@ -117,13 +151,8 @@ public class Karyawan extends App implements Initializable {
 
     @FXML
     public void tmbhkar(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("karyawanPopup.fxml"));
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.show();
+        panepopupkaryawan.setVisible(true);
+        blur.setVisible(true);
     }
 
     public void tbl_kar(){
@@ -291,6 +320,67 @@ public class Karyawan extends App implements Initializable {
         jeniskar.setCellValueFactory(new PropertyValueFactory<tbl_karyawan, String>("jeniskar"));
         pwkar.setCellValueFactory(new PropertyValueFactory<tbl_karyawan, String>("pwkar"));
         table_karyawan.setItems(list);
+    }
+
+    //POPUPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+    @FXML
+    public void tambahkar(ActionEvent evt) {
+        if (ptxtid.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ID kosong");
+            alert.setHeaderText("ID masih Kosong");
+            alert.setContentText("Masukkan ID Karyawan terlebih dahulu!");
+            alert.showAndWait();
+        } else {
+            String hp=ptxtnomor.getText();
+            if (hp.matches("^[0-9]*") && hp.length()==12){
+                try {
+                    String sqll = "INSERT INTO pengguna VALUES ('"+ptxtid.getText()+"','"
+                            +ptxtnama.getText()+"','"+ptxtalamat.getText()+"','"+
+                            ptxtnomor.getText()+"','"+pcomb.getSelectionModel().getSelectedItem()+"','"+ptxtpass.getText()+"')";
+                    java.sql.Connection conn=(Connection)Config.configDB();
+                    java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+                    pstl.execute();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Berhasil");
+                    alert.setHeaderText("Data berhasil disimpan");
+                    alert.setContentText("Data Karyawan dengan ID "+ptxtid.getText()+" berhasil disimpan");
+                    alert.showAndWait();
+                    pkosong();
+                    tbl_kar();
+                    panepopupkaryawan.setVisible(false);
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Gagal");
+                    alert.setHeaderText("Data gagal disimpan!");
+                    alert.setContentText(e.getMessage());
+                    alert.showAndWait();
+                }
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Nomor salah");
+                alert.setHeaderText(null);
+                alert.setContentText("Nomor telepon tidak sesuai");
+                alert.showAndWait();
+            }
+        }
+    }
+
+    private void pkosong() {
+        txtid.setText(null);
+        txtnama.setText(null);
+        txtalamat.setText(null);
+        txtnomor.setText(null);
+        txtpass.setText(null);
+        comb.setValue(null);
+//        txtcari.setText(null);
+    }
+
+    @FXML
+    void cancelklik(ActionEvent event) {
+        panepopupkaryawan.setVisible(false);
+        blur.setVisible(false);
     }
 
     @FXML
