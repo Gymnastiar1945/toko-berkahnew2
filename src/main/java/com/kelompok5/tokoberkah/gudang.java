@@ -186,6 +186,9 @@ public class gudang implements Initializable {
     private Label judul;
 
     @FXML
+    private Label rtr;
+
+    @FXML
     private JFXCheckBox check;
 
     @FXML
@@ -223,6 +226,8 @@ public class gudang implements Initializable {
         table_bar();
         setJmlbar();
         setTable_sup();
+        isisatuan();
+        isiktgr();
     }
 
     @FXML
@@ -288,86 +293,76 @@ public class gudang implements Initializable {
 
     @FXML
     void editbarklik(ActionEvent event) throws IOException {
-//        if (labelkdbar.getText() == ""){
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setTitle("Kode kosong");
-//            alert.setHeaderText("Barang belum dipilih");
-//            alert.setContentText("Pilih dahulu barang yang ingin diedit");
-//            alert.showAndWait();
-//        } else {
-//            String kodebar = labelkdbar.getText();
-//            String enamabar = "", ekdbat = "", ektgr = "", eektgr = "", eqty = "", esatuan = "", eesatuan = "", ehargabar = "";
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("editBarang.fxml"));
-//            root = loader.load();
-//
-//            EditBarang  Editbarang = loader.getController();
-//            try {
-//                String sql = "SELECT * from barang "
-//                        +"where id_barang='"+labelkdbar.getText()+"';";
-//                java.sql.Connection conn=(Connection)Config.configDB();
-//                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-//                java.sql.ResultSet rs = pst.executeQuery(sql);
-//                rs.next();
-//                enamabar= (rs.getString("nama_barang"));
-//                ekdbat = (rs.getString("barcode"));
-//                ektgr = (rs.getString("id_kategori"));
-//                eqty = (rs.getString("jumlah"));
-//                esatuan = (rs.getString("id_satuan"));
-//                ehargabar = (rs.getString("harga_jual"));
-//
-//            } catch (SQLException e) {
-//            }
-//            try {
-//                String sql = "SELECT jenis from kategori "
-//                        + "where id_kategori = '"+ektgr+"';";
-//                java.sql.Connection conn=(Connection)Config.configDB();
-//                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-//                java.sql.ResultSet rs = pst.executeQuery(sql);
-//                rs.next();
-//                eektgr = rs.getString("jenis");
-//
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//            try {
-//                String sql = "SELECT satuan from satuan "
-//                        + "where id_satuan = '"+esatuan+"';";
-//                java.sql.Connection conn=(Connection)Config.configDB();
-//                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-//                java.sql.ResultSet rs = pst.executeQuery(sql);
-//                rs.next();
-//                eesatuan = rs.getString("satuan");
-//
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//
-//            Editbarang.kdbar.setText(kodebar);
-//            Editbarang.namabar.setText(enamabar);
-//            Editbarang.kdbat.setText(ekdbat);
-//            Editbarang.ktgr.setValue(eektgr);
-//            Editbarang.qty.setText(eqty);
-//            Editbarang.satuan.setValue(eesatuan);
-//            Editbarang.hargabar.setText(ehargabar);
-//
-//
-//
-//            Scene scene = new Scene(root);
-//            scene.setFill(Color.TRANSPARENT);
-//            Stage stage = new Stage();
-//            stage.setScene(scene);
-//            stage.initStyle(StageStyle.TRANSPARENT);
-//            stage.show();
-//        }
-        blur.setVisible(true);
-        popupb.setVisible(true);
-        judul.setText("Edit Barang");
-        btntambahbar.setVisible(false);
-        btneditbar.setVisible(true);
+        if (labelkdbar.getText() == ""){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Kode kosong");
+            alert.setHeaderText("Barang belum dipilih");
+            alert.setContentText("Pilih dahulu barang yang ingin diedit");
+            alert.showAndWait();
+        } else {
+            String kodebar = labelkdbar.getText();
+            String ekdbat = "", ektgr = "", eektgr = "", eqty = "", esatuan = "", eesatuan = "", retur = "";
 
-        pkdbar.setText(labelkdbar.getText());
+            try {
+                String sql = "SELECT * from barang "
+                        +"where id_barang='"+kodebar+"';";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                ekdbat = (rs.getString("barcode"));
+                ektgr = (rs.getString("id_kategori"));
+                eqty = (rs.getString("jumlah"));
+                esatuan = (rs.getString("id_satuan"));
+                retur = (rs.getString("retur"));
+
+            } catch (SQLException e) {
+            }
+            try {
+                String sql = "SELECT jenis from kategori "
+                        + "where id_kategori = '"+ektgr+"';";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                eektgr = rs.getString("jenis");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                String sql = "SELECT satuan from satuan "
+                        + "where id_satuan = '"+esatuan+"';";
+                java.sql.Connection conn=(Connection)Config.configDB();
+                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery(sql);
+                rs.next();
+                eesatuan = rs.getString("satuan");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            blur.setVisible(true);
+            popupb.setVisible(true);
+            judul.setText("Edit Barang");
+            btntambahbar.setVisible(false);
+            btneditbar.setVisible(true);
+
+            pkdbar.setText(labelkdbar.getText());
+            pnamabar.setText(labelnamabar.getText());
+            pkdbat.setText(ekdbat);
+            pktgr.setValue(eektgr);
+            pktgr.setDisable(true);
+            pqty.setText(eqty);
+            psatuan.setValue(eesatuan);
+            phargabar.setText(labelharga.getText());
+            if (retur.equals("Iya")) {
+                check.setSelected(true);
+            } else {
+                check.setSelected(false);
+            }
+        }
     }
-
 
     @FXML
     void hpsbarklik(ActionEvent event) {
@@ -413,6 +408,19 @@ public class gudang implements Initializable {
         labelharga.setText(null);
         labelnamabar.setText(null);
         labelqty.setText(null);
+        rtr.setText(null);
+    }
+
+    void kosongpop() {
+        pkdbar.setText("");
+        pnamabar.setText(null);
+        pkdbat.setText(null);
+        pktgr.setValue("Alat Tulis Komputer");
+        pktgr.setDisable(false);
+        pqty.setText(null);
+        psatuan.setValue(null);
+        phargabar.setText(null);
+        check.setSelected(false);
     }
 
     @FXML
@@ -443,6 +451,7 @@ public class gudang implements Initializable {
         btntambahbar.setVisible(true);
         btneditbar.setVisible(false);
         judul.setText("Tambah Barang");
+        kosongpop();
         isiktgr();
         isisatuan();
     }
@@ -471,6 +480,16 @@ public class gudang implements Initializable {
         labelharga.setText(hrg);
         String jml = String.valueOf(list.get(0).getQty());
         labelqty.setText(jml+" "+(list.get(0).getSatuan()));
+        try {
+            String sql = "select retur from barang WHERE id_barang = '"
+                    +labelkdbar.getText()+"' ;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet rs = stm.executeQuery(sql);
+            rs.next();
+            rtr.setText(rs.getString("retur"));
+        } catch (Exception e) {
+        }
     }
 
     private void isiktgr() {
@@ -593,7 +612,6 @@ public class gudang implements Initializable {
             kktgr = rs.getString("id_kategori");
 
         } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         try {
@@ -623,12 +641,19 @@ public class gudang implements Initializable {
             rs.close();
             rs.close();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
+
     //EDITBARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     @FXML
     void editbaract(ActionEvent event) {
+        String cek;
+        if (check.isSelected()) {
+            cek = "Iya";
+        } else {
+            cek = "Tidak" ;
+        }
+        System.out.println(cek);
         if (pkdbar.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(" kosong");
@@ -656,8 +681,9 @@ public class gudang implements Initializable {
                         +"', jumlah = '" +pqty.getText()
                         +"', id_satuan = '" +idsat
                         +"', harga_jual = '"+phargabar.getText()
+                        +"', retur = '"+cek
                         +"', barcode = '"+pkdbat.getText()
-                        +"' WHERE barang.id_barang = '"+pkdbar.getText()+"'";
+                        +"' WHERE barang.id_barang = '"+pkdbar.getText()+"' ;";
                 java.sql.Connection conn=(Connection)Config.configDB();
                 java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
                 pstl.execute();
@@ -669,6 +695,7 @@ public class gudang implements Initializable {
                 popupb.setVisible(false);
                 blur.setVisible(false);
                 table_bar();
+                kosongbar();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Gagal");

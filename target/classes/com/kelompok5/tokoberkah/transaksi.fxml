@@ -191,7 +191,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="jualkiri" layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="552.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
+      <Pane fx:id="jualkiri" layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="552.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -207,7 +207,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
+      <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -250,7 +250,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="jtfharga" layoutX="18.0" layoutY="219.0" prefHeight="30.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="jtfharga" layoutX="18.0" layoutY="219.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="14.0" />
                </font>
@@ -295,12 +295,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="jtfqty" layoutX="18.0" layoutY="280.0" prefHeight="30.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="jtfqty" layoutX="18.0" layoutY="280.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="jtftotal" layoutX="18.0" layoutY="341.0" prefHeight="30.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="jtftotal" layoutX="18.0" layoutY="341.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="14.0" />
                </font>
@@ -330,7 +330,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="jualatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css" visible="false">
+      <Pane fx:id="jualatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -556,12 +556,13 @@
             <TableView fx:id="tablepopjual" layoutX="46.0" layoutY="86.0" onMouseClicked="#tablepopjualklik" prefHeight="362.0" prefWidth="691.0" stylesheets="@css/main.css">
                <columns>
                   <TableColumn fx:id="popjkdbar" minWidth="153.0" prefWidth="153.0" text="Kode Barang" />
-                  <TableColumn fx:id="popjnamabar" minWidth="258.0" prefWidth="258.0" text="Nama Barang" />
-                  <TableColumn fx:id="popjharga" minWidth="153.0" prefWidth="153.0" text="Harga" />
-                  <TableColumn fx:id="popjqty" minWidth="127.0" prefWidth="127.0" text="Stok" />
+                  <TableColumn fx:id="popjnamabar" minWidth="202.0" prefWidth="202.0" text="Nama Barang" />
+                  <TableColumn fx:id="popjharga" minWidth="157.0" prefWidth="157.0" text="Harga" />
+                  <TableColumn fx:id="popjqty" minWidth="83.0" prefWidth="83.0" text="Stok" />
+                  <TableColumn fx:id="popjsatuan" minWidth="95.0" prefWidth="95.0" text="Satuan" />
                </columns>
             </TableView>
-            <Button fx:id="popjtambahbar" layoutX="585.0" layoutY="448.0" mnemonicParsing="false" onAction="#popjtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
+            <Button fx:id="popjtambahbar" layoutX="585.0" layoutY="462.0" mnemonicParsing="false" onAction="#popjtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -569,7 +570,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="popjend" layoutX="585.0" layoutY="503.0" mnemonicParsing="false" onAction="#popjendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Selesai" textFill="WHITE">
+            <Button fx:id="popjend" layoutX="585.0" layoutY="517.0" mnemonicParsing="false" onAction="#popjendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -577,6 +578,41 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Label layoutX="50.0" layoutY="462.0" text="Nama Barang" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="161.0" layoutY="462.0" text=":" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="492.0" text="Kuantitas" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="377.0" layoutY="492.0" text="Total Harga" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="jtftotal11" layoutX="50.0" layoutY="520.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="377.0" layoutY="520.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="236.0" layoutY="523.0" prefHeight="25.0" prefWidth="90.0" text="Satuan" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="checkoutatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">

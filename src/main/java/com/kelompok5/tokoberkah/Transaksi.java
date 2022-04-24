@@ -261,6 +261,9 @@ public class Transaksi implements Initializable {
     private TableColumn<tbl_transpopjual, Double> popjqty;
 
     @FXML
+    private TableColumn<tbl_transpopjual, String> popjsatuan;
+
+    @FXML
     private Button popjtambahbar;
 
     @FXML
@@ -286,7 +289,8 @@ public class Transaksi implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setmainbeli();
+//        setmainbeli();
+        setmainjual();
     }
 
     //BELIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
@@ -788,8 +792,47 @@ public class Transaksi implements Initializable {
 
 
     //JUALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+
+    void setmainjual() {
+        jualatas.setVisible(true);
+        jualkanan.setVisible(true);
+        jualkiri.setVisible(true);
+    }
+
+    void setTablejual() {
+        ObservableList<tbl_transbeli> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select cart_pembelian.id_barang, barang.nama_barang, " +
+                    "cart_pembelian.harga_beli, cart_pembelian.qty, barang.id_satuan, cart_pembelian.harga_total " +
+                    "from cart_pembelian join barang on cart_pembelian.id_barang = barang.id_barang"
+                    + " where id_pembelian = '"+bkdtrans.getText()+"' ;" ;
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                list.add(new tbl_transbeli(res.getString(1),
+                        res.getString(2),
+                        res.getInt(3),
+                        res.getDouble(4),
+                        res.getString(5),
+                        res.getDouble(6)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        bkdbar.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bkdbar"));
+        bnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bnamabar"));
+        bharga.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Integer>("bharga"));
+        bqty.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Double>("bqty"));
+        bsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bsatuan"));
+        btotal.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Double>("btotal"));
+        tablebeli.setItems(list);
+    }
+
     @FXML
     void jcaribaract(ActionEvent event) {
+        popupjual.setVisible(true);
 
     }
 
@@ -883,9 +926,38 @@ public class Transaksi implements Initializable {
         }
     }
 
+    //POPUP JUALLLLLLLLLLLLLLLLLLLLLLLLLLL
+
+    private void setTablepopjual() {
+        ObservableList<tbl_transpopjual> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select barang.id_barang, barang.nama_barang, barang.harga_jual, barang.jumlah, satuan.satuan"
+                    + " from barang join satuan on barang.id_satuan = satuan.id_satuan ;" ;
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                list.add(new tbl_transpopjual(res.getString(1),
+                        res.getString(2),
+                        res.getInt(3),
+                        res.getDouble(4),
+                        res.getString(5)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        popbkdbar.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, String>("popbkdbar"));
+        popbnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, String>("popbnamabar"));
+        popbqty.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, Double>("popbqty"));
+        popbsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, String>("popbsatuan"));
+        tablepopjual.setItems(list);
+    }
+
+
     @FXML
     void popjendact(ActionEvent event) {
-
+        popupjual.setVisible(false);
     }
 
     @FXML
@@ -907,7 +979,12 @@ public class Transaksi implements Initializable {
 
     @FXML
     void tablepopjualklik(MouseEvent event) {
-
+        ObservableList<tbl_transpopjual> list;
+        list=tablepopjual.getSelectionModel().getSelectedItems();
+        
+            btfnamabar.setText(list.get(0).getPopjnamabar());
+            btfsatuan.setText(list.get(0).getPopjsatuan());
+            popupbeli.setVisible(false);
     }
 
 }

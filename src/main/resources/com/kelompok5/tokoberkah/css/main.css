@@ -121,8 +121,8 @@
         -fx-border-radius: 8px;
 }
 .button-besar{
-    -fx-font-size: 18
-;
+    -fx-font-size: 18;
+    -fx-background-radius: 8;
     -fx-background-color: #46CC59;
 }
 
@@ -136,20 +136,22 @@
 
 .button-hijau:hover {
     -fx-font-size: 16;
-
+    -fx-background-color: #97E4A2;
 }
 .button-oranye:hover{
     -fx-font-size: 16;
-
+    -fx-background-color: #FF7A50;
 
 }
 .button-merah:hover{
     -fx-font-size: 16;
+    -fx-background-color: #FE5858;
 
 
 }
 .button-besar:hover{
     -fx-font-size: 18;
+    -fx-background-color: #97E4A2;
 }
 
 /*FOCUSED*/
@@ -206,6 +208,15 @@
      -fx-border-color: #FE5858;
      -fx-border-width: 3;
  }
+.button-besar:pressed{
+    -fx-font-size: 18;
+    -fx-background-color: #FFF;
+    -fx-text-fill: #46CC59;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #46CC59;
+    -fx-border-width: 3;
+}
 
 
 /*========================================*/
