@@ -23,6 +23,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Transaksi implements Initializable {
+
+    Integer popjtfhrg;
+
+    Double popjtfqtyy;
+
     @FXML
     private Button bcaribar;
 
@@ -31,6 +36,9 @@ public class Transaksi implements Initializable {
 
     @FXML
     private Button beditbar;
+
+    @FXML
+    private Pane blur;
 
     @FXML
     private Pane beliatas;
@@ -186,6 +194,9 @@ public class Transaksi implements Initializable {
     private TableColumn<tbl_transjual, Double> jqty;
 
     @FXML
+    private TableColumn<tbl_transjual, String> jsatuan;
+
+    @FXML
     private Button jswitch;
 
     @FXML
@@ -213,7 +224,7 @@ public class Transaksi implements Initializable {
     private Label jtgl;
 
     @FXML
-    private TableColumn<tbl_transjual, Integer> jtotal;
+    private TableColumn<tbl_transjual, Double> jtotal;
 
     @FXML
     private Pane jualatas;
@@ -267,6 +278,18 @@ public class Transaksi implements Initializable {
     private Button popjtambahbar;
 
     @FXML
+    private Label poptfjnamabar;
+
+    @FXML
+    private TextField poptfjqty;
+
+    @FXML
+    private Label poptfjsat;
+
+    @FXML
+    private Label poptfjtot;
+
+    @FXML
     private TextField popjualcari;
 
     @FXML
@@ -299,6 +322,9 @@ public class Transaksi implements Initializable {
         beliatas.setVisible(true);
         belikanan.setVisible(true);
         belikiri.setVisible(true);
+        jualatas.setVisible(false);
+        jualkanan.setVisible(false);
+        jualkiri.setVisible(false);
         setBkdtrans();
         setBtgl();
         setBsup();
@@ -311,29 +337,29 @@ public class Transaksi implements Initializable {
         String a = (dtf.format(tanggal));
         DateTimeFormatter dtff = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime tanggall = LocalDateTime.now();
-        String aa = (dtff.format(tanggal));
+        String aa = (dtff.format(tanggall));
         try {
             //--> melakukan eksekusi query untuk mengambil data dari tabel
             String sql = "SELECT MAX(id_pembelian) FROM pembelian " +
-                    "WHERE tanggal_transaksi = '"+aa+"' ;" ;
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                    "WHERE tanggal_transaksi = '" + aa + "' ;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
             while (rs.next()) {
                 if (rs.getString(1) == null) {
-                    bkdtrans.setText("TB-"+a+"001");
+                    bkdtrans.setText("TB-" + a + "001");
                 } else {
                     rs.last();
                     String auto = rs.getString(1);
-                    auto = auto.replace("TB-"+a,"");
-                    int auto_id = Integer.parseInt(auto) +1;
+                    auto = auto.replace("TB-" + a, "");
+                    int auto_id = Integer.parseInt(auto) + 1;
                     String no = String.valueOf(auto_id);
                     int NomorJual = no.length();
                     //MENGATUR jumlah 0
                     for (int j = 0; j < 3 - NomorJual; j++) {
                         no = "0" + no;
                     }
-                    bkdtrans.setText("TB-"+a+no);
+                    bkdtrans.setText("TB-" + a + no);
                 }
             }
             rs.close();
@@ -393,16 +419,16 @@ public class Transaksi implements Initializable {
                 mm = ("Desember");
                 break;
         }
-        btgl.setText(aa+" "+mm+" "+yyyy);
+        btgl.setText(aa + " " + mm + " " + yyyy);
     }
 
-    void setBsup(){
+    void setBsup() {
         ObservableList<String> list = FXCollections.observableArrayList();
         try {
             String sql = "select * from supplier";
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
             while (res.next()) {
                 list.add(res.getString("nama_supplier"));
             }
@@ -417,11 +443,11 @@ public class Transaksi implements Initializable {
             String sql = "select cart_pembelian.id_barang, barang.nama_barang, " +
                     "cart_pembelian.harga_beli, cart_pembelian.qty, barang.id_satuan, cart_pembelian.harga_total " +
                     "from cart_pembelian join barang on cart_pembelian.id_barang = barang.id_barang"
-                    + " where id_pembelian = '"+bkdtrans.getText()+"' ;" ;
+                    + " where id_pembelian = '" + bkdtrans.getText() + "' ;";
             Connection conn = (Connection) Config.configDB();
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-            while(res.next()){
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
                 list.add(new tbl_transbeli(res.getString(1),
                         res.getString(2),
                         res.getInt(3),
@@ -445,7 +471,7 @@ public class Transaksi implements Initializable {
     @FXML
     void tablebeliklik(MouseEvent event) {
         ObservableList<tbl_transbeli> list;
-        list=tablebeli.getSelectionModel().getSelectedItems();
+        list = tablebeli.getSelectionModel().getSelectedItems();
 
         btfkdbar.setText(list.get(0).getBkdbar());
         btfnamabar.setText(list.get(0).getBnamabar());
@@ -455,9 +481,9 @@ public class Transaksi implements Initializable {
         btfqty.setText(qty);
         try {
             String sql = "SELECT satuan from satuan "
-                    + "where id_satuan = '"+list.get(0).getBsatuan()+"';";
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                    + "where id_satuan = '" + list.get(0).getBsatuan() + "';";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
             rs.next();
             btfsatuan.setText(rs.getString("satuan"));
@@ -471,6 +497,7 @@ public class Transaksi implements Initializable {
 
     @FXML
     void bcaribaract(ActionEvent event) {
+        blur.setVisible(true);
         popupbeli.setVisible(true);
         setTablepopbeli();
     }
@@ -478,7 +505,7 @@ public class Transaksi implements Initializable {
     @FXML
     void bcheckoutact(ActionEvent event) {
         String tbl = String.valueOf(tablebeli.getItems());
-        System.out.println("tes"+tbl);
+        System.out.println("tes" + tbl);
         if (tbl == "[]") {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(" kosong");
@@ -486,13 +513,13 @@ public class Transaksi implements Initializable {
             alert.setContentText("Tambahkan dahulu barang yang ingin dibeli!");
             alert.showAndWait();
         } else {
-            cekout();
+            bcekout();
             maincobeli();
         }
 
     }
 
-    void cekout() {
+    void bcekout() {
         String sup = "";
         try {
             String sql = "SELECT id_supplier from supplier "
@@ -531,6 +558,13 @@ public class Transaksi implements Initializable {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+        try {
+            String sql = "TRUNCATE TABLE cart_pembelian;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            pst.execute();
+        } catch (Exception e) {
+        }
     }
 
     @FXML
@@ -544,12 +578,12 @@ public class Transaksi implements Initializable {
         } else {
             try {
                 String sqll = "UPDATE cart_pembelian "
-                        + "SET harga_beli = '"+btfharga.getText()
-                        +"', qty = '" +btfqty.getText()
-                        +"', harga_total = '"+btftotal.getText()
-                        +"' WHERE cart_pembelian.id_barang = '"+btfkdbar.getText()+"'";
-                java.sql.Connection conn=(Connection)Config.configDB();
-                java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+                        + "SET harga_beli = '" + btfharga.getText()
+                        + "', qty = '" + btfqty.getText()
+                        + "', harga_total = '" + btftotal.getText()
+                        + "' WHERE cart_pembelian.id_barang = '" + btfkdbar.getText() + "'";
+                java.sql.Connection conn = (Connection) Config.configDB();
+                java.sql.PreparedStatement pstl = conn.prepareStatement(sqll);
                 pstl.execute();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -575,14 +609,14 @@ public class Transaksi implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Konfirmasi Hapus");
             alert.setHeaderText(null);
-            alert.setContentText("apakah anda yakin ingin menghapus Data pembelian barang dengan Kode "+btfkdbar.getText()+"?");
+            alert.setContentText("apakah anda yakin ingin menghapus Data pembelian barang dengan Kode " + btfkdbar.getText() + "?");
             Optional<ButtonType> action = alert.showAndWait();
 
             if (action.get() == ButtonType.OK) {
                 try {
-                    String sql ="DELETE FROM cart_pembelian where id_barang='"+btfkdbar.getText()+"'";
-                    java.sql.Connection conn=(Connection)Config.configDB();
-                    java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+                    String sql = "DELETE FROM cart_pembelian where id_barang='" + btfkdbar.getText() + "'";
+                    java.sql.Connection conn = (Connection) Config.configDB();
+                    java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                     pst.execute();
                 } catch (Exception e) {
                     Alert newalert = new Alert(Alert.AlertType.WARNING);
@@ -599,7 +633,7 @@ public class Transaksi implements Initializable {
 
     @FXML
     void bswitchact(ActionEvent event) {
-
+        setmainjual();
     }
 
     @FXML
@@ -612,12 +646,12 @@ public class Transaksi implements Initializable {
             alert.showAndWait();
         } else {
             String bar = "";
-            Double harga = null,hrg,qty;
+            Double harga = null, hrg, qty;
             try {
-                String sqll = "SELECT id_barang, harga_beli FROM cart_pembelian where id_barang='"+btfkdbar.getText()+"' ;";
-                java.sql.Connection conn=(Connection)Config.configDB();
-                java.sql.Statement stm=conn.createStatement();
-                java.sql.ResultSet res=stm.executeQuery(sqll);
+                String sqll = "SELECT id_barang, harga_beli FROM cart_pembelian where id_barang='" + btfkdbar.getText() + "' ;";
+                java.sql.Connection conn = (Connection) Config.configDB();
+                java.sql.Statement stm = conn.createStatement();
+                java.sql.ResultSet res = stm.executeQuery(sqll);
                 res.next();
                 bar = res.getString("id_barang");
                 harga = res.getDouble("harga_beli");
@@ -632,14 +666,14 @@ public class Transaksi implements Initializable {
 
                 if (action.get() == ButtonType.OK) {
                     qty = Double.parseDouble(btfqty.getText());
-                    hrg = harga*qty;
+                    hrg = harga * qty;
                     try {
                         String sqll = "UPDATE cart_pembelian "
-                                + "SET qty = qty+"+btfqty.getText()
-                                + ", harga_total = harga_total+"+hrg
-                                +" WHERE cart_pembelian.id_barang = '"+btfkdbar.getText()+"'";
-                        java.sql.Connection conn=(Connection)Config.configDB();
-                        java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+                                + "SET qty = qty+" + btfqty.getText()
+                                + ", harga_total = harga_total+" + hrg
+                                + " WHERE cart_pembelian.id_barang = '" + btfkdbar.getText() + "'";
+                        java.sql.Connection conn = (Connection) Config.configDB();
+                        java.sql.PreparedStatement pstl = conn.prepareStatement(sqll);
                         pstl.execute();
                     } catch (Exception e) {
                         Alert newalert = new Alert(Alert.AlertType.WARNING);
@@ -656,13 +690,13 @@ public class Transaksi implements Initializable {
             } else {
                 try {
                     String sqll = "INSERT INTO `cart_pembelian` (`id_pembelian`, `id_barang`, `harga_beli`, `qty`, `harga_total`)" +
-                            " VALUES ('"+bkdtrans.getText()+"', '"
-                            +btfkdbar.getText()+"', '"
-                            +btfharga.getText()+"', '"
-                            +btfqty.getText()+"', '"
-                            +btftotal.getText()+"'); ";
-                    java.sql.Connection conn=(Connection)Config.configDB();
-                    java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+                            " VALUES ('" + bkdtrans.getText() + "', '"
+                            + btfkdbar.getText() + "', '"
+                            + btfharga.getText() + "', '"
+                            + btfqty.getText() + "', '"
+                            + btftotal.getText() + "'); ";
+                    java.sql.Connection conn = (Connection) Config.configDB();
+                    java.sql.PreparedStatement pstl = conn.prepareStatement(sqll);
                     pstl.execute();
                 } catch (Exception e) {
                     Alert newalert = new Alert(Alert.AlertType.WARNING);
@@ -693,6 +727,7 @@ public class Transaksi implements Initializable {
         setCo_tablebeli();
         setlblcobeli();
     }
+
     @FXML
     void co_back1act(ActionEvent event) {
 
@@ -706,9 +741,9 @@ public class Transaksi implements Initializable {
         checkoutbawahkiri.setVisible(false);
         setmainbeli();
         try {
-            String sql ="TRUNCATE TABLE cart_pembelian;";
-            java.sql.Connection conn=(Connection)Config.configDB();
-            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            String sql = "TRUNCATE TABLE cart_pembelian;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             pst.execute();
         } catch (Exception e) {
         }
@@ -725,11 +760,11 @@ public class Transaksi implements Initializable {
             String sql = "select detail_pembelian.id_barang, barang.nama_barang, " +
                     "detail_pembelian.harga_beli, detail_pembelian.qty, barang.id_satuan, detail_pembelian.harga_total " +
                     "from detail_pembelian join barang on detail_pembelian.id_barang = barang.id_barang"
-                    + " where id_pembelian = '"+bkdtrans.getText()+"' ;" ;
+                    + " where id_pembelian = '" + bkdtrans.getText() + "' ;";
             Connection conn = (Connection) Config.configDB();
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-            while(res.next()){
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
                 list.add(new tbl_transco(res.getString(1),
                         res.getString(2),
                         res.getInt(3),
@@ -763,25 +798,25 @@ public class Transaksi implements Initializable {
         co_kdtrans.setText(bkdtrans.getText());
         co_tgl.setText(btgl.getText());
         co_isilblkiri.setVisible(false);
-        co_lblkiri.setText("Supplier : "+bsup.getSelectionModel().getSelectedItem());
+        co_lblkiri.setText("Supplier : " + bsup.getSelectionModel().getSelectedItem());
         co_lblkanan.setText("Total Barang");
         try {
             String sql = "SELECT uang from pembelian" +
-                    " WHERE id_pembelian = '"+co_kdtrans.getText()+"' ;";
+                    " WHERE id_pembelian = '" + co_kdtrans.getText() + "' ;";
             Connection conn = (Connection) Config.configDB();
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
             res.next();
-            co_lblgtot.setText("Rp. "+res.getString("uang"));
+            co_lblgtot.setText("Rp. " + res.getString("uang"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
             String sql = "SELECT COUNT(id_barang) as totbar from detail_pembelian" +
-                    " WHERE id_pembelian = '"+co_kdtrans.getText()+"' ;";
+                    " WHERE id_pembelian = '" + co_kdtrans.getText() + "' ;";
             Connection conn = (Connection) Config.configDB();
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
             res.next();
             co_isilblkanan.setText(res.getString("totbar"));
         } catch (SQLException e) {
@@ -797,20 +832,117 @@ public class Transaksi implements Initializable {
         jualatas.setVisible(true);
         jualkanan.setVisible(true);
         jualkiri.setVisible(true);
+        beliatas.setVisible(false);
+        belikanan.setVisible(false);
+        belikiri.setVisible(false);
+        setJtgl();
+        setJkdtrans();
+        setTablejual();
+    }
+
+    void setJkdtrans() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy-");
+        LocalDateTime tanggal = LocalDateTime.now();
+        String a = (dtf.format(tanggal));
+        DateTimeFormatter dtff = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime tanggall = LocalDateTime.now();
+        String aa = (dtff.format(tanggall));
+        try {
+            //--> melakukan eksekusi query untuk mengambil data dari tabel
+            String sql = "SELECT MAX(id_penjualan) FROM penjualan " +
+                    "WHERE tanggal_transaksi = '" + aa + "' ;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            while (rs.next()) {
+                if (rs.getString(1) == null) {
+                    jkdtrans.setText("TR-" + a + "001");
+                } else {
+                    rs.last();
+                    String auto = rs.getString(1);
+                    auto = auto.replace("TR-" + a, "");
+                    int auto_id = Integer.parseInt(auto) + 1;
+                    String no = String.valueOf(auto_id);
+                    int NomorJual = no.length();
+                    //MENGATUR jumlah 0
+                    for (int j = 0; j < 3 - NomorJual; j++) {
+                        no = "0" + no;
+                    }
+                    jkdtrans.setText("TR-" + a + no);
+                }
+            }
+            rs.close();
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void setJtgl() {
+        String mm = "";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM");
+        LocalDateTime tanggal = LocalDateTime.now();
+        String a = (dtf.format(tanggal));
+        DateTimeFormatter dtff = DateTimeFormatter.ofPattern("dd");
+        LocalDateTime tanggall = LocalDateTime.now();
+        String aa = (dtff.format(tanggall));
+        DateTimeFormatter dtfff = DateTimeFormatter.ofPattern("yyyy");
+        LocalDateTime tanggalll = LocalDateTime.now();
+        String yyyy = (dtfff.format(tanggalll));
+        int b = Integer.parseInt(a);
+        switch (b) {
+            case 1:
+                mm = ("Januari");
+                break;
+            case 2:
+                mm = ("Februari");
+                break;
+            case 3:
+                mm = ("Maret");
+                break;
+            case 4:
+                mm = ("April");
+                break;
+            case 5:
+                mm = ("Mei");
+                break;
+            case 6:
+                mm = ("Juni");
+                break;
+            case 7:
+                mm = ("Juli");
+                break;
+            case 8:
+                mm = ("Agustus");
+                break;
+            case 9:
+                mm = ("September");
+                break;
+            case 10:
+                mm = ("Oktober");
+                break;
+            case 11:
+                mm = ("November");
+                break;
+            case 12:
+                mm = ("Desember");
+                break;
+        }
+        jtgl.setText(aa + " " + mm + " " + yyyy);
     }
 
     void setTablejual() {
-        ObservableList<tbl_transbeli> list = FXCollections.observableArrayList();
+        ObservableList<tbl_transjual> list = FXCollections.observableArrayList();
         try {
-            String sql = "select cart_pembelian.id_barang, barang.nama_barang, " +
-                    "cart_pembelian.harga_beli, cart_pembelian.qty, barang.id_satuan, cart_pembelian.harga_total " +
-                    "from cart_pembelian join barang on cart_pembelian.id_barang = barang.id_barang"
-                    + " where id_pembelian = '"+bkdtrans.getText()+"' ;" ;
+            String sql = "select cart_penjualan.id_barang, barang.nama_barang, barang.harga_jual, " +
+                    "cart_penjualan.qty, barang.id_satuan, cart_penjualan.harga_total " +
+                    "from cart_penjualan join barang on cart_penjualan.id_barang = barang.id_barang"
+                    + " where id_penjualan = '" + jkdtrans.getText() + "' ;";
             Connection conn = (Connection) Config.configDB();
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-            while(res.next()){
-                list.add(new tbl_transbeli(res.getString(1),
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                list.add(new tbl_transjual(res.getString(1),
                         res.getString(2),
                         res.getInt(3),
                         res.getDouble(4),
@@ -821,18 +953,20 @@ public class Transaksi implements Initializable {
             e.printStackTrace();
         }
 
-        bkdbar.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bkdbar"));
-        bnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bnamabar"));
-        bharga.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Integer>("bharga"));
-        bqty.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Double>("bqty"));
-        bsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, String>("bsatuan"));
-        btotal.setCellValueFactory(new PropertyValueFactory<tbl_transbeli, Double>("btotal"));
-        tablebeli.setItems(list);
+        jkdbar.setCellValueFactory(new PropertyValueFactory<tbl_transjual, String>("jkdbar"));
+        jnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transjual, String>("jnamabar"));
+        jharga.setCellValueFactory(new PropertyValueFactory<tbl_transjual, Integer>("jharga"));
+        jqty.setCellValueFactory(new PropertyValueFactory<tbl_transjual, Double>("jqty"));
+        jsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transjual, String>("jsatuan"));
+        jtotal.setCellValueFactory(new PropertyValueFactory<tbl_transjual, Double>("jtotal"));
+        tablejual.setItems(list);
     }
 
     @FXML
     void jcaribaract(ActionEvent event) {
+        blur.setVisible(true);
         popupjual.setVisible(true);
+        setTablepopjual();
 
     }
 
@@ -853,7 +987,7 @@ public class Transaksi implements Initializable {
 
     @FXML
     void jswitchact(ActionEvent event) {
-
+        setmainbeli();
     }
 
     //POPUP BELIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
@@ -862,11 +996,11 @@ public class Transaksi implements Initializable {
         ObservableList<tbl_transpopbeli> list = FXCollections.observableArrayList();
         try {
             String sql = "select barang.id_barang, barang.nama_barang, jumlah, satuan.satuan"
-                    + " from barang join satuan on barang.id_satuan = satuan.id_satuan ;" ;
+                    + " from barang join satuan on barang.id_satuan = satuan.id_satuan ;";
             Connection conn = (Connection) Config.configDB();
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-            while(res.next()){
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
                 list.add(new tbl_transpopbeli(res.getString(1),
                         res.getString(2),
                         res.getDouble(3),
@@ -890,13 +1024,14 @@ public class Transaksi implements Initializable {
 
     @FXML
     void popbendact(ActionEvent event) {
+        blur.setVisible(false);
         popupbeli.setVisible(false);
     }
 
     @FXML
     void popbtambahbaract(ActionEvent event) {
         ObservableList<tbl_transpopbeli> list;
-        list=tablepopbeli.getSelectionModel().getSelectedItems();
+        list = tablepopbeli.getSelectionModel().getSelectedItems();
 
         if (String.valueOf(list) == "[]") {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -921,7 +1056,7 @@ public class Transaksi implements Initializable {
             alert.setContentText("Form harga belum diisi");
         } else {
             int hrg = Integer.parseInt(btfharga.getText());
-            double qty = Double.parseDouble(btfqty.getText()), tot = hrg*qty;
+            double qty = Double.parseDouble(btfqty.getText()), tot = hrg * qty;
             btftotal.setText(String.valueOf(tot));
         }
     }
@@ -932,11 +1067,11 @@ public class Transaksi implements Initializable {
         ObservableList<tbl_transpopjual> list = FXCollections.observableArrayList();
         try {
             String sql = "select barang.id_barang, barang.nama_barang, barang.harga_jual, barang.jumlah, satuan.satuan"
-                    + " from barang join satuan on barang.id_satuan = satuan.id_satuan ;" ;
+                    + " from barang join satuan on barang.id_satuan = satuan.id_satuan ;";
             Connection conn = (Connection) Config.configDB();
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-            while(res.next()){
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
                 list.add(new tbl_transpopjual(res.getString(1),
                         res.getString(2),
                         res.getInt(3),
@@ -947,25 +1082,106 @@ public class Transaksi implements Initializable {
             e.printStackTrace();
         }
 
-        popbkdbar.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, String>("popbkdbar"));
-        popbnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, String>("popbnamabar"));
-        popbqty.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, Double>("popbqty"));
-        popbsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, String>("popbsatuan"));
+        popjkdbar.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, String>("popjkdbar"));
+        popjnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, String>("popjnamabar"));
+        popjharga.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, Integer>("popjharga"));
+        popjqty.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, Double>("popjqty"));
+        popjsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, String>("popjsatuan"));
         tablepopjual.setItems(list);
     }
 
 
     @FXML
     void popjendact(ActionEvent event) {
+        blur.setVisible(false);
         popupjual.setVisible(false);
     }
 
     @FXML
     void popjtambahbaract(ActionEvent event) {
+        ObservableList<tbl_transpopjual> list;
+        list = tablepopjual.getSelectionModel().getSelectedItems();
 
+        if (poptfjnamabar.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Barang kosong");
+            alert.setHeaderText(null);
+            alert.setContentText("Pilih dahulu barang dari tabel");
+            alert.showAndWait();
+        } else {
+            if (popjtfqtyy < Double.parseDouble(poptfjqty.getText())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Barang kosong");
+                alert.setHeaderText(null);
+                alert.setContentText("Jumlah lebih dari kuantitas");
+                alert.showAndWait();
+            } else {
+                String kd = list.get(0).getPopjkdbar();
+                btfnamabar.setText(list.get(0).getPopjnamabar());
+                btfsatuan.setText(list.get(0).getPopjsatuan());
+
+                String bar = "";
+                try {
+                    String sqll = "SELECT id_barang FROM cart_penjualan where id_barang='" + kd + "' ;";
+                    java.sql.Connection conn = (Connection) Config.configDB();
+                    java.sql.Statement stm = conn.createStatement();
+                    java.sql.ResultSet res = stm.executeQuery(sqll);
+                    res.next();
+                    bar = res.getString("id_barang");
+                } catch (Exception e) {
+                }
+                if (bar.equals(kd)) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Barang sudah ada");
+                    alert.setHeaderText("Barang sudah ada dalam keranjang!");
+                    alert.setContentText("Apakah anda ingin menambahkan kuantitasnya saja?");
+                    Optional<ButtonType> action = alert.showAndWait();
+
+                    if (action.get() == ButtonType.OK) {
+                        try {
+                            String sqll = "UPDATE cart_penjualan "
+                                    + "SET qty = qty+" + poptfjqty.getText()
+                                    + ", harga_total = harga_total+" + poptfjtot.getText()
+                                    + " WHERE cart_penjualan.id_barang = '" + kd + "'";
+                            java.sql.Connection conn = (Connection) Config.configDB();
+                            java.sql.PreparedStatement pstl = conn.prepareStatement(sqll);
+                            pstl.execute();
+                            popjkosong();
+                            setTablejual();
+                        } catch (Exception e) {
+                            Alert newalert = new Alert(Alert.AlertType.WARNING);
+                            newalert.setTitle("Gagal");
+                            newalert.setHeaderText("Data gagal diedit!");
+                            newalert.setContentText(e.getMessage());
+                            newalert.showAndWait();
+                        }
+                    } else {
+
+                    }
+                } else {
+                    try {
+                        String sqll = "INSERT INTO `cart_penjualan` (`id_penjualan`, `id_barang`, `qty`, `harga_total`)" +
+                                " VALUES ('" + jkdtrans.getText() + "', '"
+                                + kd + "', '"
+                                + poptfjqty.getText() + "', '"
+                                + poptfjtot.getText() + "'); ";
+                        java.sql.Connection conn = (Connection) Config.configDB();
+                        java.sql.PreparedStatement pstl = conn.prepareStatement(sqll);
+                        pstl.execute();
+                        popjkosong();
+                        setTablejual();
+                    } catch (Exception e) {
+                        Alert newalert = new Alert(Alert.AlertType.WARNING);
+                        newalert.setTitle("Gagal");
+                        newalert.setHeaderText("Data gagal ditambah!");
+                        newalert.setContentText(e.getMessage());
+                        newalert.showAndWait();
+                    }
+                }
+
+            }
+        }
     }
-
-
 
     @FXML
     void tablejualklik(MouseEvent event) {
@@ -980,11 +1196,34 @@ public class Transaksi implements Initializable {
     @FXML
     void tablepopjualklik(MouseEvent event) {
         ObservableList<tbl_transpopjual> list;
-        list=tablepopjual.getSelectionModel().getSelectedItems();
-        
-            btfnamabar.setText(list.get(0).getPopjnamabar());
-            btfsatuan.setText(list.get(0).getPopjsatuan());
-            popupbeli.setVisible(false);
+        list = tablepopjual.getSelectionModel().getSelectedItems();
+
+        poptfjnamabar.setText(list.get(0).getPopjnamabar());
+        popjtfhrg = list.get(0).getPopjharga();
+        popjtfqtyy = list.get(0).getPopjqty();
+        poptfjsat.setText(list.get(0).getPopjsatuan());
+
     }
 
+    @FXML
+    void poptfjqtyklik(KeyEvent event) {
+        if (Objects.equals(poptfjnamabar.getText(), "")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Barang kosong");
+            alert.setHeaderText(null);
+            alert.setContentText("Barang belum dipilih");
+        } else {
+            double qty = Double.parseDouble(poptfjqty.getText());
+            Double tot = popjtfhrg * qty;
+            poptfjtot.setText(String.valueOf(tot));
+        }
+
+    }
+
+    void popjkosong() {
+        poptfjnamabar.setText("");
+        poptfjqty.setText(null);
+        poptfjsat.setText(null);
+        poptfjtot.setText(null);
+    }
 }

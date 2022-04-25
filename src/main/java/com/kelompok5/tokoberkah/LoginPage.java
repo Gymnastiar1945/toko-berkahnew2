@@ -1,5 +1,8 @@
 package com.kelompok5.tokoberkah;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -33,6 +38,9 @@ public class LoginPage extends App {
 
     @FXML
     private Button BtnLogin;
+
+    @FXML
+    private AnchorPane logn;
 
 
     @FXML
@@ -64,6 +72,9 @@ public class LoginPage extends App {
                     System.out.println("Error");
                 }
             } else {
+//
+
+
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Gagal login");
                 alert.setHeaderText(null);

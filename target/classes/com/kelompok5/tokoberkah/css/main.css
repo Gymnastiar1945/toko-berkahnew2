@@ -175,6 +175,7 @@
 }
 .button-besar:focused{
     -fx-font-size: 18;
+    -fx-text-fill: #FFF;
 }
 
 

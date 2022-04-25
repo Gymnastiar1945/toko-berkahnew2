@@ -4,7 +4,17 @@ public class tbl_transjual {
     String jkdbar,jnamabar;
     int jharga;
     Double jqty;
-    int jtotal;
+    String jsatuan;
+    Double jtotal;
+
+    public tbl_transjual(String jkdbar, String jnamabar, int jharga, Double jqty, String jsatuan, Double jtotal) {
+        this.jkdbar = jkdbar;
+        this.jnamabar = jnamabar;
+        this.jharga = jharga;
+        this.jqty = jqty;
+        this.jsatuan = jsatuan;
+        this.jtotal = jtotal;
+    }
 
     public String getJkdbar() {
         return jkdbar;
@@ -38,11 +48,19 @@ public class tbl_transjual {
         this.jqty = jqty;
     }
 
-    public int getJtotal() {
+    public String getJsatuan() {
+        return jsatuan;
+    }
+
+    public void setJsatuan(String jsatuan) {
+        this.jsatuan = jsatuan;
+    }
+
+    public Double getJtotal() {
         return jtotal;
     }
 
-    public void setJtotal(int jtotal) {
+    public void setJtotal(Double jtotal) {
         this.jtotal = jtotal;
     }
 }

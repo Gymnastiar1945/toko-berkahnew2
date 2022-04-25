@@ -198,21 +198,22 @@
          <children>
             <TableView fx:id="tablejual" layoutX="18.0" layoutY="17.0" onMouseClicked="#tablejualklik" prefHeight="468.0" prefWidth="519.0" stylesheets="@css/main.css">
                <columns>
-                  <TableColumn fx:id="jkdbar" minWidth="100.0" prefWidth="100.0" text="Kode Barang" />
-                  <TableColumn fx:id="jnamabar" minWidth="118.0" prefWidth="118.0" text="Nama Barang" />
-                  <TableColumn fx:id="jharga" minWidth="100.0" prefWidth="100.0" text="Harga" />
-                  <TableColumn fx:id="jqty" minWidth="100.0" prefWidth="100.0" text="Kuantitas" />
-                  <TableColumn fx:id="jtotal" minWidth="100.0" prefWidth="100.0" text="Subtotal" />
+                  <TableColumn fx:id="jkdbar" minWidth="80.0" text="Kode Barang" />
+                  <TableColumn fx:id="jnamabar" minWidth="115.0" prefWidth="115.0" text="Nama Barang" />
+                  <TableColumn fx:id="jharga" minWidth="73.0" prefWidth="73.0" text="Harga" />
+                  <TableColumn fx:id="jqty" minWidth="70.0" prefWidth="70.0" text="Kuantitas" />
+                  <TableColumn fx:id="jsatuan" minWidth="60.0" prefWidth="75.0" text="Satuan" />
+                  <TableColumn fx:id="jtotal" minWidth="90.0" prefWidth="90.0" text="Subtotal" />
                </columns>
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+      <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
          <children>
-            <Button fx:id="jeditbar" layoutX="18.0" layoutY="384.0" mnemonicParsing="false" onAction="#jeditbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-background-color: #46CC59; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Edit Barang" textFill="WHITE">
+            <Button fx:id="jeditbar" layoutX="18.0" layoutY="384.0" mnemonicParsing="false" onAction="#jeditbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Edit Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -223,7 +224,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="jhpsbar" layoutX="214.0" layoutY="384.0" mnemonicParsing="false" onAction="#jhpsbaract" prefHeight="37.0" prefWidth="177.0" style="-fx-background-color: #FE5858; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1); -fx-background-insets: 1;" styleClass="button-merah" stylesheets="@css/main.css" text="Hapus Barang" textFill="WHITE">
+            <Button fx:id="jhpsbar" layoutX="214.0" layoutY="384.0" mnemonicParsing="false" onAction="#jhpsbaract" prefHeight="37.0" prefWidth="177.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-merah" stylesheets="@css/main.css" text="Hapus Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -237,75 +238,75 @@
             <Line endX="205.0" layoutX="186.0" layoutY="68.0" startX="-171.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
             <TextField fx:id="jtfkdbar" layoutX="15.0" layoutY="102.0" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </TextField>
             <TextField fx:id="jtfkdbat" layoutX="211.0" layoutY="102.0" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </TextField>
             <TextField fx:id="jtfnamabar" layoutX="18.0" layoutY="161.0" prefHeight="34.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </TextField>
             <TextField fx:id="jtfharga" layoutX="18.0" layoutY="219.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </TextField>
             <TextField fx:id="jtfsatuan" layoutX="214.0" layoutY="280.0" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </TextField>
-            <Label layoutX="15.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Barang">
+            <Label layoutX="15.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Barcode">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="18.0" layoutY="136.0" prefHeight="27.0" prefWidth="121.0" text="Nama Barang">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="18.0" layoutY="195.0" prefHeight="27.0" prefWidth="121.0" text="Harga Barang">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="18.0" layoutY="253.0" prefHeight="27.0" prefWidth="121.0" text="Kuantitas">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="18.0" layoutY="314.0" prefHeight="27.0" prefWidth="121.0" text="Sub Total">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="214.0" layoutY="253.0" prefHeight="27.0" prefWidth="121.0" text="Satuan">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Label layoutX="214.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Batang">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <TextField fx:id="jtfqty" layoutX="18.0" layoutY="280.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </TextField>
             <TextField fx:id="jtftotal" layoutX="18.0" layoutY="341.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </TextField>
-            <Button fx:id="jcheckout" layoutX="18.0" layoutY="443.0" mnemonicParsing="false" onAction="#jcheckoutact" prefHeight="35.0" prefWidth="374.0" style="-fx-background-color: #46CC59; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Checkout" textFill="WHITE">
+            <Button fx:id="jcheckout" layoutX="18.0" layoutY="443.0" mnemonicParsing="false" onAction="#jcheckoutact" prefHeight="35.0" prefWidth="374.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Checkout" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -317,7 +318,7 @@
                </effect>
             </Button>
             <Line endX="204.0" layoutX="187.0" layoutY="433.0" startX="-169.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
-            <Button fx:id="jcaribar" layoutX="17.0" layoutY="20.0" mnemonicParsing="false" onAction="#jcaribaract" prefHeight="35.0" prefWidth="374.0" style="-fx-background-color: #46CC59; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
+            <Button fx:id="jcaribar" layoutX="17.0" layoutY="20.0" mnemonicParsing="false" onAction="#jcaribaract" prefHeight="35.0" prefWidth="374.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -330,7 +331,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="jualatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
+      <Pane fx:id="jualatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css" visible="false">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -350,7 +351,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="jswitch" layoutX="884.0" layoutY="8.0" mnemonicParsing="false" onAction="#jswitchact" prefHeight="37.0" prefWidth="78.0" style="-fx-background-color: #FE5858; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1); -fx-background-insets: 1;" styleClass="button-hijau" stylesheets="@css/main.css" text="Beli" textFill="WHITE">
+            <Button fx:id="jswitch" layoutX="884.0" layoutY="8.0" mnemonicParsing="false" onAction="#jswitchact" prefHeight="37.0" prefWidth="78.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-merah" stylesheets="@css/main.css" text="Beli" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -375,7 +376,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="bcaribar" layoutX="337.0" layoutY="7.0" mnemonicParsing="false" onAction="#bcaribaract" prefHeight="35.0" prefWidth="297.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
+            <Button fx:id="bcaribar" layoutX="337.0" layoutY="7.0" mnemonicParsing="false" onAction="#bcaribaract" prefHeight="35.0" prefWidth="297.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -388,7 +389,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="bswitch" layoutX="884.0" layoutY="8.0" mnemonicParsing="false" onAction="#bswitchact" prefHeight="35.0" prefWidth="78.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Beli" textFill="WHITE">
+            <Button fx:id="bswitch" layoutX="884.0" layoutY="7.0" mnemonicParsing="false" onAction="#bswitchact" prefHeight="35.0" prefWidth="78.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Jual" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -397,6 +398,9 @@
                </cursor>
             </Button>
          </children>
+         <effect>
+            <DropShadow color="#0000001c" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+         </effect>
       </Pane>
       <Pane fx:id="belikiri" layoutX="284.0" layoutY="196.0" prefHeight="504.0" prefWidth="552.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
          <children>
@@ -417,203 +421,9 @@
               </columns>
             </TableView>
          </children>
-      </Pane>
-      <Pane fx:id="belikanan" layoutX="853.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
-         <children>
-            <Label layoutX="18.0" layoutY="15.0" text="Kode Barang" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="btfkdbar" layoutX="18.0" layoutY="42.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="18.0" layoutY="77.0" text="Nama Barang" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="btfnamabar" layoutX="18.0" layoutY="102.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="18.0" layoutY="137.0" text="Harga" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="btfharga" layoutX="18.0" layoutY="162.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <Label layoutX="18.0" layoutY="197.0" text="Kuantitas" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="btfqty" layoutX="18.0" layoutY="222.0" onKeyReleased="#btfqtykey" prefHeight="35.0" prefWidth="194.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <Label layoutX="18.0" layoutY="257.0" text="Sub Total" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="btftotal" layoutX="18.0" layoutY="282.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Button fx:id="btambahbar" layoutX="18.0" layoutY="339.0" mnemonicParsing="false" onAction="#btambahbaract" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="beditbar" layoutX="17.0" layoutY="393.0" mnemonicParsing="false" onAction="#beditbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-background-radius: 8;" styleClass="button-oranye" stylesheets="@css/main.css" text="Edit Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="bhpsbar" layoutX="214.0" layoutY="393.0" mnemonicParsing="false" onAction="#bhpsbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-background-radius: 8;" styleClass="button-merah" stylesheets="@css/main.css" text="Hapus Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="bcheckout" layoutX="18.0" layoutY="445.0" mnemonicParsing="false" onAction="#bcheckoutact" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Checkout" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Label fx:id="btfsatuan" layoutX="237.0" layoutY="227.0" prefHeight="25.0" prefWidth="152.0" text="satuan" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane fx:id="popupbeli" layoutX="379.0" layoutY="126.0" prefHeight="575.0" prefWidth="783.0" style="-fx-background-color: grey; -fx-background-radius: 8;" visible="false">
-         <children>
-            <TextField fx:id="popbelicari" layoutX="81.0" layoutY="31.0" onKeyReleased="#popbelicarikey" prefHeight="41.0" prefWidth="658.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
-            <Label layoutX="46.0" layoutY="31.0" prefHeight="34.0" prefWidth="36.0" style="-fx-background-color: #46CC59; -fx-background-radius: 8 0 0 8;" />
-            <ImageView fitHeight="27.0" fitWidth="38.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/vector/Vector.png" />
-               </image>
-            </ImageView>
-            <TableView fx:id="tablepopbeli" layoutX="46.0" layoutY="86.0" onMouseClicked="#tablepopbeliklik" prefHeight="362.0" prefWidth="691.0" stylesheets="@css/main.css">
-              <columns>
-                <TableColumn fx:id="popbkdbar" minWidth="153.0" prefWidth="153.0" text="Kode Barang" />
-                <TableColumn fx:id="popbnamabar" minWidth="258.0" prefWidth="258.0" text="Nama Barang" />
-                  <TableColumn fx:id="popbqty" minWidth="153.0" prefWidth="153.0" text="Stok" />
-                  <TableColumn fx:id="popbsatuan" minWidth="127.0" prefWidth="127.0" text="Satuan" />
-              </columns>
-            </TableView>
-            <Button fx:id="popbtambahbar" layoutX="585.0" layoutY="448.0" mnemonicParsing="false" onAction="#popbtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Pilih Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="popbend" layoutX="585.0" layoutY="503.0" mnemonicParsing="false" onAction="#popbendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </children>
-      </Pane>
-      <Pane fx:id="popupjual" layoutX="379.0" layoutY="126.0" prefHeight="575.0" prefWidth="783.0" style="-fx-background-color: grey; -fx-background-radius: 8;" visible="false">
-         <children>
-            <TextField fx:id="popjualcari" layoutX="81.0" layoutY="31.0" onKeyReleased="#popbelicarikey" prefHeight="41.0" prefWidth="658.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
-            <Label layoutX="46.0" layoutY="31.0" prefHeight="34.0" prefWidth="36.0" style="-fx-background-color: #46CC59; -fx-background-radius: 8 0 0 8;" />
-            <ImageView fitHeight="27.0" fitWidth="38.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/vector/Vector.png" />
-               </image>
-            </ImageView>
-            <TableView fx:id="tablepopjual" layoutX="46.0" layoutY="86.0" onMouseClicked="#tablepopjualklik" prefHeight="362.0" prefWidth="691.0" stylesheets="@css/main.css">
-               <columns>
-                  <TableColumn fx:id="popjkdbar" minWidth="153.0" prefWidth="153.0" text="Kode Barang" />
-                  <TableColumn fx:id="popjnamabar" minWidth="202.0" prefWidth="202.0" text="Nama Barang" />
-                  <TableColumn fx:id="popjharga" minWidth="157.0" prefWidth="157.0" text="Harga" />
-                  <TableColumn fx:id="popjqty" minWidth="83.0" prefWidth="83.0" text="Stok" />
-                  <TableColumn fx:id="popjsatuan" minWidth="95.0" prefWidth="95.0" text="Satuan" />
-               </columns>
-            </TableView>
-            <Button fx:id="popjtambahbar" layoutX="585.0" layoutY="462.0" mnemonicParsing="false" onAction="#popjtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="popjend" layoutX="585.0" layoutY="517.0" mnemonicParsing="false" onAction="#popjendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Label layoutX="50.0" layoutY="462.0" text="Nama Barang" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="161.0" layoutY="462.0" text=":" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="50.0" layoutY="492.0" text="Kuantitas" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="377.0" layoutY="492.0" text="Total Harga" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="jtftotal11" layoutX="50.0" layoutY="520.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <Label layoutX="377.0" layoutY="520.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="236.0" layoutY="523.0" prefHeight="25.0" prefWidth="90.0" text="Satuan" textFill="#303841">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-         </children>
+         <effect>
+            <DropShadow color="#0000001a" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+         </effect>
       </Pane>
       <Pane fx:id="checkoutatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
          <children>
@@ -698,7 +508,7 @@
             </DropShadow>
          </effect>
          <children>
-            <Label fx:id="co_lblkanan" layoutX="120.0" layoutY="14.0" text="Kembali" textFill="#303841">
+            <Label fx:id="co_lblkanan" alignment="CENTER" layoutX="3.0" layoutY="14.0" prefHeight="25.0" prefWidth="297.0" text="Kembalian" textFill="#303841">
                <font>
                   <Font size="16.0" />
                </font>
@@ -708,18 +518,234 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="co_print" layoutX="51.0" layoutY="92.0" mnemonicParsing="false" onAction="#co_printact" prefHeight="50.0" prefWidth="194.0" style="-fx-background-radius: 8;" styleClass="button-besar" stylesheets="@css/main.css" text="Print" textFill="WHITE">
+            <Button fx:id="co_print" layoutX="51.0" layoutY="92.0" mnemonicParsing="false" onAction="#co_printact" prefHeight="50.0" prefWidth="194.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-besar" stylesheets="@css/main.css" text="Print" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Button fx:id="co_back" layoutX="52.0" layoutY="151.0" mnemonicParsing="false" onAction="#co_backact" prefHeight="50.0" prefWidth="194.0" style="-fx-background-radius: 8;" styleClass="button-besar" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
+            <Button fx:id="co_back" layoutX="52.0" layoutY="151.0" mnemonicParsing="false" onAction="#co_backact" prefHeight="50.0" prefWidth="194.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-besar" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Button fx:id="co_back1" layoutX="52.0" layoutY="151.0" mnemonicParsing="false" onAction="#co_back1act" prefHeight="50.0" prefWidth="194.0" style="-fx-background-radius: 8;" styleClass="button-besar" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
+            <Button fx:id="co_back1" layoutX="52.0" layoutY="151.0" mnemonicParsing="false" onAction="#co_back1act" prefHeight="50.0" prefWidth="194.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-besar" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="belikanan" layoutX="853.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
+         <children>
+            <Label layoutX="18.0" layoutY="15.0" text="Kode Barang" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="btfkdbar" layoutX="18.0" layoutY="42.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="77.0" text="Nama Barang" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="btfnamabar" layoutX="18.0" layoutY="102.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="137.0" text="Harga" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="btfharga" layoutX="18.0" layoutY="162.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="18.0" layoutY="197.0" text="Kuantitas" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="btfqty" layoutX="18.0" layoutY="222.0" onKeyReleased="#btfqtykey" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="18.0" layoutY="257.0" text="Sub Total" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="btftotal" layoutX="18.0" layoutY="282.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="btambahbar" layoutX="19.0" layoutY="334.0" mnemonicParsing="false" onAction="#btambahbaract" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="beditbar" layoutX="18.0" layoutY="388.0" mnemonicParsing="false" onAction="#beditbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-oranye" stylesheets="@css/main.css" text="Edit Barang" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="bhpsbar" layoutX="215.0" layoutY="388.0" mnemonicParsing="false" onAction="#bhpsbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-merah" stylesheets="@css/main.css" text="Hapus Barang" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="bcheckout" layoutX="18.0" layoutY="453.0" mnemonicParsing="false" onAction="#bcheckoutact" prefHeight="35.0" prefWidth="374.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Checkout" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label layoutX="216.0" layoutY="197.0" prefHeight="25.0" prefWidth="152.0" text="Satuan" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Line endX="205.0" layoutX="186.0" layoutY="441.0" startX="-171.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
+            <Label fx:id="btfsatuan" layoutX="216.0" layoutY="222.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow color="#0000001c" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+         </effect>
+      </Pane>
+      <Pane fx:id="blur" layoutX="264.0" layoutY="107.0" opacity="0.37" prefHeight="615.0" prefWidth="1016.0" style="-fx-background-color: #a6a6a6;" visible="false">
+         <effect>
+            <DropShadow color="#5a4e4ee5" height="34.57" radius="16.295" width="32.61" />
+         </effect>
+      </Pane>
+      <Pane fx:id="popupjual" layoutX="379.0" layoutY="126.0" prefHeight="575.0" prefWidth="783.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
+         <children>
+            <TextField fx:id="popjualcari" layoutX="81.0" layoutY="31.0" onKeyReleased="#popbelicarikey" prefHeight="41.0" prefWidth="658.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
+            <Label layoutX="46.0" layoutY="31.0" prefHeight="34.0" prefWidth="36.0" style="-fx-background-color: #46CC59; -fx-background-radius: 8 0 0 8;" />
+            <ImageView fitHeight="27.0" fitWidth="38.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/vector/Vector.png" />
+               </image>
+            </ImageView>
+            <TableView fx:id="tablepopjual" layoutX="46.0" layoutY="86.0" onMouseClicked="#tablepopjualklik" prefHeight="362.0" prefWidth="691.0" stylesheets="@css/main.css">
+               <columns>
+                  <TableColumn fx:id="popjkdbar" minWidth="153.0" prefWidth="153.0" text="Kode Barang" />
+                  <TableColumn fx:id="popjnamabar" minWidth="202.0" prefWidth="202.0" text="Nama Barang" />
+                  <TableColumn fx:id="popjharga" minWidth="157.0" prefWidth="157.0" text="Harga" />
+                  <TableColumn fx:id="popjqty" minWidth="83.0" prefWidth="83.0" text="Stok" />
+                  <TableColumn fx:id="popjsatuan" minWidth="95.0" prefWidth="95.0" text="Satuan" />
+               </columns>
+            </TableView>
+            <Button fx:id="popjtambahbar" layoutX="585.0" layoutY="462.0" mnemonicParsing="false" onAction="#popjtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="popjend" layoutX="585.0" layoutY="517.0" mnemonicParsing="false" onAction="#popjendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label layoutX="50.0" layoutY="462.0" text="Nama Barang" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="161.0" layoutY="462.0" text=":" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="492.0" text="Kuantitas" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="377.0" layoutY="492.0" text="Total Harga" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="poptfjqty" layoutX="50.0" layoutY="520.0" onKeyReleased="#poptfjqtyklik" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label fx:id="poptfjtot" layoutX="377.0" layoutY="520.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="poptfjsat" layoutX="236.0" layoutY="523.0" prefHeight="25.0" prefWidth="90.0" text="Satuan" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="poptfjnamabar" layoutX="171.0" layoutY="462.0" prefHeight="25.0" prefWidth="206.0" textFill="#303841">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="popupbeli" layoutX="379.0" layoutY="126.0" prefHeight="575.0" prefWidth="783.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
+         <children>
+            <TextField fx:id="popbelicari" layoutX="81.0" layoutY="31.0" onKeyReleased="#popbelicarikey" prefHeight="41.0" prefWidth="658.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
+            <Label layoutX="46.0" layoutY="31.0" prefHeight="34.0" prefWidth="36.0" style="-fx-background-color: #46CC59; -fx-background-radius: 8 0 0 8;" />
+            <ImageView fitHeight="27.0" fitWidth="38.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/vector/Vector.png" />
+               </image>
+            </ImageView>
+            <TableView fx:id="tablepopbeli" layoutX="46.0" layoutY="86.0" onMouseClicked="#tablepopbeliklik" prefHeight="362.0" prefWidth="691.0" stylesheets="@css/main.css">
+              <columns>
+                <TableColumn fx:id="popbkdbar" minWidth="153.0" prefWidth="153.0" text="Kode Barang" />
+                <TableColumn fx:id="popbnamabar" minWidth="258.0" prefWidth="258.0" text="Nama Barang" />
+                  <TableColumn fx:id="popbqty" minWidth="153.0" prefWidth="153.0" text="Stok" />
+                  <TableColumn fx:id="popbsatuan" minWidth="127.0" prefWidth="127.0" text="Satuan" />
+              </columns>
+            </TableView>
+            <Button fx:id="popbtambahbar" layoutX="585.0" layoutY="448.0" mnemonicParsing="false" onAction="#popbtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Pilih Barang" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="popbend" layoutX="585.0" layoutY="503.0" mnemonicParsing="false" onAction="#popbendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </Pane>
