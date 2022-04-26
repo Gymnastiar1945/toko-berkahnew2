@@ -19,13 +19,13 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
    <children>
       <VBox layoutY="106.0" prefHeight="614.0" prefWidth="264.0" style="-fx-background-color: #FFF;">
          <children>
-            <Label prefHeight="21.0" prefWidth="81.0" text="Main Menu" textAlignment="CENTER">
+            <Label prefHeight="30.0" prefWidth="135.0" text="Main Menu" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" left="21.0" />
@@ -35,7 +35,7 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icon/Dashboard.png" />
+                        <Image url="@img/icon/Dashboard%20(1).png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -50,12 +50,12 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" style="-: ;" styleClass="image">
                      <image>
-                        <Image url="@img/icon/Transaction.png" />
+                        <Image url="@img/icon-hijau/Transaction.png" />
                      </image>
                   </ImageView>
                </graphic>
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" left="21.0" />
@@ -118,9 +118,9 @@
                   <Insets bottom="25.0" left="21.0" />
                </VBox.margin>
             </Label>
-            <Label layoutX="30.0" layoutY="126.0" prefHeight="21.0" prefWidth="81.0" text="Other menu" textAlignment="CENTER">
+            <Label layoutX="30.0" layoutY="126.0" prefHeight="30.0" prefWidth="134.0" text="Other Menu" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" left="21.0" />
@@ -171,7 +171,7 @@
                   </ImageView>
                </graphic>
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -196,7 +196,7 @@
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
          <children>
-            <TableView fx:id="tablejual" layoutX="18.0" layoutY="17.0" onMouseClicked="#tablejualklik" prefHeight="468.0" prefWidth="519.0" stylesheets="@css/main.css">
+            <TableView fx:id="tablejual" layoutX="18.0" layoutY="17.0" onMouseClicked="#tablejualklik" prefHeight="411.0" prefWidth="519.0" stylesheets="@css/main.css">
                <columns>
                   <TableColumn fx:id="jkdbar" minWidth="80.0" text="Kode Barang" />
                   <TableColumn fx:id="jnamabar" minWidth="115.0" prefWidth="115.0" text="Nama Barang" />
@@ -206,6 +206,16 @@
                   <TableColumn fx:id="jtotal" minWidth="90.0" prefWidth="90.0" text="Subtotal" />
                </columns>
             </TableView>
+            <Label layoutX="18.0" layoutY="451.0" prefHeight="30.0" prefWidth="170.0" text=" Grand Total   :     ">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="333.0" layoutY="451.0" prefHeight="30.0" prefWidth="206.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
@@ -261,7 +271,7 @@
                   <Font size="16.0" />
                </font>
             </TextField>
-            <Label layoutX="15.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Barcode">
+            <Label layoutX="15.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Barang">
                <font>
                   <Font size="16.0" />
                </font>
@@ -291,7 +301,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="214.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Batang">
+            <Label layoutX="214.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Barcode">
                <font>
                   <Font size="16.0" />
                </font>
@@ -640,7 +650,7 @@
       </Pane>
       <Pane fx:id="popupjual" layoutX="379.0" layoutY="126.0" prefHeight="575.0" prefWidth="783.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
          <children>
-            <TextField fx:id="popjualcari" layoutX="81.0" layoutY="31.0" onKeyReleased="#popbelicarikey" prefHeight="41.0" prefWidth="658.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
+            <TextField fx:id="popjualcari" layoutX="81.0" layoutY="31.0" onKeyReleased="#popjualcarikey" prefHeight="41.0" prefWidth="658.0" styleClass="field-pencarian" stylesheets="@css/main.css" />
             <Label layoutX="46.0" layoutY="31.0" prefHeight="34.0" prefWidth="36.0" style="-fx-background-color: #46CC59; -fx-background-radius: 8 0 0 8;" />
             <ImageView fitHeight="27.0" fitWidth="38.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -51,8 +51,12 @@
     -fx-font-size: 36px;
     -fx-text-fill:#46CC59;
 }
-
-
+.label-off:pressed{
+    -fx-font-size: 16px;
+}
+.label-off:focused{
+    -fx-font-size: 16px;
+}
 
 
 

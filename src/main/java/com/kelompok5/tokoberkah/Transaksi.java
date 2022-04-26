@@ -921,11 +921,15 @@ public class Transaksi implements Initializable {
 
     @FXML
     void co_isilblkirikey(KeyEvent event) {
-        String total = co_lblgtot.getText();
-        total = total.replace("Rp. ", "");
-        int ttl = Integer.parseInt(total), uang = Integer.parseInt(co_isilblkiri.getText());
-        int kembalian = uang - ttl ;
-        co_isilblkanan.setText("Rp. "+kembalian);
+        if (co_isilblkiri.getText().equals("")) {
+
+        } else {
+            String total = co_lblgtot.getText();
+            total = total.replace("Rp. ", "");
+            int ttl = Integer.parseInt(total), uang = Integer.parseInt(co_isilblkiri.getText());
+            int kembalian = uang - ttl;
+            co_isilblkanan.setText("Rp. " + kembalian);
+        }
     }
 
     @FXML
@@ -1274,7 +1278,29 @@ public class Transaksi implements Initializable {
 
     @FXML
     void popbelicarikey(KeyEvent event) {
+        ObservableList<tbl_transpopbeli> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select barang.id_barang, barang.nama_barang, jumlah, satuan.satuan"
+                    + " from barang join satuan on barang.id_satuan = satuan.id_satuan " +
+                    "WHERE nama_barang like '%" + popbelicari.getText() + "%' ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                list.add(new tbl_transpopbeli(res.getString(1),
+                        res.getString(2),
+                        res.getDouble(3),
+                        res.getString(4)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        popbkdbar.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, String>("popbkdbar"));
+        popbnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, String>("popbnamabar"));
+        popbqty.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, Double>("popbqty"));
+        popbsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transpopbeli, String>("popbsatuan"));
+        tablepopbeli.setItems(list);
     }
 
     @FXML
@@ -1346,6 +1372,34 @@ public class Transaksi implements Initializable {
         tablepopjual.setItems(list);
     }
 
+    @FXML
+    void popjualcarikey(KeyEvent event) {
+        ObservableList<tbl_transpopjual> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select barang.id_barang, barang.nama_barang, barang.harga_jual, barang.jumlah, satuan.satuan"
+                    + " from barang join satuan on barang.id_satuan = satuan.id_satuan " +
+                    "WHERE nama_barang like '%" + popjualcari.getText() + "%';";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                list.add(new tbl_transpopjual(res.getString(1),
+                        res.getString(2),
+                        res.getInt(3),
+                        res.getDouble(4),
+                        res.getString(5)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        popjkdbar.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, String>("popjkdbar"));
+        popjnamabar.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, String>("popjnamabar"));
+        popjharga.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, Integer>("popjharga"));
+        popjqty.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, Double>("popjqty"));
+        popjsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transpopjual, String>("popjsatuan"));
+        tablepopjual.setItems(list);
+    }
 
     @FXML
     void popjendact(ActionEvent event) {
