@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Dashboard">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Dashboard">
    <children>
       <VBox layoutY="106.0" prefHeight="614.0" prefWidth="264.0" style="-fx-background-color: #FFF;">
          <children>
@@ -340,7 +340,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <AreaChart fx:id="areapendapatan" layoutX="19.0" layoutY="65.0" prefHeight="236.0" prefWidth="910.0" stylesheets="@css/main.css">
+                  <AreaChart fx:id="areapendapatan" animated="false" layoutX="19.0" layoutY="65.0" prefHeight="236.0" prefWidth="910.0" stylesheets="@css/main.css">
                      <xAxis>
                         <CategoryAxis side="BOTTOM" />
                      </xAxis>

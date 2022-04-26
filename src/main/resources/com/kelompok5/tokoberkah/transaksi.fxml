@@ -31,7 +31,7 @@
                   <Insets bottom="20.0" left="21.0" />
                </VBox.margin>
             </Label>
-            <Label depthTest="DISABLE" prefHeight="26.0" prefWidth="246.0" styleClass="label-off" stylesheets="@css/main.css" text="   Overview" textFill="#757575">
+            <Label fx:id="menudash" depthTest="DISABLE" onMouseClicked="#menudashklik" prefHeight="26.0" prefWidth="246.0" styleClass="label-off" stylesheets="@css/main.css" text="   Overview" textFill="#757575">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -46,7 +46,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label depthTest="DISABLE" layoutX="40.0" layoutY="175.0" prefHeight="1.0" prefWidth="254.0" stylesheets="@css/main.css" text="   Transaksi" textFill="#46cc59">
+            <Label fx:id="transakasi" depthTest="DISABLE" layoutX="40.0" layoutY="175.0" prefHeight="1.0" prefWidth="254.0" stylesheets="@css/main.css" text="   Transaksi" textFill="#46cc59">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" style="-: ;" styleClass="image">
                      <image>
@@ -208,7 +208,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" visible="false">
+      <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -296,7 +296,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="jtfqty" layoutX="18.0" layoutY="280.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="jtfqty" layoutX="18.0" layoutY="280.0" onKeyReleased="#jtfqtykey" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="16.0" />
                </font>
@@ -496,7 +496,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="co_isilblkiri" layoutX="21.0" layoutY="159.0" prefHeight="30.0" prefWidth="595.0" styleClass="field-list" stylesheets="@css/main.css" />
+            <TextField fx:id="co_isilblkiri" layoutX="21.0" layoutY="159.0" onKeyTyped="#co_isilblkirikey" prefHeight="30.0" prefWidth="595.0" styleClass="field-list" stylesheets="@css/main.css" />
          </children>
       </Pane>
       <Pane fx:id="checkoutbawahkanan" layoutX="963.0" layoutY="478.0" prefHeight="215.0" prefWidth="297.0" style="-fx-background-color: #FFf; -fx-background-radius: 8;" visible="false">
