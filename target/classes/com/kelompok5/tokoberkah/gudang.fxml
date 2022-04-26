@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.gudang">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.gudang">
     <children>
         <Pane fx:id="panetabbar" layoutX="284.0" layoutY="196.0" prefHeight="314.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 12;">
             <effect>
@@ -189,7 +189,7 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icon/Dashboard.png" />
+                        <Image url="@img/icon/Dashboard%20(1).png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -229,12 +229,12 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icon/Inventory.png" />
+                        <Image url="@img/icon-hijau/Inventory.png" />
                      </image>
                   </ImageView>
                </graphic>
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" left="21.0" />

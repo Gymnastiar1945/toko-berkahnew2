@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
@@ -35,7 +36,7 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icon/Dashboard.png" />
+                        <Image url="@img/icon/Dashboard%20(1).png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -43,19 +44,22 @@
                   <Insets bottom="20.0" left="21.0" />
                </VBox.margin>
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Label>
-            <Label fx:id="transakasi" depthTest="DISABLE" layoutX="40.0" layoutY="175.0" prefHeight="1.0" prefWidth="254.0" stylesheets="@css/main.css" text="   Transaksi" textFill="#46cc59">
+            <Label fx:id="transakasi" depthTest="DISABLE" layoutX="40.0" layoutY="175.0" prefHeight="1.0" prefWidth="254.0" text="   Transaksi" textFill="#46cc59">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" style="-: ;" styleClass="image">
                      <image>
-                        <Image url="@img/icon/Transaction.png" />
+                        <Image url="@img/icon-hijau/Transaction.png" />
                      </image>
                   </ImageView>
                </graphic>
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" left="21.0" />
@@ -64,13 +68,9 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </Label>
-            <Label depthTest="DISABLE" layoutX="40.0" layoutY="238.0" prefHeight="0.0" prefWidth="269.0" styleClass="label-off" stylesheets="@css/main.css" text="   Warehouse" textFill="#757575">
+            <Label fx:id="menugudang" alignment="TOP_LEFT" depthTest="DISABLE" layoutX="40.0" layoutY="238.0" onMouseClicked="#menugudangklik" prefHeight="0.0" prefWidth="269.0" styleClass="label-off" stylesheets="@css/main.css" text="   Warehouse" textFill="#757575">
                <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@img/icon/Inventory.png" />
-                     </image>
-                  </ImageView>
+                  <SVGPath content="M23.4 0H2.6C1.3 0 0 1.17 0 2.6V6.513C0 7.449 0.559 8.255 1.3 8.71V23.4C1.3 24.83 2.73 26 3.9 26H22.1C23.27 26 24.7 24.83 24.7 23.4V8.71C25.441 8.255 26 7.449 26 6.513V2.6C26 1.17 24.7 0 23.4 0ZM16.9 15.6H9.1V13H16.9V15.6ZM23.4 6.5H2.6V2.6H23.4V6.5Z" fill="#757575" />
                </graphic>
                <font>
                   <Font size="14.0" />
@@ -82,7 +82,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label depthTest="DISABLE" layoutX="40.0" layoutY="316.0" prefHeight="0.0" prefWidth="339.0" styleClass="label-off" stylesheets="@css/main.css" text="   Riwayat Transaksi" textFill="#757575">
+            <Label fx:id="menuriwayat" depthTest="DISABLE" layoutX="40.0" layoutY="316.0" onMouseClicked="#menuriwayatklik" prefHeight="0.0" prefWidth="339.0" styleClass="label-off" stylesheets="@css/main.css" text="   Riwayat Transaksi" textFill="#757575">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -100,7 +100,7 @@
                   <Insets bottom="20.0" left="21.0" />
                </VBox.margin>
             </Label>
-            <Label depthTest="DISABLE" layoutX="40.0" layoutY="356.0" prefHeight="0.0" prefWidth="412.0" styleClass="label-off" stylesheets="@css/main.css" text="   Retur Barang" textFill="#757575">
+            <Label fx:id="menuretur" depthTest="DISABLE" layoutX="40.0" layoutY="356.0" onMouseClicked="#menureturklik" prefHeight="0.0" prefWidth="412.0" styleClass="label-off" stylesheets="@css/main.css" text="   Retur Barang" textFill="#757575">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -118,7 +118,7 @@
                   <Insets bottom="25.0" left="21.0" />
                </VBox.margin>
             </Label>
-            <Label layoutX="30.0" layoutY="126.0" prefHeight="21.0" prefWidth="81.0" text="Other menu" textAlignment="CENTER">
+            <Label layoutX="30.0" layoutY="126.0" prefHeight="21.0" prefWidth="81.0" text="Other Menu" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -126,7 +126,7 @@
                   <Insets bottom="20.0" left="21.0" />
                </VBox.margin>
             </Label>
-            <Label depthTest="DISABLE" layoutX="60.0" layoutY="356.0" prefHeight="25.0" prefWidth="243.0" styleClass="label-off" stylesheets="@css/main.css" text="   Daftar Karyawan" textFill="#757575">
+            <Label fx:id="menukar" depthTest="DISABLE" layoutX="60.0" layoutY="356.0" onMouseClicked="#menukarklik" prefHeight="25.0" prefWidth="243.0" styleClass="label-off" stylesheets="@css/main.css" text="   Daftar Karyawan" textFill="#757575">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -144,7 +144,7 @@
                   <Insets bottom="20.0" left="21.0" />
                </VBox.margin>
             </Label>
-            <Label depthTest="DISABLE" layoutX="60.0" layoutY="356.0" prefHeight="0.0" prefWidth="412.0" styleClass="label-off" stylesheets="@css/main.css" text="   Pengaturan" textFill="#757575">
+            <Label fx:id="menuset" depthTest="DISABLE" layoutX="60.0" layoutY="356.0" onMouseClicked="#menusetklik" prefHeight="0.0" prefWidth="412.0" styleClass="label-off" stylesheets="@css/main.css" text="   Pengaturan" textFill="#757575">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -162,7 +162,7 @@
                   <Insets bottom="20.0" left="21.0" />
                </VBox.margin>
             </Label>
-            <Label depthTest="DISABLE" layoutX="10.0" layoutY="466.0" prefHeight="26.0" prefWidth="251.0" text="   Logout" textFill="#ee3030">
+            <Label fx:id="logout" depthTest="DISABLE" layoutX="10.0" layoutY="466.0" onMouseClicked="#logoutklik" prefHeight="26.0" prefWidth="251.0" text="   Logout" textFill="#ee3030">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -196,7 +196,7 @@
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
          <children>
-            <TableView fx:id="tablejual" layoutX="18.0" layoutY="17.0" onMouseClicked="#tablejualklik" prefHeight="468.0" prefWidth="519.0" stylesheets="@css/main.css">
+            <TableView fx:id="tablejual" layoutX="18.0" layoutY="17.0" onMouseClicked="#tablejualklik" prefHeight="411.0" prefWidth="519.0" stylesheets="@css/main.css">
                <columns>
                   <TableColumn fx:id="jkdbar" minWidth="80.0" text="Kode Barang" />
                   <TableColumn fx:id="jnamabar" minWidth="115.0" prefWidth="115.0" text="Nama Barang" />
@@ -206,6 +206,16 @@
                   <TableColumn fx:id="jtotal" minWidth="90.0" prefWidth="90.0" text="Subtotal" />
                </columns>
             </TableView>
+            <Label layoutX="18.0" layoutY="451.0" prefHeight="30.0" prefWidth="170.0" text=" Grand Total   :     ">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="jgatot" alignment="CENTER_RIGHT" layoutX="333.0" layoutY="451.0" prefHeight="30.0" prefWidth="206.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
@@ -261,7 +271,7 @@
                   <Font size="16.0" />
                </font>
             </TextField>
-            <Label layoutX="15.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Barcode">
+            <Label layoutX="15.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Barang">
                <font>
                   <Font size="16.0" />
                </font>
@@ -291,7 +301,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="214.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Batang">
+            <Label layoutX="214.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Barcode">
                <font>
                   <Font size="16.0" />
                </font>

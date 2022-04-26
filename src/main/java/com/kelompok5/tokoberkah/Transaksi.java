@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -181,6 +183,9 @@ public class Transaksi implements Initializable {
 
     @FXML
     private Button jeditbar;
+
+    @FXML
+    private Label jgatot;
 
     @FXML
     private TableColumn<tbl_transjual, Integer> jharga;
@@ -1088,6 +1093,19 @@ public class Transaksi implements Initializable {
         jsatuan.setCellValueFactory(new PropertyValueFactory<tbl_transjual, String>("jsatuan"));
         jtotal.setCellValueFactory(new PropertyValueFactory<tbl_transjual, Double>("jtotal"));
         tablejual.setItems(list);
+
+        try {
+            String sql = "SELECT sum(harga_total) as total from cart_penjualan "
+                    + "where id_penjualan = '"+jkdtrans.getText()+"' ;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            rs.next();
+                jgatot.setText("Rp. "+rs.getInt("total"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -1580,6 +1598,53 @@ public class Transaksi implements Initializable {
     @FXML
     void menudashklik(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void logoutklik(MouseEvent event) {
+
+    }
+
+    @FXML
+    void menugudangklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("gudang.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menukarklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("karyawan.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menureturklik(MouseEvent event) {
+
+    }
+
+    @FXML
+    void menuriwayatklik(MouseEvent event) {
+
+    }
+
+    @FXML
+    void menusetklik(MouseEvent event) {
+
+    }
+
+    @FXML
+    void menutransklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("transaksi.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
