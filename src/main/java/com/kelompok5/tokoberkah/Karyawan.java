@@ -349,6 +349,7 @@ public class Karyawan extends App implements Initializable {
                     pkosong();
                     tbl_kar();
                     panepopupkaryawan.setVisible(false);
+                    blur.setVisible(false);
                 } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Gagal");

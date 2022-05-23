@@ -1,5 +1,6 @@
 package com.kelompok5.tokoberkah;
 
+import com.jfoenix.controls.JFXDatePicker;
 import com.mysql.jdbc.Connection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +31,9 @@ import java.util.ResourceBundle;
 
 
 public class Dashboard extends App implements Initializable {
+    @FXML
+    private JFXDatePicker tes;
+
 
     @FXML
     private Button btndtlTrans;
@@ -244,7 +248,7 @@ public class Dashboard extends App implements Initializable {
         blnpengechart.setText(blnpenda.getText());
         try {
             String sql = "SELECT sum(total_bayar) as total from penjualan "
-                    + "where tanggal_transaksi between '2021-"+a+"-01' and '2022-"+a+"-31'";
+                    + "where tanggal_transaksi between '2022-"+a+"-01' and '2022-"+a+"-31'";
             java.sql.Connection conn = (Connection) Config.configDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
@@ -263,7 +267,7 @@ public class Dashboard extends App implements Initializable {
         String a = (dtf.format(tanggal));
         try {
             String sql = "SELECT sum(uang) as total from pembelian "
-                    + "where tanggal_transaksi between '2021-"+a+"-01' and '2022-"+a+"-31'";
+                    + "where tanggal_transaksi between '2022-"+a+"-01' and '2022-"+a+"-31'";
             java.sql.Connection conn = (Connection) Config.configDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
@@ -389,8 +393,12 @@ public class Dashboard extends App implements Initializable {
     }
 
     @FXML
-    void menuriwayatklik(MouseEvent event) {
-
+    void menuriwayatklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("riwayat.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -458,7 +466,7 @@ public class Dashboard extends App implements Initializable {
             int j = 0;
             try {
                 String sql = "SELECT sum(total_bayar) as total from penjualan "
-                        + "where tanggal_transaksi between '2022-04-"+i+"' and '2022-04-"+i+"'";
+                        + "where tanggal_transaksi between '2022-"+a+"-"+i+"' and '2022-"+a+"-"+i+"'";
                 java.sql.Connection conn = (Connection) Config.configDB();
                 PreparedStatement pst = conn.prepareStatement(sql);
                 ResultSet rs = pst.executeQuery(sql);
@@ -530,7 +538,7 @@ public class Dashboard extends App implements Initializable {
             int j = 0;
             try {
                 String sql = "SELECT sum(uang) as total from pembelian "
-                        + "where tanggal_transaksi between '2022-04-"+i+"' and '2022-04-"+i+"'";
+                        + "where tanggal_transaksi between '2022-"+a+"-"+i+"' and '2022-"+a+"-"+i+"'";
                 java.sql.Connection conn = (Connection) Config.configDB();
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                 java.sql.ResultSet rs = pst.executeQuery(sql);

@@ -20,7 +20,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
    <children>
       <VBox layoutY="106.0" prefHeight="614.0" prefWidth="264.0" style="-fx-background-color: #FFF;">
          <children>
@@ -666,7 +666,7 @@
                   <TableColumn fx:id="popjsatuan" minWidth="95.0" prefWidth="95.0" text="Satuan" />
                </columns>
             </TableView>
-            <Button fx:id="popjtambahbar" layoutX="585.0" layoutY="462.0" mnemonicParsing="false" onAction="#popjtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 8;" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
+            <Button fx:id="popjtambahbar" layoutX="585.0" layoutY="462.0" mnemonicParsing="false" onAction="#popjtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Tambah Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -674,7 +674,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="popjend" layoutX="585.0" layoutY="517.0" mnemonicParsing="false" onAction="#popjendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
+            <Button fx:id="popjend" layoutX="585.0" layoutY="517.0" mnemonicParsing="false" onAction="#popjendact" prefHeight="35.0" prefWidth="152.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -741,7 +741,7 @@
                   <TableColumn fx:id="popbsatuan" minWidth="127.0" prefWidth="127.0" text="Satuan" />
               </columns>
             </TableView>
-            <Button fx:id="popbtambahbar" layoutX="585.0" layoutY="448.0" mnemonicParsing="false" onAction="#popbtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Pilih Barang" textFill="WHITE">
+            <Button fx:id="popbtambahbar" layoutX="585.0" layoutY="462.0" mnemonicParsing="false" onAction="#popbtambahbaract" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Pilih Barang" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -749,7 +749,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="popbend" layoutX="585.0" layoutY="503.0" mnemonicParsing="false" onAction="#popbendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
+            <Button fx:id="popbend" layoutX="585.0" layoutY="517.0" mnemonicParsing="false" onAction="#popbendact" prefHeight="35.0" prefWidth="152.0" style="-fx-background-radius: 5;" styleClass="button-hijau" stylesheets="@css/main.css" text="Kembali" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
