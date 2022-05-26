@@ -9,6 +9,7 @@ module com.kelompok5.tokoberkah {
     requires mysql.connector.java;
     requires javafx.graphics;
     requires com.jfoenix;
+    requires jasperreports;
 
     opens com.kelompok5.tokoberkah to javafx.fxml;
     exports com.kelompok5.tokoberkah;

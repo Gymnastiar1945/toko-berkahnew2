@@ -180,7 +180,13 @@ public class gudang implements Initializable {
     private Pane popupb;
 
     @FXML
+    private Pane popupbedit;
+
+    @FXML
     private Label pkdbar;
+
+    @FXML
+    private Label pkdbar1;
 
     @FXML
     private Label judul;
@@ -189,7 +195,7 @@ public class gudang implements Initializable {
     private Label rtr;
 
     @FXML
-    private JFXCheckBox check;
+    private CheckBox check;
 
     @FXML
     private TextField pkdbat;
@@ -210,10 +216,34 @@ public class gudang implements Initializable {
     private ComboBox<String> psatuan;
 
     @FXML
+    private CheckBox check1;
+
+    @FXML
+    private TextField pkdbat1;
+
+    @FXML
+    private TextField pnamabar1;
+
+    @FXML
+    private TextField phargabar1;
+
+    @FXML
+    private ComboBox<String> pktgr1;
+
+    @FXML
+    private TextField pqty1;
+
+    @FXML
+    private ComboBox<String> psatuan1;
+
+    @FXML
     private Button btneditbar;
 
     @FXML
     private Button cancel;
+
+    @FXML
+    private Button cancel1;
 
     @FXML
     private Button btntambahbar;
@@ -305,14 +335,14 @@ public class gudang implements Initializable {
             ObservableList<tbl_gudang> list;
             list=table_bar.getSelectionModel().getSelectedItems();
 
-            pkdbar.setText(list.get(0).getKdbar());
-            pnamabar.setText(list.get(0).getNamabar());
-            pktgr.setValue(list.get(0).getKtgr());
+            pkdbar1.setText(list.get(0).getKdbar());
+            pnamabar1.setText(list.get(0).getNamabar());
+            pktgr1.setValue(list.get(0).getKtgr());
             String hrg = String.valueOf(list.get(0).getHarga());
-            phargabar.setText(hrg);
+            phargabar1.setText(hrg);
             String jml = String.valueOf(list.get(0).getQty());
-            pqty.setText(jml);
-            psatuan.setValue(list.get(0).getSatuan());
+            pqty1.setText(jml);
+            psatuan1.setValue(list.get(0).getSatuan());
             try {
                 String sql = "select retur from barang WHERE id_barang = '"
                         +labelkdbar.getText()+"' ;";
@@ -322,18 +352,16 @@ public class gudang implements Initializable {
                 rs.next();
                 rtr.setText(rs.getString("retur"));
                 if (rtr.equals("Iya")) {
-                    check.setSelected(true);
+                    check1.setSelected(true);
                 } else {
-                    check.setSelected(false);
+                    check1.setSelected(false);
                 }
             } catch (Exception e) {
             }
             blur.setVisible(true);
-            popupb.setVisible(true);
-            judul.setText("Edit Barang");
-            btntambahbar.setVisible(false);
-            btneditbar.setVisible(true);
-            pktgr.setDisable(true);
+            popupbedit.setVisible(true);
+//            btneditbar.setVisible(true);
+            pktgr1.setDisable(true);
         }
     }
 
@@ -500,6 +528,7 @@ public class gudang implements Initializable {
     void cancelklik(ActionEvent event) {
         blur.setVisible(false);
         popupb.setVisible(false);
+        popupbedit.setVisible(false);
     }
 
     //TAMBAHBARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
@@ -623,7 +652,7 @@ public class gudang implements Initializable {
     @FXML
     void editbaract(ActionEvent event) {
         String cek, idsat = "";
-        if (check.isSelected()) {
+        if (check1.isSelected()) {
             cek = "Iya";
         } else {
             cek = "Tidak";
@@ -631,7 +660,7 @@ public class gudang implements Initializable {
 
         try {
             String sql = "SELECT id_satuan from satuan "
-                    + "where satuan = '" + psatuan.getSelectionModel().getSelectedItem() + "' ;";
+                    + "where satuan = '" + psatuan1.getSelectionModel().getSelectedItem() + "' ;";
             java.sql.Connection conn = (Connection) Config.configDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
@@ -644,26 +673,26 @@ public class gudang implements Initializable {
 
         try {
             String sqlll = "UPDATE barang "
-                    + "SET nama_barang = '" + pnamabar.getText()
-                    + "', jumlah = '" + pqty.getText()
+                    + "SET nama_barang = '" + pnamabar1.getText()
+                    + "', jumlah = '" + pqty1.getText()
                     + "', id_satuan = '" + idsat
-                    + "', harga_jual = '" + phargabar.getText()
+                    + "', harga_jual = '" + phargabar1.getText()
                     + "', retur = '" + cek
-                    + "', barcode = '" + pkdbat.getText()
-                    + "' WHERE barang.id_barang = '" + pkdbar.getText() + "' ;";
+                    + "', barcode = '" + pkdbat1.getText()
+                    + "' WHERE barang.id_barang = '" + pkdbar1.getText() + "' ;";
             java.sql.Connection conn = (Connection) Config.configDB();
             java.sql.PreparedStatement pstll = conn.prepareStatement(sqlll);
             pstll.execute();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Berhasil");
             alert.setHeaderText("Data berhasil diubah");
-            alert.setContentText("Data Barang dengan Kode " + pkdbar.getText() + " berhasil diubah");
+            alert.setContentText("Data Barang dengan Kode " + pkdbar1.getText() + " berhasil diubah");
             alert.showAndWait();
-            popupb.setVisible(false);
+            popupbedit.setVisible(false);
             blur.setVisible(false);
             table_bar();
             kosongbar();
-            System.out.println(pnamabar.getText()+" "+pqty.getText()+" "+idsat+" "+phargabar.getText()+" "+cek+" "+pkdbat.getText());
+//            System.out.println(pnamabar.getText()+" "+pqty.getText()+" "+idsat+" "+phargabar.getText()+" "+cek+" "+pkdbat.getText());
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);

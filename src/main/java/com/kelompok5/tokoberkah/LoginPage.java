@@ -3,6 +3,7 @@ package com.kelompok5.tokoberkah;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,14 +15,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
+import java.util.HashMap;
 
 public class LoginPage extends App {
 
@@ -29,6 +37,16 @@ public class LoginPage extends App {
     public static void main(String[] args) {
         launch(args);
     }
+
+
+    @FXML
+    private StackPane stackblur;
+
+    @FXML
+    private Pane blur;
+
+    @FXML
+    private Pane alert;
 
     @FXML
     private TextField txtuser;
@@ -42,6 +60,8 @@ public class LoginPage extends App {
     @FXML
     private AnchorPane logn;
 
+    @FXML
+    private Button ya;
 
     @FXML
     public void BtnLogin(ActionEvent event) throws Exception {
@@ -73,41 +93,39 @@ public class LoginPage extends App {
                 }
             } else {
 //
+                BoxBlur blur1 = new BoxBlur(3, 3, 3);
 
+                JFXDialog dialog = new JFXDialog(stackblur, alert, JFXDialog.DialogTransition.CENTER);
 
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Gagal login");
-                alert.setHeaderText(null);
-                alert.setContentText("Username atau Password salah");
-                alert.showAndWait();
+                dialog.show();
+                dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
+                    blur.setEffect(null);
+                });
+                ya.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+                    dialog.close();
+
+                });
+
+                blur.setEffect(blur1);
+                alert.setVisible(true);
             }
         } catch (Exception e) {
             System.out.println("Error");
         }
-//        if (username.equals("admin") && password.equals("admin") ) {
-//            try {
-//                Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-//                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                Scene scene = new Scene(root);
-//                stage.setScene(scene);
-//                stage.show();
-//            }
-//            catch(Exception e) {
-//                e.printStackTrace();
-//            }
-//            } else {
-//            System.out.println("Error");
+
+//        try {
+//            java.sql.Connection conn=(com.mysql.jdbc.Connection)Config.configDB();
+////        String namafile = "src/kasir/report.jrxml";
+////            InputStream report = getClass().getResourceAsStream("report/trans.jasper");
+//            HashMap param = new HashMap();
+//            param.put("kd_trans", txtuser.getText());
+////        File file = new File(namafile);
+////        JasperDesign jd = JRXmlLoader.load(namafile);
+////        JasperReport jr = JasperCompileManager.compileReport(jd);
+//            JasperPrint jp = JasperFillManager.fillReport("report/trans.jasper",param,conn);
+//            JasperViewer.viewReport(jp, false);
+//        } catch(Exception e) {
+//            e.printStackTrace();
 //        }
-//        System.out.println("Error");
     }
-
-//    public void start(Stage primaryStage) {
-//        Pane root = new Pane();
-//        root.setStyle("-fx-background-radius: 6;" + "-fx-background-color: rgb(45, 45, 50), rgb(60, 60, 65);" + "-fx-background-insets: 0, 0 1 1 0;");
-//        Scene scene = new Scene(root, 290, 120, Color.TRANSPARENT);
-//        primaryStage.setScene(scene);
-//        primaryStage.initStyle(StageStyle.TRANSPARENT);
-//        primaryStage.show(); // За верхнюю часть высотой 22 можно перемещать окно: com.sun.glass.ui.Window.getWindows().get(0).setUndecoratedMoveRectangle(22); }
-//    }
-
 }

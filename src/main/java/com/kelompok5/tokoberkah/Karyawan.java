@@ -1,5 +1,7 @@
 package com.kelompok5.tokoberkah;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.events.JFXDialogEvent;
 import com.mysql.jdbc.Connection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,9 +14,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -27,6 +31,8 @@ import java.util.ResourceBundle;
 
 
 public class Karyawan extends App implements Initializable {
+    @FXML
+    private StackPane stackblur;
 
     @FXML
     private TableView<tbl_karyawan> table_karyawan;
@@ -143,7 +149,7 @@ public class Karyawan extends App implements Initializable {
         pcomb.setItems(list);
         tbl_kar();
         panepopupkaryawan.setVisible(false);
-        blur.setVisible(false);
+        blur.setVisible(true);
 
 
 //        myChoiceBox.getItems().add("ehe");
@@ -151,8 +157,65 @@ public class Karyawan extends App implements Initializable {
 
     @FXML
     public void tmbhkar(ActionEvent event) throws IOException {
+        BoxBlur blur1 = new BoxBlur(3,3,3);
+
+        JFXDialog dialog = new JFXDialog( stackblur, panepopupkaryawan, JFXDialog.DialogTransition.TOP);
+
+        dialog.show();
+        dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
+            blur.setEffect(null);
+        });
+
+        tambahkar.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent) -> {
+            if (ptxtid.getText().equals("")) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("ID kosong");
+                alert.setHeaderText("ID masih Kosong");
+                alert.setContentText("Masukkan ID Karyawan terlebih dahulu!");
+                alert.showAndWait();
+            } else {
+                String hp=ptxtnomor.getText();
+                if (hp.matches("^[0-9]*") && hp.length()==12){
+                    try {
+                        String sqll = "INSERT INTO pengguna VALUES ('"+ptxtid.getText()+"','"
+                                +ptxtnama.getText()+"','"+ptxtalamat.getText()+"','"+
+                                ptxtnomor.getText()+"','"+pcomb.getSelectionModel().getSelectedItem()+"','"+ptxtpass.getText()+"')";
+                        java.sql.Connection conn=(Connection)Config.configDB();
+                        java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
+                        pstl.execute();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Berhasil");
+                        alert.setHeaderText("Data berhasil disimpan");
+                        alert.setContentText("Data Karyawan dengan ID "+ptxtid.getText()+" berhasil disimpan");
+                        alert.showAndWait();
+                        pkosong();
+                        tbl_kar();
+                        dialog.close();
+                    } catch (Exception e) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Gagal");
+                        alert.setHeaderText("Data gagal disimpan!");
+                        alert.setContentText(e.getMessage());
+                        alert.showAndWait();
+                    }
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Nomor salah");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Nomor telepon tidak sesuai");
+                    alert.showAndWait();
+                }
+            }
+        });
+
+        cancel.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent ) -> {
+            dialog.close();
+
+        });
+
+        blur.setEffect(blur1);
         panepopupkaryawan.setVisible(true);
-        blur.setVisible(true);
     }
 
     public void tbl_kar(){
@@ -325,47 +388,7 @@ public class Karyawan extends App implements Initializable {
     //POPUPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
     @FXML
     public void tambahkar(ActionEvent evt) {
-        if (ptxtid.getText().equals("")) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("ID kosong");
-            alert.setHeaderText("ID masih Kosong");
-            alert.setContentText("Masukkan ID Karyawan terlebih dahulu!");
-            alert.showAndWait();
-        } else {
-            String hp=ptxtnomor.getText();
-            if (hp.matches("^[0-9]*") && hp.length()==12){
-                try {
-                    String sqll = "INSERT INTO pengguna VALUES ('"+ptxtid.getText()+"','"
-                            +ptxtnama.getText()+"','"+ptxtalamat.getText()+"','"+
-                            ptxtnomor.getText()+"','"+pcomb.getSelectionModel().getSelectedItem()+"','"+ptxtpass.getText()+"')";
-                    java.sql.Connection conn=(Connection)Config.configDB();
-                    java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
-                    pstl.execute();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Berhasil");
-                    alert.setHeaderText("Data berhasil disimpan");
-                    alert.setContentText("Data Karyawan dengan ID "+ptxtid.getText()+" berhasil disimpan");
-                    alert.showAndWait();
-                    pkosong();
-                    tbl_kar();
-                    panepopupkaryawan.setVisible(false);
-                    blur.setVisible(false);
-                } catch (Exception e) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Gagal");
-                    alert.setHeaderText("Data gagal disimpan!");
-                    alert.setContentText(e.getMessage());
-                    alert.showAndWait();
-                }
 
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Nomor salah");
-                alert.setHeaderText(null);
-                alert.setContentText("Nomor telepon tidak sesuai");
-                alert.showAndWait();
-            }
-        }
     }
 
     private void pkosong() {
@@ -380,8 +403,8 @@ public class Karyawan extends App implements Initializable {
 
     @FXML
     void cancelklik(ActionEvent event) {
-        panepopupkaryawan.setVisible(false);
-        blur.setVisible(false);
+//        panepopupkaryawan.setVisible(false);
+//        blur.setVisible(false);
     }
 
     @FXML

@@ -17,16 +17,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.view.JasperViewer;
+
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Transaksi implements Initializable {
 
@@ -93,6 +97,9 @@ public class Transaksi implements Initializable {
 
     @FXML
     private Label btfkdbar;
+
+    @FXML
+    private TextField btfkdbat;
 
     @FXML
     private Label btfnamabar;
@@ -212,25 +219,25 @@ public class Transaksi implements Initializable {
     private Button jswitch;
 
     @FXML
-    private TextField jtfharga;
+    private Label jtfharga;
 
     @FXML
-    private TextField jtfkdbar;
+    private Label jtfkdbar;
 
     @FXML
     private TextField jtfkdbat;
 
     @FXML
-    private TextField jtfnamabar;
+    private Label jtfnamabar;
 
     @FXML
     private TextField jtfqty;
 
     @FXML
-    private TextField jtfsatuan;
+    private Label jtfsatuan;
 
     @FXML
-    private TextField jtftotal;
+    private Label jtftotal;
 
     @FXML
     private Label jtgl;
@@ -341,10 +348,43 @@ public class Transaksi implements Initializable {
         jualkanan.setVisible(false);
         jualkiri.setVisible(false);
         transakasi.setText("   Transaksi Pembelian");
+        btfkdbat.requestFocus();
         setBkdtrans();
         setBtgl();
         setBsup();
         setTablebeli();
+        cekcartbeli();
+    }
+
+    void cekcartbeli() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy-");
+        LocalDateTime tanggal = LocalDateTime.now();
+        String a = (dtf.format(tanggal));
+        try {
+            //--> melakukan eksekusi query untuk mengambil data dari tabel
+            String sql = "SELECT MAX(id_pembelian) FROM cart_pembelian " +
+                    "WHERE id_pembelian like '%" + a + "%' ;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            while (rs.next()) {
+                if (rs.getString(1) == null) {
+                    try {
+                        String sqll = "TRUNCATE TABLE cart_pembelian;";
+                        java.sql.Connection connn = (Connection) Config.configDB();
+                        java.sql.PreparedStatement pstl = connn.prepareStatement(sqll);
+                        pstl.execute();
+                    } catch (Exception e) {
+                    }
+                } else {
+//                    System.out.println("kosong");
+                }
+            }
+            rs.close();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     void setBkdtrans() {
@@ -519,6 +559,33 @@ public class Transaksi implements Initializable {
     }
 
     @FXML
+    void bbarcodekey(KeyEvent event) {
+        try {
+            String sql = "select barang.id_barang, barang.nama_barang, satuan.satuan"
+                    + " from barang join satuan on barang.id_satuan = satuan.id_satuan " +
+                    "WHERE barcode = '" + btfkdbat.getText() + "' ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            res.next() ;
+            btfkdbar.setText(res.getString(1));
+            btfnamabar.setText(res.getString(2));
+            btfsatuan.setText(res.getString(3));
+
+        } catch (SQLException e) {
+        }
+    }
+
+    @FXML
+    void bbarcodeact(ActionEvent event) {
+        if (!btfkdbar.getText().equals("")) {
+            btfharga.requestFocus();
+        } else {
+
+        }
+    }
+
+    @FXML
     void bcheckoutact(ActionEvent event) {
         String tbl = String.valueOf(tablebeli.getItems());
         if (tbl == "[]") {
@@ -592,7 +659,7 @@ public class Transaksi implements Initializable {
 
     @FXML
     void beditbaract(ActionEvent event) {
-        if (bkdbar.getText().equals("")) {
+        if (btfkdbar.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(" kosong");
             alert.setHeaderText("Kode Barang masih Kosong");
@@ -661,7 +728,10 @@ public class Transaksi implements Initializable {
 
     @FXML
     void btambahbaract(ActionEvent event) {
-        if (bkdbar.getText().equals("")) {
+        setbtambahbar();
+    }
+    void setbtambahbar() {
+        if (btfkdbar.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("kosong");
             alert.setHeaderText("Kode Barang masih Kosong");
@@ -738,10 +808,12 @@ public class Transaksi implements Initializable {
     void bkosong() {
         btfkdbar.setText("");
         btfnamabar.setText(null);
+        btfkdbat.setText(null);
         btfharga.setText(null);
         btfqty.setText(null);
+        btfsatuan.setText(null);
         btftotal.setText(null);
-
+        btfkdbat.requestFocus();
     }
 
     //CHECKOUT BELIIIIIIIII
@@ -956,6 +1028,21 @@ public class Transaksi implements Initializable {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+
+        try {
+            java.sql.Connection conn=(Connection)Config.configDB();
+//        String namafile = "src/kasir/report.jrxml";
+            InputStream report = getClass().getResourceAsStream("report/trans.jasper");
+            HashMap param = new HashMap();
+            param.put("kd_trans", co_kdtrans.getText());
+//        File file = new File(namafile);
+//        JasperDesign jd = JRXmlLoader.load(namafile);
+//        JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(report,param,conn);
+            JasperViewer.viewReport(jp, false);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //JUALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
@@ -968,9 +1055,43 @@ public class Transaksi implements Initializable {
         belikanan.setVisible(false);
         belikiri.setVisible(false);
         transakasi.setText("   Transaksi Penjualan");
+        jtfkdbat.requestFocus();
+
         setJtgl();
         setJkdtrans();
         setTablejual();
+        cekcartjual();
+    }
+
+    void cekcartjual() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy-");
+        LocalDateTime tanggal = LocalDateTime.now();
+        String a = (dtf.format(tanggal));
+        try {
+            //--> melakukan eksekusi query untuk mengambil data dari tabel
+            String sql = "SELECT MAX(id_penjualan) FROM cart_penjualan " +
+                    "WHERE id_penjualan like '%" + a + "%' ;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            java.sql.ResultSet rs = pst.executeQuery(sql);
+            while (rs.next()) {
+                if (rs.getString(1) == null) {
+                    try {
+                        String sqll = "TRUNCATE TABLE cart_penjualan;";
+                        java.sql.Connection connn = (Connection) Config.configDB();
+                        java.sql.PreparedStatement pstl = connn.prepareStatement(sqll);
+                        pstl.execute();
+                    } catch (Exception e) {
+                    }
+                } else {
+//                    System.out.println("kosong");
+                }
+            }
+            rs.close();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     void setJkdtrans() {
@@ -983,7 +1104,7 @@ public class Transaksi implements Initializable {
         try {
             //--> melakukan eksekusi query untuk mengambil data dari tabel
             String sql = "SELECT MAX(id_penjualan) FROM penjualan " +
-                    "WHERE tanggal_transaksi = '" + aa + "' ;";
+                    "WHERE tanggal_transaksi = '" + aa + "' ;" ;
             java.sql.Connection conn = (Connection) Config.configDB();
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             java.sql.ResultSet rs = pst.executeQuery(sql);
@@ -1117,6 +1238,84 @@ public class Transaksi implements Initializable {
     }
 
     @FXML
+    void jbarcodekey(KeyEvent event) {
+        try {
+            String sql = "select barang.id_barang, barang.nama_barang, barang.harga_jual, satuan.satuan"
+                    + " from barang join satuan on barang.id_satuan = satuan.id_satuan " +
+                    "WHERE barcode = '" + jtfkdbat.getText() + "' ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            res.next() ;
+                jtfkdbar.setText(res.getString(1));
+                        jtfnamabar.setText(res.getString(2));
+                        jtfharga.setText(String.valueOf(res.getInt(3)));
+                        jtfsatuan.setText(res.getString(4));
+                        jtfqty.setText("1");
+
+                double qty = Double.parseDouble(jtfqty.getText()), hrg = Double.parseDouble(jtfharga.getText());
+                Double tot = hrg * qty;
+                jtftotal.setText(String.valueOf(tot));
+        } catch (SQLException e) {
+        }
+    }
+
+    @FXML
+    void jbarcodeact(ActionEvent event) {
+        System.out.println(jtfkdbat.getText());
+
+        String bar = "", kd = jtfkdbar.getText();
+        try {
+            String sqll = "SELECT id_barang FROM cart_penjualan where id_barang='" + kd + "' ;";
+            java.sql.Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sqll);
+            res.next();
+            bar = res.getString("id_barang");
+        } catch (Exception e) {
+        }
+        if (bar.equals(kd)) {
+                try {
+                    String sqll = "UPDATE cart_penjualan "
+                            + "SET qty = qty+" + jtfqty.getText()
+                            + ", harga_total = harga_total+" + jtftotal.getText()
+                            + " WHERE cart_penjualan.id_barang = '" + kd + "'";
+                    java.sql.Connection conn = (Connection) Config.configDB();
+                    java.sql.PreparedStatement pstl = conn.prepareStatement(sqll);
+                    pstl.execute();
+                    jkosong();
+                    setTablejual();
+                } catch (Exception e) {
+                    Alert newalert = new Alert(Alert.AlertType.WARNING);
+                    newalert.setTitle("Gagal");
+                    newalert.setHeaderText("Data gagal diedit!");
+                    newalert.setContentText(e.getMessage());
+                    newalert.showAndWait();
+                }
+        } else {
+            try {
+                String sqll = "INSERT INTO `cart_penjualan` (`id_penjualan`, `id_barang`, `qty`, `harga_total`)" +
+                        " VALUES ('" + jkdtrans.getText() + "', '"
+                        + kd + "', '"
+                        + jtfqty.getText() + "', '"
+                        + jtftotal.getText() + "'); ";
+                java.sql.Connection conn = (Connection) Config.configDB();
+                java.sql.PreparedStatement pstl = conn.prepareStatement(sqll);
+                pstl.execute();
+                jkosong();
+                setTablejual();
+            } catch (Exception e) {
+                Alert newalert = new Alert(Alert.AlertType.WARNING);
+                newalert.setTitle("Gagal");
+                newalert.setHeaderText("Data gagal ditambah!");
+                newalert.setContentText(e.getMessage());
+                newalert.showAndWait();
+            }
+        }
+
+    }
+
+    @FXML
     void jcheckoutact(ActionEvent event) {
         String tbl = String.valueOf(tablejual.getItems());
         if (tbl == "[]") {
@@ -1177,7 +1376,7 @@ public class Transaksi implements Initializable {
 
     @FXML
     void jeditbaract(ActionEvent event) {
-        if (jkdbar.getText().equals("")) {
+        if (jtfkdbar.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(" kosong");
             alert.setHeaderText("Kode Barang masih Kosong");
@@ -1206,7 +1405,7 @@ public class Transaksi implements Initializable {
 
     void jkosong() {
         jtfkdbar.setText("");
-        jtfkdbat.setText(null);
+        jtfkdbat.setText("");
         jtfnamabar.setText(null);
         jtfharga.setText(null);
         jtfqty.setText(null);
@@ -1361,6 +1560,11 @@ public class Transaksi implements Initializable {
         }
     }
 
+    @FXML
+    void btfqtyact(ActionEvent event) {
+        setbtambahbar();
+    }
+
     //POPUP JUALLLLLLLLLLLLLLLLLLLLLLLLLLL
 
     private void setTablepopjual() {
@@ -1439,7 +1643,7 @@ public class Transaksi implements Initializable {
         } else {
             if (popjtfqtyy < Double.parseDouble(poptfjqty.getText())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Barang kosong");
+                alert.setTitle("Barang Lebih");
                 alert.setHeaderText(null);
                 alert.setContentText("Jumlah lebih dari kuantitas");
                 alert.showAndWait();

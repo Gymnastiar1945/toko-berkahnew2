@@ -15,23 +15,23 @@ public class Config {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             mysqlconfig=DriverManager.getConnection(url, user, pass);
         } catch (Exception e) {
-            System.err.println("Koneksi Tyitid "+e.getMessage());
+            System.err.println("Koneksi "+e.getMessage());
         }
         return mysqlconfig;
     }
     public static boolean isConnected(){
         try{
             Config.configDB();
-            System.err.println("Database TerTyitid");
+            System.err.println("Database Teragim");
             return true;
         } catch(Exception e){
             Logger.getLogger(Config.class.getName()).log(Level.SEVERE,null,e);
-            System.out.println("Koneksi tyitid");
+            System.out.println("Koneksi Agimgeh");
             return false;
         }
     }
     public static void main(String[]args){
-        System.out.println("Cok");
+        System.out.println("Cek");
         isConnected();
     }
 }

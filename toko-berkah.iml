@@ -31,5 +31,16 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
     <orderEntry type="library" name="jfoenix-9.0.10" level="project" />
+    <orderEntry type="library" name="jcalendar-1.4" level="project" />
+    <orderEntry type="library" name="barcode" level="project" />
+    <orderEntry type="library" name="commons-digester-2.1" level="project" />
+    <orderEntry type="library" name="commons-logging-1.1.1" level="project" />
+    <orderEntry type="library" name="commons-javaflow-20060411" level="project" />
+    <orderEntry type="library" name="servlet-api-2.4" level="project" />
+    <orderEntry type="library" name="commons-beanutils-1.9.0" level="project" />
+    <orderEntry type="library" name="commons-collections-3.2.2" level="project" />
+    <orderEntry type="library" name="groovy-all-2.0.1" level="project" />
+    <orderEntry type="library" name="net.sf.jasperreports" level="project" />
+    <orderEntry type="library" name="jasperreports-6.19.0" level="project" />
   </component>
 </module>

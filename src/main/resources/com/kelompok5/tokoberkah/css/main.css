@@ -980,7 +980,7 @@
 .text-field {
     -fx-focus-color: transparent;
     -fx-unfocus-color: transparent;
-    -fx-padding: 0.333333em 0 0.333333em 0;
+  /*  -fx-padding: 0.333333em 0 0.333333em 0;*/
 }
 
 .text-field > .input-line {

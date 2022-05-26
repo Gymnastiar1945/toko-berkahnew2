@@ -1,28 +1,55 @@
 package com.kelompok5.tokoberkah;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.events.JFXDialogEvent;
 import com.mysql.jdbc.Connection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class Riwayat implements Initializable {
 
+
+    @FXML
+    private StackPane stackblur;
+
+    @FXML
+    private Pane blur;
+
     @FXML
     private DatePicker hjexporttgldari;
+
+    @FXML
+    private DatePicker hjexporttglsampai;
+
+    @FXML
+    private DatePicker hbexporttgldari;
+
+    @FXML
+    private DatePicker hbexporttglsampai;
 
     @FXML
     private Pane belidetail;
@@ -202,19 +229,22 @@ public class Riwayat implements Initializable {
     private Button hjexportexport;
 
     @FXML
-    private TableColumn<?, ?> hjexportkasir;
+    private TableColumn<tbl_hjual, String> hjexportkasir;
 
     @FXML
-    private TableColumn<?, ?> hjexportkdtarns;
+    private TableColumn<tbl_hjual, String> hjexportkdtarns;
 
     @FXML
     private Button hjexportkembali;
 
     @FXML
-    private TableColumn<?, ?> hjexporttgl;
+    private TableColumn<tbl_hbeli, String> hjexporttgl;
 
     @FXML
-    private TableColumn<?, ?> hjexporttotal;
+    private TableColumn<tbl_hbeli, String> hjexportjam;
+
+    @FXML
+    private TableColumn<String, Double> hjexporttotal;
 
     @FXML
     private Button hjhps;
@@ -394,7 +424,7 @@ public class Riwayat implements Initializable {
     private TableView<tbl_transco> tablehjdetail;
 
     @FXML
-    private TableView<?> tablehjexport;
+    private TableView<tbl_hjual> tablehjexport;
 
     @FXML
     private TableView<tbl_hjual> tablehjual;
@@ -497,6 +527,26 @@ public class Riwayat implements Initializable {
 
     @FXML
     void hbdetailact(ActionEvent event) {
+        BoxBlur blur1 = new BoxBlur(3,3,3);
+
+        JFXDialog dialog = new JFXDialog( stackblur, belidetail, JFXDialog.DialogTransition.TOP);
+
+        dialog.show();
+        dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
+            blur.setEffect(null);
+        });
+
+        hbdetailprint.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent) -> {
+//            dialog.close();
+        });
+        hbdetailkembali.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent ) -> {
+            dialog.close();
+////            blur.setVisible(true);
+//            blur.setEffect(null);
+//            popupb.setVisible(false);
+        });
+
+        blur.setEffect(blur1);
         belidetail.setVisible(true);
         hbdetailkdtrans.setText(hbtfkdtrans.getText());
         hbdetailkasir.setText(hbtfkasir.getText());
@@ -549,6 +599,28 @@ public class Riwayat implements Initializable {
 
     @FXML
     void hbexportact(ActionEvent event) {
+        BoxBlur blur1 = new BoxBlur(3,3,3);
+
+        JFXDialog dialog = new JFXDialog( stackblur, exportbeli, JFXDialog.DialogTransition.TOP);
+
+        dialog.show();
+        dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
+            blur.setEffect(null);
+        });
+
+        hbexportexport.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent) -> {
+            dialog.close();
+        });
+        hbexportkembali.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent ) -> {
+            dialog.close();
+////            blur.setVisible(true);
+//            blur.setEffect(null);
+//            popupb.setVisible(false);
+        });
+
+        blur.setEffect(blur1);
+        exportbeli.setVisible(true);
+        convertdate();
 
     }
 
@@ -652,6 +724,27 @@ public class Riwayat implements Initializable {
 
     @FXML
     void hjdetailact(ActionEvent event) {
+        BoxBlur blur1 = new BoxBlur(3,3,3);
+
+        JFXDialog dialog = new JFXDialog( stackblur, jualdetail, JFXDialog.DialogTransition.TOP);
+
+        dialog.show();
+        dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
+            blur.setEffect(null);
+        });
+
+        hjdetailprint.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent) -> {
+            dialog.close();
+                });
+        hjdetailkembali.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent ) -> {
+            dialog.close();
+////            blur.setVisible(true);
+//            blur.setEffect(null);
+//            popupb.setVisible(false);
+        });
+
+        blur.setEffect(blur1);
+
         jualdetail.setVisible(true);
         hjdetailkdtrans.setText(hjtfkdtrans.getText());
         hjdetailkasir.setText(hjtfkasir.getText());
@@ -729,8 +822,43 @@ public class Riwayat implements Initializable {
         };
         hjexporttgldari.setConverter(converter);
         hjexporttgldari.setPromptText("");
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String a = sdf.format(hjexporttglsampai.getValue());
 
         hjexporttgldari.setDayCellFactory(param -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(LocalDate.now()) > 0 );
+            }
+        });
+
+        hjexporttglsampai.setConverter(converter);
+        hjexporttglsampai.setPromptText("");
+
+        hjexporttglsampai.setDayCellFactory(param -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(LocalDate.now()) > 0 );
+            }
+        });
+
+        hbexporttgldari.setConverter(converter);
+        hbexporttgldari.setPromptText("");
+
+        hbexporttgldari.setDayCellFactory(param -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(LocalDate.now()) > 0 );
+            }
+        });
+
+        hbexporttglsampai.setConverter(converter);
+        hbexporttglsampai.setPromptText("");
+
+        hbexporttglsampai.setDayCellFactory(param -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
@@ -741,6 +869,26 @@ public class Riwayat implements Initializable {
 
     @FXML
     void hjexportact(ActionEvent event) {
+        BoxBlur blur1 = new BoxBlur(3,3,3);
+
+        JFXDialog dialog = new JFXDialog( stackblur, exportjual, JFXDialog.DialogTransition.TOP);
+
+        dialog.show();
+        dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
+            blur.setEffect(null);
+        });
+
+        hjexportexport.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent) -> {
+            dialog.close();
+        });
+        hjexportkembali.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent ) -> {
+            dialog.close();
+////            blur.setVisible(true);
+//            blur.setEffect(null);
+//            popupb.setVisible(false);
+        });
+
+        blur.setEffect(blur1);
         exportjual.setVisible(true);
         convertdate();
     }
@@ -835,6 +983,17 @@ public class Riwayat implements Initializable {
     @FXML
     void tablereturlanjut(MouseEvent event) {
 
+    }
+
+    //MENUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+
+    @FXML
+    void menudashklik(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

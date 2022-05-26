@@ -20,8 +20,131 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kelompok5.tokoberkah.Transaksi">
    <children>
+      <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
+         <effect>
+            <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
+         </effect>
+         <children>
+            <TextField fx:id="jtfkdbat" layoutX="211.0" layoutY="102.0" onAction="#jbarcodeact" onKeyReleased="#jbarcodekey" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Button fx:id="jeditbar" layoutX="18.0" layoutY="384.0" mnemonicParsing="false" onAction="#jeditbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Edit Barang" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="jhpsbar" layoutX="214.0" layoutY="384.0" mnemonicParsing="false" onAction="#jhpsbaract" prefHeight="37.0" prefWidth="177.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-merah" stylesheets="@css/main.css" text="Hapus Barang" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Line endX="205.0" layoutX="186.0" layoutY="68.0" startX="-171.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
+            <TextField fx:id="jtfqty" layoutX="17.0" layoutY="281.0" onKeyReleased="#jtfqtykey" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <Label layoutX="15.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Barang">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="136.0" prefHeight="27.0" prefWidth="121.0" text="Nama Barang">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="195.0" prefHeight="27.0" prefWidth="121.0" text="Harga Barang">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="253.0" prefHeight="27.0" prefWidth="121.0" text="Kuantitas">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="314.0" prefHeight="27.0" prefWidth="121.0" text="Sub Total">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="214.0" layoutY="253.0" prefHeight="27.0" prefWidth="121.0" text="Satuan">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="214.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Barcode">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="jcheckout" layoutX="18.0" layoutY="443.0" mnemonicParsing="false" onAction="#jcheckoutact" prefHeight="35.0" prefWidth="374.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Checkout" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <MotionBlur />
+               </effect>
+            </Button>
+            <Line endX="204.0" layoutX="187.0" layoutY="433.0" startX="-169.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
+            <Button fx:id="jcaribar" layoutX="17.0" layoutY="20.0" mnemonicParsing="false" onAction="#jcaribaract" prefHeight="35.0" prefWidth="374.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <MotionBlur />
+               </effect>
+            </Button>
+            <Label fx:id="jtfkdbar" layoutX="17.0" layoutY="102.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="jtfsatuan" layoutX="211.0" layoutY="280.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="jtfharga" layoutX="17.0" layoutY="222.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="jtfnamabar" layoutX="17.0" layoutY="163.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="jtftotal" layoutX="17.0" layoutY="341.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
       <VBox layoutY="106.0" prefHeight="614.0" prefWidth="264.0" style="-fx-background-color: #FFF;">
          <children>
             <Label prefHeight="21.0" prefWidth="81.0" text="Main Menu" textAlignment="CENTER">
@@ -218,130 +341,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="jualkanan" layoutX="852.0" layoutY="196.0" prefHeight="504.0" prefWidth="407.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;">
-         <effect>
-            <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
-         </effect>
-         <children>
-            <Button fx:id="jeditbar" layoutX="18.0" layoutY="384.0" mnemonicParsing="false" onAction="#jeditbaract" prefHeight="35.0" prefWidth="177.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Edit Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="jhpsbar" layoutX="214.0" layoutY="384.0" mnemonicParsing="false" onAction="#jhpsbaract" prefHeight="37.0" prefWidth="177.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-merah" stylesheets="@css/main.css" text="Hapus Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Line endX="205.0" layoutX="186.0" layoutY="68.0" startX="-171.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
-            <TextField fx:id="jtfkdbar" layoutX="15.0" layoutY="102.0" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="jtfkdbat" layoutX="211.0" layoutY="102.0" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="jtfnamabar" layoutX="18.0" layoutY="161.0" prefHeight="34.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="jtfharga" layoutX="18.0" layoutY="219.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="jtfsatuan" layoutX="214.0" layoutY="280.0" prefHeight="34.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <Label layoutX="15.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Kode Barang">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="18.0" layoutY="136.0" prefHeight="27.0" prefWidth="121.0" text="Nama Barang">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="18.0" layoutY="195.0" prefHeight="27.0" prefWidth="121.0" text="Harga Barang">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="18.0" layoutY="253.0" prefHeight="27.0" prefWidth="121.0" text="Kuantitas">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="18.0" layoutY="314.0" prefHeight="27.0" prefWidth="121.0" text="Sub Total">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="214.0" layoutY="253.0" prefHeight="27.0" prefWidth="121.0" text="Satuan">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="214.0" layoutY="72.0" prefHeight="27.0" prefWidth="147.0" text="Barcode">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="jtfqty" layoutX="18.0" layoutY="280.0" onKeyReleased="#jtfqtykey" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="jtftotal" layoutX="18.0" layoutY="341.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <Button fx:id="jcheckout" layoutX="18.0" layoutY="443.0" mnemonicParsing="false" onAction="#jcheckoutact" prefHeight="35.0" prefWidth="374.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Checkout" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <MotionBlur />
-               </effect>
-            </Button>
-            <Line endX="204.0" layoutX="187.0" layoutY="433.0" startX="-169.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
-            <Button fx:id="jcaribar" layoutX="17.0" layoutY="20.0" mnemonicParsing="false" onAction="#jcaribaract" prefHeight="35.0" prefWidth="374.0" style="-fx-effect: dropshadow(three-pass-box, grey, 5, 0, 0, 1);" styleClass="button-hijau" stylesheets="@css/main.css" text="Cari Barang" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <MotionBlur />
-               </effect>
-            </Button>
-         </children>
-      </Pane>
-      <Pane fx:id="jualatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css" visible="false">
+      <Pane fx:id="jualatas" layoutX="284.0" layoutY="125.0" prefHeight="52.0" prefWidth="976.0" style="-fx-background-color: #FFF; -fx-background-radius: 8;" stylesheets="@css/main.css">
          <effect>
             <DropShadow color="#0000001d" height="27.11" radius="13.055" spread="0.57" width="27.11" />
          </effect>
@@ -523,7 +523,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="co_isilblkanan" alignment="CENTER" layoutX="7.0" layoutY="39.0" prefHeight="42.0" prefWidth="283.0" text="Rp. 70000" textFill="#303841">
+            <Label fx:id="co_isilblkanan" alignment="CENTER" layoutX="7.0" layoutY="39.0" prefHeight="42.0" prefWidth="283.0" text="Rp. 0" textFill="#303841">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -550,7 +550,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="btfkdbar" layoutX="18.0" layoutY="42.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
+            <Label fx:id="btfkdbar" layoutX="18.0" layoutY="42.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="16.0" />
                </font>
@@ -570,6 +570,11 @@
                   <Font size="16.0" />
                </font>
             </Label>
+            <TextField fx:id="btfkdbat" layoutX="215.0" layoutY="42.0" onAction="#bbarcodeact" onKeyReleased="#bbarcodekey" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
             <TextField fx:id="btfharga" layoutX="18.0" layoutY="162.0" prefHeight="35.0" prefWidth="374.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="14.0" />
@@ -580,7 +585,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="btfqty" layoutX="18.0" layoutY="222.0" onKeyReleased="#btfqtykey" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+            <TextField fx:id="btfqty" layoutX="18.0" layoutY="222.0" onAction="#btfqtyact" onKeyReleased="#btfqtykey" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
                <font>
                   <Font size="14.0" />
                </font>
@@ -634,6 +639,11 @@
             </Label>
             <Line endX="205.0" layoutX="186.0" layoutY="441.0" startX="-171.0" stroke="#949494b5" strokeLineCap="ROUND" strokeMiterLimit="5.0" />
             <Label fx:id="btfsatuan" layoutX="216.0" layoutY="222.0" prefHeight="35.0" prefWidth="177.0" styleClass="field-list" stylesheets="@css/main.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="216.0" layoutY="15.0" text="Barcode" textFill="#303841">
                <font>
                   <Font size="16.0" />
                </font>
