@@ -1031,13 +1031,9 @@ public class Transaksi implements Initializable {
 
         try {
             java.sql.Connection conn=(Connection)Config.configDB();
-//        String namafile = "src/kasir/report.jrxml";
             InputStream report = getClass().getResourceAsStream("report/trans.jasper");
             HashMap param = new HashMap();
             param.put("kd_trans", co_kdtrans.getText());
-//        File file = new File(namafile);
-//        JasperDesign jd = JRXmlLoader.load(namafile);
-//        JasperReport jr = JasperCompileManager.compileReport(jd);
             JasperPrint jp = JasperFillManager.fillReport(report,param,conn);
             JasperViewer.viewReport(jp, false);
         } catch(Exception e) {

@@ -80,7 +80,7 @@
             </Pane>
          </children>
       </StackPane>
-      <Pane fx:id="alert" layoutX="490.0" layoutY="250.0" prefHeight="263.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 50;" visible="false">
+      <Pane fx:id="alert" layoutX="490.0" layoutY="250.0" prefHeight="263.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 10;" visible="false">
          <children>
 
                                     <SVGPath fx:id="svg" content="M 11.25 67.5 C 11.25 36.45 36.3937 11.25 67.4437 11.25 C 98.55 11.25 123.75 36.45 123.75 67.5 C 123.75 98.55 98.55 123.75 67.4437 123.75 C 36.3937 123.75 11.25 98.55 11.25 67.5 Z M 73.125 45 C 73.125 41.9062 70.5938 39.375 67.5 39.375 C 64.4062 39.375 61.875 41.9062 61.875 45 V 67.5 C 61.875 70.5938 64.4062 73.125 67.5 73.125 C 70.5938 73.125 73.125 70.5938 73.125 67.5 V 45 Z M 67.5 112.5 C 42.6375 112.5 22.5 92.3625 22.5 67.5 C 22.5 42.6375 42.6375 22.5 67.5 22.5 C 92.3625 22.5 112.5 42.6375 112.5 67.5 C 112.5 92.3625 92.3625 112.5 67.5 112.5 Z M 61.875 84.375 V 95.625 H 73.125 V 84.375 H 61.875 Z" fill="rgb(255, 0, 0)" fillRule="EVEN_ODD" layoutX="80.0" layoutY="70.0" stroke="rgb(250, 0, 0)" strokeWidth="3.0" />
