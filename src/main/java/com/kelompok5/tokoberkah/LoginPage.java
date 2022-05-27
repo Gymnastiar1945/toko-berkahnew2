@@ -15,11 +15,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -30,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.util.HashMap;
+import java.util.logging.Handler;
 
 public class LoginPage extends App {
 
@@ -64,6 +68,9 @@ public class LoginPage extends App {
     private Button ya;
 
     @FXML
+    private SVGPath svg;
+
+    @FXML
     public void BtnLogin(ActionEvent event) throws Exception {
         String username = txtuser.getText().toString();
         String password = txtpass.getText().toString();
@@ -92,26 +99,27 @@ public class LoginPage extends App {
                     System.out.println("Error");
                 }
             } else {
-//
-                BoxBlur blur1 = new BoxBlur(3, 3, 3);
-
-                JFXDialog dialog = new JFXDialog(stackblur, alert, JFXDialog.DialogTransition.CENTER);
-
-                dialog.show();
-                dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
-                    blur.setEffect(null);
-                });
-                ya.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+                txtuser.requestFocus();
+                    BoxBlur blur1 = new BoxBlur(3, 3, 3);
+                    JFXDialog dialog = new JFXDialog(stackblur, alert, JFXDialog.DialogTransition.CENTER);
+                        dialog.show();
+                        dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
+                            blur.setEffect(null);
+                        });
+                        blur.setEffect(blur1);
+                        alert.setVisible(true);
+                        ya.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+                            dialog.close();
+                        });
+                txtuser.addEventHandler(ActionEvent.ACTION, (ActionEvent Evn) -> {
                     dialog.close();
-
                 });
+                    }
 
-                blur.setEffect(blur1);
-                alert.setVisible(true);
-            }
         } catch (Exception e) {
             System.out.println("Error");
         }
+
 
 //        try {
 //            java.sql.Connection conn=(com.mysql.jdbc.Connection)Config.configDB();
@@ -127,5 +135,10 @@ public class LoginPage extends App {
 //        } catch(Exception e) {
 //            e.printStackTrace();
 //        }
+
+    }
+
+    @FXML
+    public void useract(ActionEvent event) {
     }
 }

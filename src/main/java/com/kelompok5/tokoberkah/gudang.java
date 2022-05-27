@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -28,7 +29,6 @@ import java.util.ResourceBundle;
 
 public class gudang implements Initializable {
 
-    private Parent root;
 
     @FXML
     private Pane panebaratas;
@@ -59,6 +59,9 @@ public class gudang implements Initializable {
 
     @FXML
     private TableColumn<tbl_gudang, String> satuan;
+
+    @FXML
+    private TableColumn<tbl_gudang, Integer> hargabeli;
 
     @FXML
     private TableColumn<tbl_gudang, Integer> harga;
@@ -266,7 +269,7 @@ public class gudang implements Initializable {
     private void table_bar(){
         ObservableList<tbl_gudang> list = FXCollections.observableArrayList();
         try {
-            String sql = "select barang.id_barang, barang.nama_barang, kategori.jenis, jumlah, satuan.satuan, barang.harga_jual "
+            String sql = "select barang.id_barang, barang.nama_barang, kategori.jenis, jumlah, satuan.satuan, barang.harga_beli, barang.harga_jual "
                     + "from barang join kategori on barang.id_kategori = kategori.id_kategori "
                     + "join satuan on barang.id_satuan = satuan.id_satuan ;" ;
             Connection conn = (Connection) Config.configDB();
@@ -278,7 +281,8 @@ public class gudang implements Initializable {
                         res.getString(3),
                         res.getDouble(4),
                         res.getString(5),
-                        res.getInt(6)));
+                        res.getInt(6),
+                        res.getInt(7)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -289,6 +293,7 @@ public class gudang implements Initializable {
         ktgr.setCellValueFactory(new PropertyValueFactory<tbl_gudang, String>("ktgr"));
         qty.setCellValueFactory(new PropertyValueFactory<tbl_gudang, Double>("qty"));
         satuan.setCellValueFactory(new PropertyValueFactory<tbl_gudang, String>("satuan"));
+        hargabeli.setCellValueFactory(new PropertyValueFactory<tbl_gudang, Integer>("hb"));
         harga.setCellValueFactory(new PropertyValueFactory<tbl_gudang, Integer>("harga"));
         table_bar.setItems(list);
     }
@@ -297,18 +302,21 @@ public class gudang implements Initializable {
     void caribarkey(KeyEvent event) {
         ObservableList<tbl_gudang> list = FXCollections.observableArrayList();
         try {
-            String sql = "select * from barang "
+            String sql = "select barang.id_barang, barang.nama_barang, kategori.jenis, jumlah, satuan.satuan, barang.harga_beli, barang.harga_jual "
+                    + "from barang join kategori on barang.id_kategori = kategori.id_kategori "
+                    + "join satuan on barang.id_satuan = satuan.id_satuan "
                     + "where nama_barang like '%" + caribar.getText() + "%'" ;
             Connection conn = (Connection) Config.configDB();
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-                list.add(new tbl_gudang(res.getString("id_barang"),
-                        res.getString("nama_barang"),
-                        res.getString("id_kategori"),
-                        res.getDouble("jumlah"),
-                        res.getString("id_satuan"),
-                        res.getInt("harga_jual")));
+                list.add(new tbl_gudang(res.getString(1),
+                        res.getString(2),
+                        res.getString(3),
+                        res.getDouble(4),
+                        res.getString(5),
+                        res.getInt(6),
+                        res.getInt(7)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -319,6 +327,7 @@ public class gudang implements Initializable {
         ktgr.setCellValueFactory(new PropertyValueFactory<tbl_gudang, String>("ktgr"));
         qty.setCellValueFactory(new PropertyValueFactory<tbl_gudang, Double>("qty"));
         satuan.setCellValueFactory(new PropertyValueFactory<tbl_gudang, String>("satuan"));
+        hargabeli.setCellValueFactory(new PropertyValueFactory<tbl_gudang, Integer>("hb"));
         harga.setCellValueFactory(new PropertyValueFactory<tbl_gudang, Integer>("harga"));
         table_bar.setItems(list);
     }
@@ -353,9 +362,12 @@ public class gudang implements Initializable {
                 rtr.setText(rs.getString("retur"));
                 if (rtr.equals("Iya")) {
                     check1.setSelected(true);
+                    check1.setIndeterminate(false);
                 } else {
                     check1.setSelected(false);
+                    check1.setIndeterminate(false);
                 }
+                System.out.println(rtr.getText());
             } catch (Exception e) {
             }
             blur.setVisible(true);
@@ -451,7 +463,6 @@ public class gudang implements Initializable {
         blur.setVisible(true);
         popupb.setVisible(true);
         btntambahbar.setVisible(true);
-        btneditbar.setVisible(false);
         judul.setText("Tambah Barang");
         kosongpop();
         isiktgr();
@@ -574,12 +585,14 @@ public class gudang implements Initializable {
             }
 
             try {
-                String sqll = "INSERT INTO barang VALUES ('"+pkdbar.getText()+"','"
+                String sqll = "INSERT INTO barang (id_barang, nama_barang, id_kategori, id_satuan, jumlah, barcode, harga_beli, harga_jual, retur) " +
+                        "VALUES ('"+pkdbar.getText()+"','"
                         +pnamabar.getText()+"','"
                         +kktgr+"','"
                         +idsat+"','"
                         +pqty.getText()+"','"
                         +pkdbat.getText()+"','"
+                        +"0','"
                         +phargabar.getText()+"','"
                         +cek+"')";
                 java.sql.Connection conn=(Connection)Config.configDB();

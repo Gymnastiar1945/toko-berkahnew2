@@ -16,6 +16,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+//        scene.getStylesheets().add("main.css");
 //        scene.setFill(Color.TRANSPARENT);
         stage.setTitle("Berkah POS");
         stage.setScene(scene);

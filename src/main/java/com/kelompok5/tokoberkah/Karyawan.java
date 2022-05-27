@@ -20,8 +20,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.sf.jasperreports.engine.xml.JRPenFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +33,32 @@ import java.util.ResourceBundle;
 
 
 public class Karyawan extends App implements Initializable {
+
+    private Parent root;
+
+    @FXML
+    private StackPane stackalert;
+
+    @FXML
+    private Pane bluralert;
+
+    @FXML
+    private Pane alert;
+
+    @FXML
+    private Label judulalert;
+
+    @FXML
+    private Label keterangan;
+
+    @FXML
+    private SVGPath svg;
+
+    @FXML
+    private Button ya;
+
+
+
     @FXML
     private StackPane stackblur;
 
@@ -168,11 +196,31 @@ public class Karyawan extends App implements Initializable {
 
         tambahkar.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent mouseEvent) -> {
             if (ptxtid.getText().equals("")) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("ID kosong");
-                alert.setHeaderText("ID masih Kosong");
-                alert.setContentText("Masukkan ID Karyawan terlebih dahulu!");
-                alert.showAndWait();
+
+                JFXDialog dialogalert = new JFXDialog( stackalert, alert, JFXDialog.DialogTransition.CENTER);
+
+                dialogalert.show();
+                dialogalert.setOnDialogClosed((JFXDialogEvent event1) -> {
+                    bluralert.setEffect(null);
+                });
+                ya.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEventalert) -> {
+                    dialogalert.close();
+                });
+                bluralert.setEffect(blur1);
+
+
+
+                judulalert.setText("ID masih kosong");
+                keterangan.setText("Masukkan ID karyawan terlebih dahulu!");
+                svg.setContent("M 11.25 67.5 C 11.25 36.45 36.3937 11.25 67.4437 11.25 C 98.55 11.25 123.75 36.45 123.75 67.5 C 123.75 98.55 98.55 123.75 67.4437 123.75 C 36.3937 123.75 11.25 98.55 11.25 67.5 Z M 73.125 45 C 73.125 41.9062 70.5938 39.375 67.5 39.375 C 64.4062 39.375 61.875 41.9062 61.875 45 V 67.5 C 61.875 70.5938 64.4062 73.125 67.5 73.125 C 70.5938 73.125 73.125 70.5938 73.125 67.5 V 45 Z M 67.5 112.5 C 42.6375 112.5 22.5 92.3625 22.5 67.5 C 22.5 42.6375 42.6375 22.5 67.5 22.5 C 92.3625 22.5 112.5 42.6375 112.5 67.5 C 112.5 92.3625 92.3625 112.5 67.5 112.5 Z M 61.875 84.375 V 95.625 H 73.125 V 84.375 H 61.875 Z");
+                ya.getStyleClass().add("button-merah");
+                alert.setVisible(true);
+
+//                Alert alert = new Alert(Alert.AlertType.WARNING);
+//                alert.setTitle("ID kosong");
+//                alert.setHeaderText("ID masih Kosong");
+//                alert.setContentText("Masukkan ID Karyawan terlebih dahulu!");
+//                alert.showAndWait();
             } else {
                 String hp=ptxtnomor.getText();
                 if (hp.matches("^[0-9]*") && hp.length()==12){
@@ -183,14 +231,37 @@ public class Karyawan extends App implements Initializable {
                         java.sql.Connection conn=(Connection)Config.configDB();
                         java.sql.PreparedStatement pstl=conn.prepareStatement(sqll);
                         pstl.execute();
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Berhasil");
-                        alert.setHeaderText("Data berhasil disimpan");
-                        alert.setContentText("Data Karyawan dengan ID "+ptxtid.getText()+" berhasil disimpan");
-                        alert.showAndWait();
+
+
+                        JFXDialog dialogalert = new JFXDialog( stackalert, alert, JFXDialog.DialogTransition.CENTER);
+                        dialogalert.show();
+                        dialogalert.setOnDialogClosed((JFXDialogEvent event1) -> {
+                            bluralert.setEffect(null);
+                        });
+                        ya.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEventalert) -> {
+                            dialogalert.close();
+                            dialog.close();
+                        });
+                        bluralert.setEffect(blur1);
+
+                        judulalert.setText("Berhasil");
+                        keterangan.setText("Data Karyawan dengan ID "+ptxtid.getText()+" berhasil disimpan");
+                        svg.setContent("M 67.5 11.25 C 36.45 11.25 11.25 36.45 11.25 67.5 C 11.25 98.55 36.45 123.75 67.5 123.75 C 98.55 123.75 123.75 98.55 123.75 67.5 C 123.75 36.45 98.55 11.25 67.5 11.25 Z M 67.5 112.5 C 42.6938 112.5 22.5 92.3063 22.5 67.5 C 22.5 42.6938 42.6938 22.5 67.5 22.5 C 92.3063 22.5 112.5 42.6938 112.5 67.5 C 112.5 92.3063 92.3063 112.5 67.5 112.5 Z M 56.25 79.7063 L 89.325 46.6313 C 91.5188 44.4375 95.1188 44.4375 97.3125 46.6313 C 99.5063 48.825 99.5063 52.3688 97.3125 54.5625 L 60.2438 91.6312 C 58.05 93.825 54.5063 93.825 52.3125 91.6312 L 37.7438 77.0625 C 35.55 74.8688 35.55 71.325 37.7438 69.1313 C 38.7947 68.078 40.2215 67.486 41.7094 67.486 C 43.1973 67.486 44.6241 68.078 45.675 69.1313 L 56.25 79.7063 Z");
+                        svg.setFill(Color.rgb(70, 204, 89));
+                        svg.setStroke(Color.rgb(70, 204, 89));
+//
+                        ya.getStyleClass().remove("button-merah");
+                        ya.getStyleClass().add("button-hijau");
+                        alert.setVisible(true);
+
+//                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                        alert.setTitle("Berhasil");
+//                        alert.setHeaderText("Data berhasil disimpan");
+//                        alert.setContentText("Data Karyawan dengan ID "+ptxtid.getText()+" berhasil disimpan");
+//                        alert.showAndWait();
                         pkosong();
                         tbl_kar();
-                        dialog.close();
+
                     } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Gagal");
@@ -346,7 +417,7 @@ public class Karyawan extends App implements Initializable {
     }
 
     private void kosong() {
-        txtid.setText(null);
+        txtid.setText("");
         txtnama.setText(null);
         txtalamat.setText(null);
         txtnomor.setText(null);
@@ -392,7 +463,7 @@ public class Karyawan extends App implements Initializable {
     }
 
     private void pkosong() {
-        txtid.setText(null);
+        txtid.setText("");
         txtnama.setText(null);
         txtalamat.setText(null);
         txtnomor.setText(null);

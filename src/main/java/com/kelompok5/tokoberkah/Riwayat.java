@@ -6,6 +6,7 @@ import com.mysql.jdbc.Connection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +23,13 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import org.apache.poi.*;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -238,13 +246,13 @@ public class Riwayat implements Initializable {
     private Button hjexportkembali;
 
     @FXML
-    private TableColumn<tbl_hbeli, String> hjexporttgl;
+    private TableColumn<tbl_hjual, String> hjexporttgl;
 
     @FXML
-    private TableColumn<tbl_hbeli, String> hjexportjam;
+    private TableColumn<tbl_hjual, String> hjexportjam;
 
     @FXML
-    private TableColumn<String, Double> hjexporttotal;
+    private TableColumn<tbl_hjual, Double> hjexporttotal;
 
     @FXML
     private Button hjhps;
@@ -867,6 +875,32 @@ public class Riwayat implements Initializable {
         });
     }
 
+    void setTablehjexport() {
+        ObservableList<tbl_hjual> list = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * from penjualan ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                list.add(new tbl_hjual(res.getString("id_penjualan"),
+                        res.getString("tanggal_transaksi"),
+                        res.getString("jam_transaksi"),
+                        res.getString("id_pengguna"),
+                        res.getDouble("total_bayar")));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        hjexportkdtarns.setCellValueFactory(new PropertyValueFactory<tbl_hjual, String>("kdtrans"));
+        hjexporttgl.setCellValueFactory(new PropertyValueFactory<tbl_hjual, String>("tgl"));
+        hjexportjam.setCellValueFactory(new PropertyValueFactory<tbl_hjual, String>("jam"));
+        hjexportkasir.setCellValueFactory(new PropertyValueFactory<tbl_hjual, String>("kasir"));
+        hjexporttotal.setCellValueFactory(new PropertyValueFactory<tbl_hjual, Double>("total"));
+        tablehjexport.setItems(list);
+    }
+
     @FXML
     void hjexportact(ActionEvent event) {
         BoxBlur blur1 = new BoxBlur(3,3,3);
@@ -891,11 +925,87 @@ public class Riwayat implements Initializable {
         blur.setEffect(blur1);
         exportjual.setVisible(true);
         convertdate();
+        setTablehjexport();
+    }
+
+    @FXML
+    void jtglupdatetable(Event event) {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String date1 = sdf.format(hjexporttgldari.getValue());
+//        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+//        String date2 = sdf1.format(hjexporttglsampai.getValue());
+        LocalDate date1 = hjexporttgldari.getValue();
+        LocalDate date2 = hjexporttglsampai.getValue();
+//        System.out.println(hjexporttgldari.getValue());
+        ObservableList<tbl_hjual> list = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * from penjualan " +
+                    "where tanggal_transaksi BETWEEN '"+date1+"' AND '"+date2+"' ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                list.add(new tbl_hjual(res.getString("id_penjualan"),
+                        res.getString("tanggal_transaksi"),
+                        res.getString("jam_transaksi"),
+                        res.getString("id_pengguna"),
+                        res.getDouble("total_bayar")));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        hjexportkdtarns.setCellValueFactory(new PropertyValueFactory<tbl_hjual, String>("kdtrans"));
+        hjexporttgl.setCellValueFactory(new PropertyValueFactory<tbl_hjual, String>("tgl"));
+        hjexportjam.setCellValueFactory(new PropertyValueFactory<tbl_hjual, String>("jam"));
+        hjexportkasir.setCellValueFactory(new PropertyValueFactory<tbl_hjual, String>("kasir"));
+        hjexporttotal.setCellValueFactory(new PropertyValueFactory<tbl_hjual, Double>("total"));
+        tablehjexport.setItems(list);
     }
 
     @FXML
     void hjexportexportact(ActionEvent event) {
+        LocalDate date1 = hjexporttgldari.getValue();
+        LocalDate date2 = hjexporttglsampai.getValue();
+        try {
+            String sql = "SELECT * from penjualan " +
+                    "where tanggal_transaksi BETWEEN '" + date1 + "' AND '" + date2 + "' ;";
+            Connection conn = (Connection) Config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
 
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFSheet sheet = workbook.createSheet("Report Penjualan");
+            HSSFRow header = sheet.createRow(0);
+            header.createCell(0).setCellValue("Kode Transaksi");
+            header.createCell(1).setCellValue("Tanggal");
+            header.createCell(2).setCellValue("Jam");
+            header.createCell(3).setCellValue("Nama Kasir");
+            header.createCell(4).setCellValue("Total Pembayaran");
+
+            int index = 1;
+            while (res.next()) {
+                HSSFRow row = sheet.createRow(index);
+                row.createCell(0).setCellValue(res.getString("id_penjualan"));
+                row.createCell(1).setCellValue(res.getString("tanggal_transaksi"));
+                row.createCell(2).setCellValue(res.getString("jam_transaksi"));
+                row.createCell(3).setCellValue(res.getString("id_pengguna"));
+                row.createCell(4).setCellValue(res.getDouble("total_bayar"));
+                index++;
+            }
+
+            FileOutputStream fileout = new FileOutputStream("Export Riwayat Penjualan.xls");
+            workbook.write(fileout);
+            fileout.close();
+
+            res.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

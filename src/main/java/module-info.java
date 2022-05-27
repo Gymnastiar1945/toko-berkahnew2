@@ -10,6 +10,7 @@ module com.kelompok5.tokoberkah {
     requires javafx.graphics;
     requires com.jfoenix;
     requires jasperreports;
+    requires org.apache.poi.poi;
 
     opens com.kelompok5.tokoberkah to javafx.fxml;
     exports com.kelompok5.tokoberkah;

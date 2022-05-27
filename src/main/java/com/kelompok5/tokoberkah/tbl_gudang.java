@@ -4,14 +4,15 @@ public class tbl_gudang {
     String kdbar,namabar, ktgr ;
     Double qty;
     String satuan;
-    int harga;
+    int hb, harga;
 
-    public tbl_gudang(String kdbar, String namabar, String ktgr, Double qty, String satuan, int harga) {
+    public tbl_gudang(String kdbar, String namabar, String ktgr, Double qty, String satuan, int hb, int harga) {
         this.kdbar = kdbar;
         this.namabar = namabar;
         this.ktgr = ktgr;
         this.qty = qty;
         this.satuan = satuan;
+        this.hb = hb;
         this.harga = harga;
     }
 
@@ -53,6 +54,14 @@ public class tbl_gudang {
 
     public void setSatuan(String satuan) {
         this.satuan = satuan;
+    }
+
+    public int getHb() {
+        return hb;
+    }
+
+    public void setHb(int hb) {
+        this.hb = hb;
     }
 
     public int getHarga() {
